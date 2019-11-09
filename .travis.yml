@@ -1,0 +1,49 @@
+version: ~> 1.0
+
+# only run for: merge commits, releases and pull-requests
+if: type != push OR branch = master OR branch =~ /^\d+\.\d+\.\d+(-.*)?$/
+
+stages:
+  - name: validate
+  - name: test
+  - name: deploy
+    if: branch =~ /^\d+\.\d+\.\d+(-.*)?$/
+
+os: osx
+language: swift
+osx_image: xcode11.2
+
+env:
+  global:
+    - TEST_ENV_VAR=varval
+
+jobs:
+  include:
+    - stage: validate
+      name: Check if Linux tests are synced
+      install: swift test --generate-linuxmain
+      script: git diff --exit-code
+
+    - &macos_test
+      stage: test
+      name: macOS / Swift 5.1.2
+      before_script: swift build #-Xswiftc -warnings-as-errors
+      script: swift test --parallel
+    - <<: *macos_test
+      name: macOS / Swift 5.1
+      osx_image: xcode11
+    
+    - stage: deploy
+      name: Create documentation
+      install: gem install jazzy
+      script: |
+        jazzy --config .github/jazzy.yml \
+          --module-version $TRAVIS_TAG \
+          --github_url "https://github.com/$TRAVIS_REPO_SLUG"
+      deploy:
+        provider: pages
+        token: $GITHUB_TOKEN
+        local_dir: output
+        edge: true
+        on:
+          tags: true

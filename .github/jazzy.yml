@@ -1,0 +1,10 @@
+module: CommandLineAPI
+author: Hejki
+author_url: https://github.com/Hejki
+custom_categories:
+  - name: CommandLineAPI
+    children:
+      - CLI
+      - Path
+output:
+  ../output
