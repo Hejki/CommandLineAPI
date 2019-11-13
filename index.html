@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CommandLineAPI  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a title="CommandLineAPI  Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="index.html">CommandLineAPI --github_url Docs</a> (42% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="index.html">CommandLineAPI Reference</a>
+        <img id="carat" src="img/carat.png" />
+        CommandLineAPI  Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="CommandLineAPI.html">CommandLineAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path.html">Path</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path.html#/s:14CommandLineAPI4PathV5CacheC">– Cache</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/EntryType.html">– EntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/Permissions.html">– Permissions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Classes.html">Other Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Classes/Arguments.html">Arguments</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Enums.html">Other Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Enums/AskOption.html">AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/StringStyle.html">StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/TaskExecutor.html">TaskExecutor</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/Pipe.html">Pipe</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/String/StringInterpolation.html">– StringInterpolation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Other%20Functions.html#/s:14CommandLineAPI2peoiyyAA4PathVz_xSgtSyRzlF">+=(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Protocols/ExpressibleByString.html">ExpressibleByString</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/PromptHandler.html">PromptHandler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="Other%20Structs.html">Other Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="Structs/Command.html">Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/CommandRunResult.html">CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Environment.html">Environment</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            
+            <h1 id='commandlineapi' class='heading'>CommandLineAPI</h1>
+
+<p><img src="https://img.shields.io/badge/Swift-5.2-orange.svg?logo=swift?style=flat" alt="badge-swift"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <img src="https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
+
+<!-- [docs]: https://mxcl.dev/Path.swift/Structs/Path.html -->
+
+<!-- [badge-jazzy]: https://raw.githubusercontent.com/mxcl/Path.swift/gh-pages/badge.svg?sanitize=true -->
+
+<!-- [badge-codecov]: https://codecov.io/gh/mxcl/Path.swift/branch/master/graph/badge.svg -->
+
+<!-- [codecov]: https://codecov.io/gh/mxcl/Path.swift -->
+
+<!-- TODO link to documentation coverage -->
+
+<!-- determine right swift version 5.2 or 5.1? -->
+
+<p>The library that can help you create a command line applications. This library is inspired by <a href="https://github.com/nsomar/Swiftline">Swiftline</a> and <a href="https://github.com/mxcl/Path.swift">Path.swift</a>.</p>
+<h2 id='features' class='heading'>Features</h2>
+
+<ul>
+<li><a href="#path">Path struct</a> for handling files and directories.</li>
+<li><a href="#string-styles">String styles</a> which helps styling the strings before print them to the terminal.</li>
+<li><a href="#prompt-functions">Prompt functions</a> for process input and output in the terminal.</li>
+<li><a href="#run">Functions for run</a> an external commands and read its standard output.</li>
+<li>Read and write <a href="#env">environment</a> variables.</li>
+<li>Parse command line <a href="#args">arguments</a>.</li>
+</ul>
+<h2 id='path' class='heading'>Path</h2>
+
+<p>Path is a simple way for accessing, reading nad writing files and directories.</p>
+
+<p>Crate a Path instance:</p>
+<pre class="highlight swift"><code><span class="c1">// Path are always absolute</span>
+<span class="k">let</span> <span class="nv">path</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Path</span><span class="p">(</span><span class="s">"/Users/hejki/tools/README"</span><span class="p">)</span> <span class="c1">// absolute path from root /</span>
+<span class="k">let</span> <span class="nv">pathFromURL</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Path</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">(</span><span class="nv">fileURLWithPath</span><span class="p">:</span> <span class="s">"/Users/hejki/tools/README"</span><span class="p">))</span>
+
+<span class="k">try</span> <span class="kt">Path</span><span class="p">(</span><span class="s">"~/Downloads"</span><span class="p">)</span> <span class="c1">// path relative to current user home</span>
+<span class="k">try</span> <span class="kt">Path</span><span class="p">(</span><span class="s">"~tom/Downloads"</span><span class="p">)</span> <span class="c1">// path relative to another user home</span>
+<span class="k">try</span> <span class="kt">Path</span><span class="p">(</span><span class="s">"Package.swift"</span><span class="p">)</span> <span class="c1">// path relative to current working directory</span>
+<span class="kt">Path</span><span class="p">(</span><span class="s">".stool/config.yaml"</span><span class="p">,</span> <span class="nv">relativeTo</span><span class="p">:</span> <span class="o">.</span><span class="n">home</span><span class="p">)</span> <span class="c1">// relative path to another path</span>
+</code></pre>
+
+<p>Shortcut paths for system directories:</p>
+<pre class="highlight swift"><code><span class="kt">Path</span><span class="o">.</span><span class="n">root</span>    <span class="c1">// File system root</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">home</span>    <span class="c1">// Current user's home</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">current</span> <span class="c1">// Current working directory</span>
+</code></pre>
+
+<p>Path components and path chaining:</p>
+<pre class="highlight swift"><code><span class="c1">// Paths can be joined with appending funcion or + operator</span>
+<span class="k">let</span> <span class="nv">readme</span> <span class="o">=</span> <span class="kt">Path</span><span class="o">.</span><span class="n">home</span><span class="o">.</span><span class="nf">appending</span><span class="p">(</span><span class="s">"tools"</span><span class="p">)</span> <span class="o">+</span> <span class="s">"README.md"</span>
+
+<span class="n">readme</span><span class="o">.</span><span class="n">url</span> <span class="c1">// URL representation</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">string</span> <span class="c1">// Absolute path string</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">pathComponents</span> <span class="c1">// ["Users", "hejki", "tools", "README.md"]</span>
+<span class="n">readme</span><span class="o">.</span><span class="kd">extension</span> <span class="c1">// md</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">basename</span> <span class="c1">// README.md</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">basenameWithoutExtension</span> <span class="c1">// README</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">parent</span> <span class="c1">// Path("/Users/hejki/tools")</span>
+</code></pre>
+
+<p>Iterate over the directory content:</p>
+<pre class="highlight swift"><code><span class="k">for</span> <span class="n">path</span> <span class="k">in</span> <span class="kt">Path</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">content</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Access to file and directory attributes:</p>
+<pre class="highlight swift"><code><span class="n">readme</span><span class="o">.</span><span class="n">exist</span> <span class="c1">// `true` if this path represents an actual filesystem entry</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">type</span> <span class="c1">// The type of filesystem entry. Can be .file, .directory, .symlink, etc.</span>
+
+<span class="k">let</span> <span class="nv">attributes</span> <span class="o">=</span> <span class="n">readme</span><span class="o">.</span><span class="n">attributes</span>
+
+<span class="n">attributes</span><span class="o">.</span><span class="n">creationDate</span>     <span class="c1">// item's creation date</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">modificationDate</span> <span class="c1">// item's last modify date</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">extensionHidden</span>  <span class="c1">// item's extension is hidden</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">userName</span>         <span class="c1">// item's owner user name</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">groupName</span>        <span class="c1">// item's owner group name</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">permissions</span>      <span class="c1">// item's permissions</span>
+<span class="n">attributes</span><span class="o">.</span><span class="n">size</span>             <span class="c1">// item's size in bytes (read-only)</span>
+</code></pre>
+
+<p>Create, copy, move and delete filesystem items:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">downloads</span> <span class="o">=</span> <span class="kt">Path</span><span class="p">(</span><span class="s">"Downloads/stool"</span><span class="p">,</span> <span class="nv">relativeTo</span><span class="p">:</span> <span class="o">.</span><span class="n">home</span><span class="p">)</span>
+<span class="k">let</span> <span class="nv">documents</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">Path</span><span class="o">.</span><span class="n">home</span><span class="o">.</span><span class="nf">createDirectory</span><span class="p">(</span><span class="s">"Projects"</span><span class="p">)</span> <span class="c1">// Creates a directory</span>
+
+<span class="k">try</span> <span class="n">downloads</span><span class="o">.</span><span class="nf">touch</span><span class="p">()</span> <span class="c1">// Creates an empty file, or updates its modification time</span>
+    <span class="o">.</span><span class="nf">copy</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">documents</span><span class="p">,</span> <span class="nv">overwrite</span><span class="p">:</span> <span class="kc">true</span><span class="p">)</span> <span class="c1">// Copy that file to documents directory</span>
+    <span class="o">.</span><span class="nf">rename</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="s">"stool.todo"</span><span class="p">)</span> <span class="c1">// Rename that file</span>
+<span class="k">try</span> <span class="n">downloads</span><span class="o">.</span><span class="nf">delete</span><span class="p">(</span><span class="nv">useTrash</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span> <span class="c1">// Delete original file, or move to trash</span>
+</code></pre>
+
+<p>Read and write filesystem item&rsquo;s content:</p>
+<pre class="highlight swift"><code><span class="c1">// Read content functions</span>
+<span class="k">let</span> <span class="nv">string</span> <span class="o">=</span> <span class="kt">String</span><span class="p">(</span><span class="nv">contentsOf</span><span class="p">:</span> <span class="n">readme</span><span class="p">)</span> <span class="c1">// File content as String</span>
+<span class="k">let</span> <span class="nv">data</span> <span class="o">=</span> <span class="kt">Data</span><span class="p">(</span><span class="nv">contentsOf</span><span class="p">:</span> <span class="n">readme</span><span class="p">)</span> <span class="c1">// File content as Data</span>
+
+<span class="c1">// Write functions on Data and String</span>
+<span class="k">try</span> <span class="s">"Hi!"</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="nv">append</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">atomically</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span>
+<span class="k">try</span> <span class="kt">Data</span><span class="p">()</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span> <span class="nv">append</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">atomically</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+
+<span class="c1">// Write functions on Path</span>
+<span class="k">try</span> <span class="n">path</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">text</span><span class="p">:</span> <span class="s">"README"</span><span class="p">,</span> <span class="nv">append</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="nv">encoding</span><span class="p">:</span> <span class="o">.</span><span class="n">utf8</span><span class="p">)</span>
+<span class="k">try</span> <span class="n">path</span><span class="o">.</span><span class="nf">write</span><span class="p">(</span><span class="nv">data</span><span class="p">:</span> <span class="kt">Data</span><span class="p">(),</span> <span class="nv">append</span><span class="p">:</span> <span class="kc">false</span><span class="p">)</span>
+</code></pre>
+<h2 id='string-styles' class='heading'>String Styles</h2>
+
+<p>String styles helps styling the strings before printing them to the terminal. You can change the text color, the text background color and the text style. String styles works in string interpolation and for implementations of <code>StringProtocol</code>.</p>
+
+<p>Change style of string part using string interpolation extension:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="c1">// multiple styles at once</span>
+</code></pre>
+
+<p>Implementations of <code>StringProtocol</code> can use styles directly:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">))</span>
+</code></pre>
+<h2 id='prompt-functions' class='heading'>Prompt Functions</h2>
+<h3 id='print' class='heading'>Print</h3>
+
+<p>Functions for print strings to standard output/error or for read input from standard input.</p>
+<h3 id='ask' class='heading'>Ask</h3>
+<pre class="highlight plaintext"><code>TODO
+</code></pre>
+<h3 id='choose' class='heading'>Choose</h3>
+<pre class="highlight plaintext"><code>TODO
+</code></pre>
+<h2 id='run' class='heading'>Run</h2>
+<pre class="highlight plaintext"><code>TODO
+</code></pre>
+<h2 id='env' class='heading'>Env</h2>
+
+<p>Read and write the environment variables passed to the script:</p>
+<pre class="highlight swift"><code><span class="c1">// Array with all envirnoment keys</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">env</span><span class="o">.</span><span class="n">keys</span>
+
+<span class="c1">// Get environment variable</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s">"PATH"</span><span class="p">]</span>
+</code></pre>
+
+<!-- TODO: not implemented yet. -->
+
+<!-- // Set environment variable -->
+
+<!-- CLI.env["PATH"] = "~/bin" -->
+<h2 id='args' class='heading'>Args</h2>
+
+<p>Returns the arguments passed to the script.</p>
+<pre class="highlight swift"><code><span class="c1">// For example when calling `stool init -s default -q -- tool`</span>
+<span class="c1">// CLI.args contains following results</span>
+
+<span class="kt">CLI</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">all</span> <span class="o">==</span> <span class="p">[</span><span class="s">"stool"</span><span class="p">,</span> <span class="s">"init"</span><span class="p">,</span> <span class="s">"-s"</span><span class="p">,</span> <span class="s">"default"</span><span class="p">,</span> <span class="s">"-q"</span><span class="p">,</span> <span class="s">"--"</span><span class="p">,</span> <span class="s">"tool"</span><span class="p">]</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">command</span> <span class="o">==</span> <span class="s">"stool"</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">flags</span> <span class="o">==</span> <span class="p">[</span><span class="s">"s"</span><span class="p">:</span> <span class="s">"default"</span><span class="p">,</span> <span class="s">"q"</span><span class="p">:</span> <span class="s">""</span><span class="p">]</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">parameters</span> <span class="o">==</span> <span class="p">[</span><span class="s">"init"</span><span class="p">,</span> <span class="s">"tool"</span><span class="p">]</span>
+</code></pre>
+<h2 id='instalation' class='heading'>Instalation</h2>
+
+<p>To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your <code>Package.swift</code> file. For more information, please see the <a href="https://github.com/apple/swift-package-manager/tree/master/Documentation">Swift Package Manager documentation</a>.</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"1.0.0"</span><span class="p">)</span>
+</code></pre>
+<h2 id='alternatives' class='heading'>Alternatives</h2>
+<h4 id='for-path-handling' class='heading'>for path handling</h4>
+
+<ul>
+<li><a href="https://github.com/mxcl/Path.swift">Path.swift</a> by Max Howell</li>
+<li><a href="https://github.com/dduan/Pathos">Pathos</a> by Daniel Duan</li>
+<li><a href="https://github.com/kylef/PathKit">PathKit</a> by Kyle Fuller</li>
+<li><a href="https://github.com/JohnSundell/Files">Files</a> by John Sundell</li>
+<li><a href="https://github.com/apple/swift-package-manager">Utility</a> by Apple</li>
+</ul>
+<h4 id='for-command-line-tools' class='heading'>for command line tools</h4>
+
+<ul>
+<li><a href="https://github.com/nsomar/Swiftline">Swiftline</a> by Omar Abdelhafith</li>
+<li><a href="https://github.com/kylef/Commander">Commander</a> by Kyle Fuller</li>
+</ul>
+
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-11-13)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
