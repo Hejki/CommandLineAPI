@@ -13,7 +13,8 @@
     <a title="CommandLineAPI  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CommandLineAPI --github_url Docs</a> (42% documented)</p>
+        <p><a href="index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -30,47 +31,46 @@
             <a href="CommandLineAPI.html">CommandLineAPI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/CLI.html">CLI</a>
+                <a href="Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Arguments.html">– Arguments</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path.html">Path</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path.html#/s:14CommandLineAPI4PathV5CacheC">– Cache</a>
+                <a href="Structs/Path/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path/Error.html">– Error</a>
+                <a href="Structs/Path/ChildSequence.html">– ChildSequence</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/EntryType.html">– EntryType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path/Attributes.html">– Attributes</a>
+                <a href="Structs/Path/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/Permissions.html">– Permissions</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Classes/Arguments.html">Arguments</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Enums.html">Other Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/AskOption.html">AskOption</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/StringStyle.html">StringStyle</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/TaskExecutor.html">TaskExecutor</a>
               </li>
             </ul>
           </li>
@@ -96,9 +96,6 @@
                 <a href="Extensions/Int.html">Int</a>
               </li>
               <li class="nav-group-task">
-                <a href="Extensions/Pipe.html">Pipe</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Extensions/String.html">String</a>
               </li>
               <li class="nav-group-task">
@@ -121,24 +118,10 @@
             <a href="Other%20Protocols.html">Other Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/ExpressibleByString.html">ExpressibleByString</a>
+                <a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/PromptHandler.html">PromptHandler</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Structs.html">Other Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Structs/Command.html">Command</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CommandRunResult.html">CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Environment.html">Environment</a>
               </li>
             </ul>
           </li>
@@ -150,15 +133,7 @@
             
             <h1 id='commandlineapi' class='heading'>CommandLineAPI</h1>
 
-<p><img src="https://img.shields.io/badge/Swift-5.2-orange.svg?logo=swift?style=flat" alt="badge-swift"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <img src="https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
-
-<!-- [docs]: https://mxcl.dev/Path.swift/Structs/Path.html -->
-
-<!-- [badge-jazzy]: https://raw.githubusercontent.com/mxcl/Path.swift/gh-pages/badge.svg?sanitize=true -->
-
-<!-- [badge-codecov]: https://codecov.io/gh/mxcl/Path.swift/branch/master/graph/badge.svg -->
-
-<!-- [codecov]: https://codecov.io/gh/mxcl/Path.swift -->
+<p><img src="https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat" alt="badge-swift"> <img src="https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://hejki.github.io/CommandLineAPI"><img src="https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true" alt="badge-docs"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
 
 <!-- TODO link to documentation coverage -->
 
@@ -269,14 +244,93 @@
 <h3 id='print' class='heading'>Print</h3>
 
 <p>Functions for print strings to standard output/error or for read input from standard input.</p>
+<pre class="highlight swift"><code><span class="kt">CLI</span><span class="o">.</span><span class="nf">print</span><span class="p">(</span><span class="s">"Print text to console without </span><span class="se">\n</span><span class="s"> at end."</span><span class="p">)</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">println</span><span class="p">(</span><span class="s">"Print text to console with terminating newline."</span><span class="p">)</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">print</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="s">"Print error to console without </span><span class="se">\n</span><span class="s"> at end."</span><span class="p">)</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">println</span><span class="p">(</span><span class="nv">error</span><span class="p">:</span> <span class="s">"Print error to console with terminating newline."</span><span class="p">)</span>
+
+<span class="c1">// read user input</span>
+<span class="k">let</span> <span class="nv">fileName</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">read</span><span class="p">()</span>
+</code></pre>
+
+<p>Handler for this functions can be changed by setting <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">CLI.prompt</a></code> variable. This can be handle for tests, for example:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">TestPromptHandler</span><span class="p">:</span> <span class="kt">PromptHandler</span> <span class="p">{</span>
+    <span class="kd">func</span> <span class="nf">print</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">XCTAssertEqual</span><span class="p">(</span><span class="s">"test print"</span><span class="p">,</span> <span class="n">string</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+
+<span class="kt">CLI</span><span class="o">.</span><span class="n">prompt</span> <span class="o">=</span> <span class="kt">TestPromptHandler</span><span class="p">()</span>
+</code></pre>
 <h3 id='ask' class='heading'>Ask</h3>
-<pre class="highlight plaintext"><code>TODO
+
+<p>Ask presents the user with a prompt and waits for the user input.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">toolName</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Enter tool name: "</span><span class="p">)</span>
+</code></pre>
+
+<p>Types that confirms ExpressibleByStringArgument can be returned from ask.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">timeout</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Enter timeout: "</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Int</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
+
+<span class="c1">// If user enters something that cannot be converted to Int, a new prompt is diplayed,</span>
+<span class="c1">// this prompt will keep displaying until the user enters an Int:</span>
+<span class="c1">// $ Enter timeout: No</span>
+<span class="c1">// $ Please enter a valid Int.</span>
+<span class="c1">// $ 2.3</span>
+<span class="c1">// $ Please enter a valid Int.</span>
+<span class="c1">// $ 2</span>
+</code></pre>
+
+<p>Prompt can be customized througt ask options.</p>
+<pre class="highlight swift"><code><span class="c1">// to specify default value which is used if the user only press Enter key</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Output path [/tmp]?</span><span class="se">\n</span><span class="s"> "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="s">"/tmp"</span><span class="p">))</span>
+
+<span class="c1">// use .confirm() if you require value confirmation</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Remove file? "</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Bool</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">confirm</span><span class="p">())</span>
+<span class="o">.</span><span class="nf">confirm</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="s">"Use this value?</span><span class="se">\n</span><span class="s"> "</span><span class="p">)</span> <span class="c1">// to specify custom message</span>
+<span class="o">.</span><span class="nf">confirm</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="p">{</span> <span class="s">"Use </span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s"> value? "</span> <span class="p">})</span> <span class="c1">// to specify custom message with entered value</span>
+
+<span class="c1">// add some .validator() to validate an entered value</span>
+<span class="k">let</span> <span class="nv">positive</span> <span class="o">=</span> <span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">validator</span><span class="p">(</span><span class="s">"Value must be positive."</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">}</span>
+<span class="k">let</span> <span class="nv">maxVal</span> <span class="o">=</span> <span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;.</span><span class="nf">validator</span><span class="p">(</span><span class="s">"Max value is 100."</span><span class="p">)</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&lt;=</span> <span class="mi">100</span> <span class="p">}</span>
+
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Requested value: "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="n">positive</span><span class="p">,</span> <span class="n">maxVal</span><span class="p">)</span>
+
+<span class="c1">// you can use some predefined validators</span>
+<span class="o">.</span><span class="nf">notEmptyValidator</span><span class="p">()</span> <span class="c1">// for Strings</span>
+<span class="o">.</span><span class="nf">rangeValidator</span><span class="p">(</span><span class="mi">0</span><span class="o">...</span><span class="mi">5</span><span class="p">)</span> <span class="c1">// for Comparable instances</span>
+
+<span class="c1">// options can be combined together</span>
+<span class="k">let</span> <span class="nv">i</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Value: "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="o">.</span><span class="nf">confirm</span><span class="p">(),</span> <span class="n">positive</span><span class="p">)</span>
 </code></pre>
 <h3 id='choose' class='heading'>Choose</h3>
-<pre class="highlight plaintext"><code>TODO
+<pre class="highlight plaintext"><code>TODO: not implemented yet.
 </code></pre>
 <h2 id='run' class='heading'>Run</h2>
-<pre class="highlight plaintext"><code>TODO
+
+<p>Run provides a quick way to run an external command and read its standard/error output and exit status.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"ls -al"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+</code></pre>
+
+<p>Each command can be run with one of available executors. The executor defines how to run command.</p>
+
+<ul>
+<li><code>.default</code> executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all its outputs. Command outputs will be available after task execution in task result. This executor is default for <code>CLI.run</code> functions.</li>
+<li><code>.dummy</code> executor which only prints command to <code>CLI.println</code>. You can specify returned stdout, stderr strings and exitStatus.</li>
+<li><code>.interactive</code> executor runs commands with it&rsquo;s standard output and error outputs redirected to system standard output and error. This executor can handle user&rsquo;s inputs from system standard input. The command outputs will not be recorded.</li>
+</ul>
+
+<p>For more complex executions use <code>Command</code> type directly:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">command</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="kt">Command</span><span class="p">(</span>
+    <span class="p">[</span><span class="s">"swift"</span><span class="p">,</span> <span class="s">"build"</span><span class="p">],</span>
+    <span class="nv">executor</span><span class="p">:</span> <span class="o">.</span><span class="n">interactive</span><span class="p">,</span>
+    <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt">Path</span><span class="o">.</span><span class="n">home</span> <span class="o">+</span> <span class="s">"/Projects/CommandLineAPI"</span><span class="p">,</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="s">"PATH"</span><span class="p">:</span> <span class="s">"/usr/bin/"</span><span class="p">]</span>
+<span class="p">)</span>
+
+<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre>
 <h2 id='env' class='heading'>Env</h2>
 
@@ -307,7 +361,7 @@
 <h2 id='instalation' class='heading'>Instalation</h2>
 
 <p>To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your <code>Package.swift</code> file. For more information, please see the <a href="https://github.com/apple/swift-package-manager/tree/master/Documentation">Swift Package Manager documentation</a>.</p>
-<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"1.0.0"</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)</span>
 </code></pre>
 <h2 id='alternatives' class='heading'>Alternatives</h2>
 <h4 id='for-path-handling' class='heading'>for path handling</h4>
@@ -329,7 +383,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-11-13)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StringInterpolation Extension Reference</title>
+    <title>Command Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/StringInterpolation" class="dashAnchor"></a>
-    <a title="StringInterpolation Extension Reference"></a>
+    <a name="//apple_ref/swift/Struct/Command" class="dashAnchor"></a>
+    <a title="Command Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">CommandLineAPI Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        StringInterpolation Extension Reference
+        Command Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -131,14 +131,27 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>StringInterpolation</h1>
+            <h1>Command</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">String</span><span class="o">.</span><span class="kt">StringInterpolation</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Command</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
-            <p>Add support for strings style with <code>StringStyle</code> constants.</p>
+            <p>The command which to be executed.</p>
+
+<p>This struct holds all settings for command execution and can be created througt
+<code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> functions or directly.</p>
+<pre class="highlight swift"><code><span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo -n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">)</span>
+<span class="c1">// is equivalent to</span>
+<span class="kt">Command</span><span class="p">([</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">])</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+</code></pre>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <code>Command</code> is more complex than simple <code>run</code> function.
+You can specify command working directory or environment variables.
+
+</div>
 
           </section>
           <section class="section task-group-section">
@@ -147,9 +160,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:s26DefaultStringInterpolationV14CommandLineAPIE06appendC0_5styleyx_AC3CLIO0B5StyleVdts06CustomB11ConvertibleRzlF"></a>
-                    <a name="//apple_ref/swift/Method/appendInterpolation(_:style:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s26DefaultStringInterpolationV14CommandLineAPIE06appendC0_5styleyx_AC3CLIO0B5StyleVdts06CustomB11ConvertibleRzlF">appendInterpolation(_:style:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V11descriptionSSvp">description</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,18 +170,51 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Interpolates the given value&rsquo;s textual representation with defined styles into the string literal being created.</p>
-
-<p>Do not call this method directly It is used by the compiler when interpreting string interpolations.
-Instead, use string interpolation to create a new string by including values, literals, variables,
-or expressions enclosed in parentheses, prefixed by a backslash <code>\(…, style:)</code>.</p>
+                        <p>A textual representation of command wit all arguments.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="n">appendInterpolation</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span><span class="o">...</span><span class="p">)</span> <span class="k">where</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOAA4PathVSDyS2SGSgtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(_:executor:workingDirectory:environment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOAA4PathVSDyS2SGSgtcfc">init(_:executor:workingDirectory:environment:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates an instance of command.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The parameters <em>workingDirectory</em> and <em>environment</em> may not be supported in some executors.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
+    <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
+    <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span>
+    <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
+<span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -179,29 +225,84 @@ or expressions enclosed in parentheses, prefixed by a backslash <code>\(…, sty
                             <tr>
                               <td>
                                 <code>
-                                <em>value</em>
+                                <em>arguments</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The value to be styled.</p>
+                                  <p>The array with all arguments of command.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>style</em>
+                                <em>executor</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>What styles to be apply to <em>value</em>.</p>
+                                  <p>The command executor which will be used to execute command.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>workingDirectory</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The current working directory for executed command.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>environment</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The environment variables for executed command.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF"></a>
+                    <a name="//apple_ref/swift/Method/execute()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">execute()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Execute command with given executor.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The command execution result.</p>
                       </div>
                     </section>
                   </div>

@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>StringStyle Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/StringStyle" class="dashAnchor"></a>
+    <a title="StringStyle Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">CommandLineAPI Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        StringStyle Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../CommandLineAPI.html">CommandLineAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Arguments.html">– Arguments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path.html">Path</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/EntryType.html">– EntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Permissions.html">– Permissions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/String/StringInterpolation.html">– StringInterpolation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Other%20Functions.html#/s:14CommandLineAPI2peoiyyAA4PathVz_xSgtSyRzlF">+=(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/PromptHandler.html">PromptHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>StringStyle</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">StringStyle</span></code></pre>
+
+                </div>
+              </div>
+            <p>Available string styles.</p>
+
+<p>This styles can be used in string iterpolation:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre>
+
+<p>or can be used with any instances of <code>StringProtocol</code>:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">))</span>
+</code></pre>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Uses SGR parameters from <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape codes</a>
+
+</div>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Text%20Styles%20and%20Decorations"></a>
+                <a name="//apple_ref/swift/Section/Text Styles and Decorations" class="dashAnchor"></a>
+                <a href="#/Text%20Styles%20and%20Decorations">
+                  <h3 class="section-name">Text Styles and Decorations</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV4boldAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bold" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV4boldAEvpZ">bold</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Bold or increased intensity style.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bold</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV5faintAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/faint" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV5faintAEvpZ">faint</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Faint or decreased intensity style.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">faint</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6italicAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/italic" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6italicAEvpZ">italic</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Italic text style.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">italic</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV9underlineAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/underline" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV9underlineAEvpZ">underline</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Underline text decoration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">underline</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7inverseAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/inverse" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7inverseAEvpZ">inverse</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Style for swap foreground and background colors.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">inverse</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV13strikethroughAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/strikethrough" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV13strikethroughAEvpZ">strikethrough</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Strikethrough text decoration.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">strikethrough</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Text%20Foreground%20Colors"></a>
+                <a name="//apple_ref/swift/Section/Text Foreground Colors" class="dashAnchor"></a>
+                <a href="#/Text%20Foreground%20Colors">
+                  <h3 class="section-name">Text Foreground Colors</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7fgBlackAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgBlack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7fgBlackAEvpZ">fgBlack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Black foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgBlack</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV5fgRedAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgRed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV5fgRedAEvpZ">fgRed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Red foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgRed</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7fgGreenAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgGreen" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7fgGreenAEvpZ">fgGreen</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Green foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgGreen</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV8fgYellowAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgYellow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV8fgYellowAEvpZ">fgYellow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Yellow foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgYellow</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6fgBlueAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgBlue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6fgBlueAEvpZ">fgBlue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Blue foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgBlue</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV9fgMagentaAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgMagenta" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV9fgMagentaAEvpZ">fgMagenta</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Magenta foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgMagenta</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6fgCyanAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgCyan" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6fgCyanAEvpZ">fgCyan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cyan foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgCyan</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7fgWhiteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/fgWhite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7fgWhiteAEvpZ">fgWhite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>White foreground color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">fgWhite</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Text%20Background%20Colors"></a>
+                <a name="//apple_ref/swift/Section/Text Background Colors" class="dashAnchor"></a>
+                <a href="#/Text%20Background%20Colors">
+                  <h3 class="section-name">Text Background Colors</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7bgBlackAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgBlack" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7bgBlackAEvpZ">bgBlack</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Black background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgBlack</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV5bgRedAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgRed" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV5bgRedAEvpZ">bgRed</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Red background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgRed</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7bgGreenAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgGreen" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7bgGreenAEvpZ">bgGreen</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Green background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgGreen</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV8bgYellowAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgYellow" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV8bgYellowAEvpZ">bgYellow</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Yellow background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgYellow</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6bgBlueAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgBlue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6bgBlueAEvpZ">bgBlue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Blue background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgBlue</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV9bgMagentaAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgMagenta" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV9bgMagentaAEvpZ">bgMagenta</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Magenta background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgMagenta</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6bgCyanAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgCyan" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6bgCyanAEvpZ">bgCyan</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Cyan background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgCyan</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV7bgWhiteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bgWhite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV7bgWhiteAEvpZ">bgWhite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>White background color.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bgWhite</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Custom%20Color%20Functions"></a>
+                <a name="//apple_ref/swift/Section/Custom Color Functions" class="dashAnchor"></a>
+                <a href="#/Custom%20Color%20Functions">
+                  <h3 class="section-name">Custom Color Functions</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV6brightyA2EFZ"></a>
+                    <a name="//apple_ref/swift/Method/bright(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV6brightyA2EFZ">bright(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a bright version of text color.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <em>style</em> must be one of foreground or background colors.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bright</span><span class="p">(</span><span class="n">_</span> <span class="nv">style</span><span class="p">:</span> <span class="kt">StringStyle</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>style</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>One of text color styles.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV2fgyAESiFZ"></a>
+                    <a name="//apple_ref/swift/Method/fg(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV2fgyAESiFZ">fg(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a foreground text 8-bit color style with specific color code.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <em>colorCode</em> must be one ininterval <code>0..&lt;265</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">fg</span><span class="p">(</span><span class="n">_</span> <span class="nv">colorCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>colorCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The specific color code in interval <code>0..&lt;256</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV2fg1r1g1bAESi_S2itFZ"></a>
+                    <a name="//apple_ref/swift/Method/fg(r:g:b:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV2fg1r1g1bAESi_S2itFZ">fg(r:g:b:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a foreground text <q>true color</q> style with define color code
+for each color component (red, green and blue).</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <em>red</em>, <em>green</em> and <em>blue</em> must be one ininterval <code>0..&lt;265</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">fg</span><span class="p">(</span><span class="n">r</span> <span class="nv">red</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">g</span> <span class="nv">green</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">b</span> <span class="nv">blue</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>red</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for red component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>green</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for green component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>blue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for blue component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV2bgyAESiFZ"></a>
+                    <a name="//apple_ref/swift/Method/bg(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV2bgyAESiFZ">bg(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a bacground text 8-bit color style with specific color code.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <em>colorCode</em> must be one ininterval <code>0..&lt;265</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bg</span><span class="p">(</span><span class="n">_</span> <span class="nv">colorCode</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>colorCode</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The specific color code in interval <code>0..&lt;256</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV2bg1r1g1bAESi_S2itFZ"></a>
+                    <a name="//apple_ref/swift/Method/bg(r:g:b:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV2bg1r1g1bAESi_S2itFZ">bg(r:g:b:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates a background text <q>true color</q> style with define color code
+for each color component (red, green and blue).</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    <em>red</em>, <em>green</em> and <em>blue</em> must be one ininterval <code>0..&lt;265</code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">bg</span><span class="p">(</span><span class="n">r</span> <span class="nv">red</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">g</span> <span class="nv">green</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">b</span> <span class="nv">blue</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>red</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for red component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>green</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for green component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>blue</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The color code for blue component (in interval <code>0..&lt;256</code>).</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

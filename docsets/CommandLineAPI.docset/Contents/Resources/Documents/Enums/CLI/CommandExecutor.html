@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>StringInterpolation Extension Reference</title>
+    <title>CommandExecutor Enumeration Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Extension/StringInterpolation" class="dashAnchor"></a>
-    <a title="StringInterpolation Extension Reference"></a>
+    <a name="//apple_ref/swift/Enum/CommandExecutor" class="dashAnchor"></a>
+    <a title="CommandExecutor Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">CommandLineAPI Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        StringInterpolation Extension Reference
+        CommandExecutor Enumeration Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -131,14 +131,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>StringInterpolation</h1>
+            <h1>CommandExecutor</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">String</span><span class="o">.</span><span class="kt">StringInterpolation</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">CommandExecutor</span></code></pre>
 
                 </div>
               </div>
-            <p>Add support for strings style with <code>StringStyle</code> constants.</p>
+            <p>Types of supported command executors.</p>
 
           </section>
           <section class="section task-group-section">
@@ -147,9 +147,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:s26DefaultStringInterpolationV14CommandLineAPIE06appendC0_5styleyx_AC3CLIO0B5StyleVdts06CustomB11ConvertibleRzlF"></a>
-                    <a name="//apple_ref/swift/Method/appendInterpolation(_:style:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:s26DefaultStringInterpolationV14CommandLineAPIE06appendC0_5styleyx_AC3CLIO0B5StyleVdts06CustomB11ConvertibleRzlF">appendInterpolation(_:style:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO0A8ExecutorO5dummyyAESi_S2StcAEmF"></a>
+                    <a name="//apple_ref/swift/Element/dummy(status:stdout:stderr:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A8ExecutorO5dummyyAESi_S2StcAEmF">dummy(status:stdout:stderr:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -157,18 +157,15 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Interpolates the given value&rsquo;s textual representation with defined styles into the string literal being created.</p>
-
-<p>Do not call this method directly It is used by the compiler when interpreting string interpolations.
-Instead, use string interpolation to create a new string by including values, literals, variables,
-or expressions enclosed in parentheses, prefixed by a backslash <code>\(…, style:)</code>.</p>
+                        <p>Not execute the command only prints string: <q>Executed: <<command.description>></q> to standard output.
+Returned <code><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></code> contains defined parameters with this enum.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">mutating</span> <span class="kd">func</span> <span class="n">appendInterpolation</span><span class="o">&lt;</span><span class="kt">S</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">S</span><span class="p">,</span> <span class="nv">style</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">StringStyle</span><span class="o">...</span><span class="p">)</span> <span class="k">where</span> <span class="kt">S</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">dummy</span><span class="p">(</span><span class="nv">status</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nv">stdout</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">,</span> <span class="nv">stderr</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">""</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -179,29 +176,99 @@ or expressions enclosed in parentheses, prefixed by a backslash <code>\(…, sty
                             <tr>
                               <td>
                                 <code>
-                                <em>value</em>
+                                <em>status</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The value to be styled.</p>
+                                  <p>The command exit status.</p>
                                 </div>
                               </td>
                             </tr>
                             <tr>
                               <td>
                                 <code>
-                                <em>style</em>
+                                <em>stdout</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>What styles to be apply to <em>value</em>.</p>
+                                  <p>The command standard output.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>stderr</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command error output.</p>
                                 </div>
                               </td>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A8ExecutorO7defaultyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/default" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A8ExecutorO7defaultyA2EmF">default</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Execute command and consume all its outputs. This outputs can be later read from
+<code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV6stdoutSSvp">CommandRunResult.stdout</a></code> and <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV6stderrSSvp">CommandRunResult.stderr</a></code>. This executor is suitable for
+non-interactive, short running commands, like <code>ls</code>, <code>echo</code> etc.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="err">`</span><span class="k">default</span><span class="err">`</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A8ExecutorO11interactiveyA2EmF"></a>
+                    <a name="//apple_ref/swift/Element/interactive" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A8ExecutorO11interactiveyA2EmF">interactive</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Execute command with it&rsquo;s standard output and error outputs redirected to system standard output and error.
+This executor can handle user&rsquo;s inputs from system standard input. The executor returns actual exit status
+of executed command but <code>stdout</code> and <code>stderr</code> of <code><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></code> will be always empty strings.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">interactive</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>

@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CLI Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/CLI" class="dashAnchor"></a>
+    <a title="CLI Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">CommandLineAPI Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        CLI Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../CommandLineAPI.html">CommandLineAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Arguments.html">– Arguments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path.html">Path</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/EntryType.html">– EntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/Permissions.html">– Permissions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/String/StringInterpolation.html">– StringInterpolation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Other%20Functions.html#/s:14CommandLineAPI2peoiyyAA4PathVz_xSgtSyRzlF">+=(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/PromptHandler.html">PromptHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>CLI</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">CLI</span></code></pre>
+
+                </div>
+              </div>
+            <p>Namespace for all commandline related functions and objects.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/prompt" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">prompt</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Prompt handler for print output and read input for command line.
+Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and read from stdin.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Custom <code><a href="../Protocols/PromptHandler.html">PromptHandler</a></code> can be useful in tests.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt"><a href="../Protocols/PromptHandler.html">PromptHandler</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO3envAC11EnvironmentVvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/env" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3envAC11EnvironmentVvpZ">env</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to environment variables of current process.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">env</span><span class="p">:</span> <span class="kt">CLI</span><span class="o">.</span><span class="kt"><a href="../Enums/CLI/Environment.html">Environment</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO4argsAC9ArgumentsCvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/args" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO4argsAC9ArgumentsCvpZ">args</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Access to parsed command line arguments for current process.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">CLI</span><span class="o">.</span><span class="kt"><a href="../Enums/CLI/Arguments.html">Arguments</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/String%20Style"></a>
+                <a name="//apple_ref/swift/Section/String Style" class="dashAnchor"></a>
+                <a href="#/String%20Style">
+                  <h3 class="section-name">String Style</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11StringStyleV"></a>
+                    <a name="//apple_ref/swift/Struct/StringStyle" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11StringStyleV">StringStyle</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Available string styles.</p>
+
+<p>This styles can be used in string iterpolation:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+</code></pre>
+
+<p>or can be used with any instances of <code>StringProtocol</code>:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">))</span>
+</code></pre>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Uses SGR parameters from <a href="https://en.wikipedia.org/wiki/ANSI_escape_code">ANSI escape codes</a>
+
+</div>
+
+                        <a href="../Enums/CLI/StringStyle.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">StringStyle</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Print%20-%20Prompt%20Function"></a>
+                <a name="//apple_ref/swift/Section/Print - Prompt Function" class="dashAnchor"></a>
+                <a href="#/Print%20-%20Prompt%20Function">
+                  <h3 class="section-name">Print - Prompt Function</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO5printyySSFZ"></a>
+                    <a name="//apple_ref/swift/Method/print(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5printyySSFZ">print(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Print string to defined prompt (default is <code>stdout</code>). Printed string is not terminated by newline.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">CLI.prompt</a></code> for set preferred <code><a href="../Protocols/PromptHandler.html">PromptHandler</a></code>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">print</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text to print.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO7printlnyySSFZ"></a>
+                    <a name="//apple_ref/swift/Method/println(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO7printlnyySSFZ">println(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Print string with a new line terminator to defined prompt (default is <code>stdout</code>).</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">CLI.prompt</a></code> for set preferred <code><a href="../Protocols/PromptHandler.html">PromptHandler</a></code>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">println</span><span class="p">(</span><span class="n">_</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text to print.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO5print5errorySS_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/print(error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5print5errorySS_tFZ">print(error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Print string to defined error prompt (default is <code>stderr</code>). Printed string is not terminated by newline.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">CLI.prompt</a></code> for set preferred <code><a href="../Protocols/PromptHandler.html">PromptHandler</a></code>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">print</span><span class="p">(</span><span class="n">error</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error text to print.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO7println5errorySS_tFZ"></a>
+                    <a name="//apple_ref/swift/Method/println(error:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO7println5errorySS_tFZ">println(error:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Print string with a new line terminator to defined error prompt (default is <code>stderr</code>).</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO6promptAA13PromptHandler_pvpZ">CLI.prompt</a></code> for set preferred <code><a href="../Protocols/PromptHandler.html">PromptHandler</a></code>.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">println</span><span class="p">(</span><span class="n">error</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error text to print.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Ask%20-%20Prompt%20Function"></a>
+                <a name="//apple_ref/swift/Section/Ask - Prompt Function" class="dashAnchor"></a>
+                <a href="#/Ask%20-%20Prompt%20Function">
+                  <h3 class="section-name">Ask - Prompt Function</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ"></a>
+                    <a name="//apple_ref/swift/Method/ask(_:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">ask(_:options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Display prompt to the user.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">ask</span><span class="p">(</span><span class="n">_</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/AskOption.html">AskOption</a></span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prompt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The prompt customization options.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The string enters from the user.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO3ask_4type7optionsxSS_xmAC9AskOptionOy_xGdtAA27ExpressibleByStringArgumentRzlFZ"></a>
+                    <a name="//apple_ref/swift/Method/ask(_:type:options:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3ask_4type7optionsxSS_xmAC9AskOptionOy_xGdtAA27ExpressibleByStringArgumentRzlFZ">ask(_:type:options:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Display prompt to the user.</p>
+
+<p>If the user enters a string wich cannot be converted to the expected type,
+<code>ask</code> will keep prompting until a corect value has been entered.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">ask</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">T</span><span class="o">.</span><span class="k">Type</span> <span class="o">=</span> <span class="kt">T</span><span class="o">.</span><span class="k">self</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/AskOption.html">AskOption</a></span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">T</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prompt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>type</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The value type to be expected from the user.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>options</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The prompt customization options.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The converted string enters from the user.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionO"></a>
+                    <a name="//apple_ref/swift/Enum/AskOption" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionO">AskOption</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Options for <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> functions which can customize value handling and custom prompt validations.</p>
+
+<p>This options are passed to <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> functions, for example:</p>
+<pre class="highlight swift"><code><span class="c1">// Define a default value and require the entered value confirmation.</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Choose directory [/tmp]: "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="s">"/tmp"</span><span class="p">),</span> <span class="o">.</span><span class="nf">confirm</span><span class="p">())</span>
+
+<span class="c1">// Prints:</span>
+<span class="c1">// $ Choose directory [/tmp]: &lt;&lt;user input&gt;&gt;</span>
+<span class="c1">// $ Are you sure? &lt;&lt;y&gt;&gt;</span>
+<span class="c1">// The result is "&lt;&lt;user input&gt;&gt;" or "/tmp" if the user only press Enter key.</span>
+</code></pre>
+
+                        <a href="../Enums/CLI/AskOption.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Run%20Commands"></a>
+                <a name="//apple_ref/swift/Section/Run Commands" class="dashAnchor"></a>
+                <a href="#/Run%20Commands">
+                  <h3 class="section-name">Run Commands</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/run(_:_:executor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">run(_:_:executor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Run external command with defined executor.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">run</span><span class="p">(</span><span class="n">_</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">String</span><span class="o">...</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>command</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command to execute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command arguments.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>executor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command executor for execute defined command.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Command result with exit status code and parsed stdout and stderr outputs.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO3run_4args8executorAC0A9RunResultVSS_SaySSGAC0A8ExecutorOtFZ"></a>
+                    <a name="//apple_ref/swift/Method/run(_:args:executor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3run_4args8executorAC0A9RunResultVSS_SaySSGAC0A8ExecutorOtFZ">run(_:args:executor:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Run external command with defined executor.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">run</span><span class="p">(</span><span class="n">_</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">args</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>command</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command to execute.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The array with command arguments.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>executor</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command executor for execute defined command.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>Command result with exit status code and stdout and stderr outputs.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV"></a>
+                    <a name="//apple_ref/swift/Struct/CommandRunResult" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV">CommandRunResult</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Object to hold results from <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>.</p>
+
+<p>This object contains command exist status code and stdout and stderr outputs if available.</p>
+
+                        <a href="../Enums/CLI/CommandRunResult.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CommandRunResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V"></a>
+                    <a name="//apple_ref/swift/Struct/Command" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V">Command</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command which to be executed.</p>
+
+<p>This struct holds all settings for command execution and can be created througt
+<code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> functions or directly.</p>
+<pre class="highlight swift"><code><span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo -n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">)</span>
+<span class="c1">// is equivalent to</span>
+<span class="kt">Command</span><span class="p">([</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">])</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+</code></pre>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <code>Command</code> is more complex than simple <code>run</code> function.
+You can specify command working directory or environment variables.
+
+</div>
+
+                        <a href="../Enums/CLI/Command.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Command</span> <span class="p">:</span> <span class="kt">CustomStringConvertible</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A8ExecutorO"></a>
+                    <a name="//apple_ref/swift/Enum/CommandExecutor" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A8ExecutorO">CommandExecutor</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Types of supported command executors.</p>
+
+                        <a href="../Enums/CLI/CommandExecutor.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">CommandExecutor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Environment%20Variables"></a>
+                <a name="//apple_ref/swift/Section/Environment Variables" class="dashAnchor"></a>
+                <a href="#/Environment%20Variables">
+                  <h3 class="section-name">Environment Variables</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO11EnvironmentV"></a>
+                    <a name="//apple_ref/swift/Struct/Environment" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO11EnvironmentV">Environment</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type for handle environment variables.</p>
+
+                        <a href="../Enums/CLI/Environment.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Environment</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Script%20Argument%20Parser"></a>
+                <a name="//apple_ref/swift/Section/Script Argument Parser" class="dashAnchor"></a>
+                <a href="#/Script%20Argument%20Parser">
+                  <h3 class="section-name">Script Argument Parser</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9ArgumentsC"></a>
+                    <a name="//apple_ref/swift/Class/Arguments" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9ArgumentsC">Arguments</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A type that handles the command line arguments passed to the script.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The arguments will be parsed only if you access to any attribute that require
+arguments parsing, which is the attributes <code>command</code>, <code>flags</code> and <code>parameters</code>.
+The arguments are parsed only once.
+
+</div>
+
+                        <a href="../Enums/CLI/Arguments.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Arguments</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

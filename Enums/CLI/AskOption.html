@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>AskOption Enumeration Reference</title>
+    <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../../js/jquery.min.js" defer></script>
+    <script src="../../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Enum/AskOption" class="dashAnchor"></a>
+    <a title="AskOption Enumeration Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../../index.html">CommandLineAPI Reference</a>
+        <img id="carat" src="../../img/carat.png" />
+        AskOption Enumeration Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../../CommandLineAPI.html">CommandLineAPI</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Arguments.html">– Arguments</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path.html">Path</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Attributes.html">– Attributes</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/EntryType.html">– EntryType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Error.html">– Error</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/Permissions.html">– Permissions</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Extensions.html">Other Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Extensions/Bool.html">Bool</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Data.html">Data</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Double.html">Double</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Float.html">Float</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/Int.html">Int</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/String.html">String</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/String/StringInterpolation.html">– StringInterpolation</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/StringProtocol.html">StringProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Functions.html">Other Functions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Other%20Functions.html#/s:14CommandLineAPI2peoiyyAA4PathVz_xSgtSyRzlF">+=(_:_:)</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../../Other%20Protocols.html">Other Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Protocols/PromptHandler.html">PromptHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>AskOption</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>Options for <code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> functions which can customize value handling and custom prompt validations.</p>
+
+<p>This options are passed to <code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> functions, for example:</p>
+<pre class="highlight swift"><code><span class="c1">// Define a default value and require the entered value confirmation.</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Choose directory [/tmp]: "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="s">"/tmp"</span><span class="p">),</span> <span class="o">.</span><span class="nf">confirm</span><span class="p">())</span>
+
+<span class="c1">// Prints:</span>
+<span class="c1">// $ Choose directory [/tmp]: &lt;&lt;user input&gt;&gt;</span>
+<span class="c1">// $ Are you sure? &lt;&lt;y&gt;&gt;</span>
+<span class="c1">// The result is "&lt;&lt;user input&gt;&gt;" or "/tmp" if the user only press Enter key.</span>
+</code></pre>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionO9Validatora"></a>
+                    <a name="//apple_ref/swift/Alias/Validator" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionO9Validatora">Validator</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type alias for validator function. This function takes the parsed value as parameter
+and returns a Boolean value to indicate if this <em>value</em> is valid or not.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">Validator</span> <span class="o">=</span> <span class="p">(</span><span class="kt">T</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionO7defaultyAEy_xGxcAGmAA27ExpressibleByStringArgumentRzlF"></a>
+                    <a name="//apple_ref/swift/Element/default(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionO7defaultyAEy_xGxcAGmAA27ExpressibleByStringArgumentRzlF">default(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines a default value for <code>ask</code> result if the user only press Enter key.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="err">`</span><span class="k">default</span><span class="err">`</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">T</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>value</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The default value.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionO7confirmyAEy_xGSSyXA_S2ScSgtcAGmAA27ExpressibleByStringArgumentRzlF"></a>
+                    <a name="//apple_ref/swift/Element/confirm(message:block:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionO7confirmyAEy_xGSSyXA_S2ScSgtcAGmAA27ExpressibleByStringArgumentRzlF">confirm(message:block:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines that the <code>ask</code> result will require confirmation. Parameters are used to define confirmation prompt.</p>
+<pre class="highlight swift"><code><span class="c1">// Different use of parameters and its confirmation messages</span>
+<span class="o">.</span><span class="nf">confirm</span><span class="p">()</span> <span class="c1">// "Are you sure? "</span>
+<span class="o">.</span><span class="nf">confirm</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="s">"Realy?</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span> <span class="c1">// "Realy?\n"</span>
+<span class="o">.</span><span class="nf">confirm</span><span class="p">(</span><span class="nv">block</span><span class="p">:</span> <span class="p">{</span> <span class="s">"Use </span><span class="se">\(</span><span class="nv">$0</span><span class="se">)</span><span class="s">? "</span> <span class="p">})</span> <span class="c1">// "Use &lt;&lt;user input&gt;&gt;? "</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">confirm</span><span class="p">(</span><span class="nv">message</span><span class="p">:</span> <span class="kd">@autoclosure</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"Are you sure? "</span><span class="p">,</span> <span class="nv">block</span><span class="p">:</span> <span class="p">((</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">String</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to define static confirmation string.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>block</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The closure to define dynamic confirmation string with entered value as parameter.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionO9validatoryAEy_xGSS_SbxctcAGmAA27ExpressibleByStringArgumentRzlF"></a>
+                    <a name="//apple_ref/swift/Element/validator(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionO9validatoryAEy_xGSS_SbxctcAGmAA27ExpressibleByStringArgumentRzlF">validator(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Defines a validator for validate the entered value.</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">validator</span><span class="p">(</span><span class="s">"Entered value must be greater than 0."</span><span class="p">,</span> <span class="p">{</span> <span class="nv">$0</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">})</span>
+<span class="o">.</span><span class="nf">validator</span><span class="p">(</span><span class="s">"Value cannot be empty!"</span><span class="p">,</span> <span class="p">{</span> <span class="o">!</span><span class="nv">$0</span><span class="o">.</span><span class="nf">isEmpty</span><span class="p">()</span> <span class="p">})</span>
+</code></pre>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">validator</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">_</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI/AskOption.html#/s:14CommandLineAPI3CLIO9AskOptionO9Validatora">Validator</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error message to show if the entered value is not valid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>validator</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The custom <code><a href="../../Enums/CLI/AskOption.html#/s:14CommandLineAPI3CLIO9AskOptionO9Validatora">AskOption.Validator</a></code> which returns <code>true</code> for valid value or <code>false</code> for invalid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Predefined%20Prompt%20Validators"></a>
+                <a name="//apple_ref/swift/Section/Predefined Prompt Validators" class="dashAnchor"></a>
+                <a href="#/Predefined%20Prompt%20Validators">
+                  <h3 class="section-name">Predefined Prompt Validators</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionOAASSRszrlE17notEmptyValidatoryAEy_SSGSSFZ"></a>
+                    <a name="//apple_ref/swift/Method/notEmptyValidator(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionOAASSRszrlE17notEmptyValidatoryAEy_SSGSSFZ">notEmptyValidator(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Predefined validator for validate if entered string is not empty.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">notEmptyValidator</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"The entered value cannot be empty!"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error message to display to the user if entered value is empty string.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created validator.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Predefined%20Prompt%20Validators2"></a>
+                <a name="//apple_ref/swift/Section/Predefined Prompt Validators" class="dashAnchor"></a>
+                <a href="#/Predefined%20Prompt%20Validators2">
+                  <h3 class="section-name">Predefined Prompt Validators</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGSnyxG_SSSgtFZ"></a>
+                    <a name="//apple_ref/swift/Method/rangeValidator(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGSnyxG_SSSgtFZ">rangeValidator(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Predefined validator for validate if entered value is satisfy specified <em>range</em>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">rangeValidator</span><span class="p">(</span><span class="n">_</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>range</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The range for specify value bounds.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>message</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error message to display to the user if value is not valid.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The created validator.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

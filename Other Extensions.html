@@ -14,7 +14,8 @@
     <a title="Other Extensions  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CommandLineAPI --github_url Docs</a> (42% documented)</p>
+        <p><a href="index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,47 +32,46 @@
             <a href="CommandLineAPI.html">CommandLineAPI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Structs/CLI.html">CLI</a>
+                <a href="Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Arguments.html">– Arguments</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path.html">Path</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path.html#/s:14CommandLineAPI4PathV5CacheC">– Cache</a>
+                <a href="Structs/Path/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path/Error.html">– Error</a>
+                <a href="Structs/Path/ChildSequence.html">– ChildSequence</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/EntryType.html">– EntryType</a>
               </li>
               <li class="nav-group-task">
-                <a href="Structs/Path/Attributes.html">– Attributes</a>
+                <a href="Structs/Path/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/Permissions.html">– Permissions</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Classes/Arguments.html">Arguments</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Enums.html">Other Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Enums/AskOption.html">AskOption</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/StringStyle.html">StringStyle</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Enums/TaskExecutor.html">TaskExecutor</a>
               </li>
             </ul>
           </li>
@@ -97,9 +97,6 @@
                 <a href="Extensions/Int.html">Int</a>
               </li>
               <li class="nav-group-task">
-                <a href="Extensions/Pipe.html">Pipe</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Extensions/String.html">String</a>
               </li>
               <li class="nav-group-task">
@@ -122,24 +119,10 @@
             <a href="Other%20Protocols.html">Other Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="Protocols/ExpressibleByString.html">ExpressibleByString</a>
+                <a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/PromptHandler.html">PromptHandler</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="Other%20Structs.html">Other Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="Structs/Command.html">Command</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/CommandRunResult.html">CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="Structs/Environment.html">Environment</a>
               </li>
             </ul>
           </li>
@@ -154,6 +137,13 @@
           </section>
           <section class="section task-group-section">
             <div class="task-group">
+              <div class="task-name-container">
+                <a name="/String%20Style"></a>
+                <a name="//apple_ref/swift/Section/String Style" class="dashAnchor"></a>
+                <a href="#/String%20Style">
+                  <h3 class="section-name">String Style</h3>
+                </a>
+              </div>
               <ul>
                 <li class="item">
                   <div>
@@ -171,17 +161,48 @@
                         
                         <a href="Extensions/String.html" class="slightly-smaller">See more</a>
                       </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:Sy"></a>
+                    <a name="//apple_ref/swift/Extension/StringProtocol" class="dashAnchor"></a>
+                    <a class="token" href="#/s:Sy">StringProtocol</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Add support for strings style with <code>StringStyle</code> constants.</p>
+
+                        <a href="Extensions/StringProtocol.html" class="slightly-smaller">See more</a>
+                      </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">String</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByString.html">ExpressibleByString</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">StringProtocol</span></code></pre>
 
                         </div>
                       </div>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Ask%20-%20Prompt%20Function"></a>
+                <a name="//apple_ref/swift/Section/Ask - Prompt Function" class="dashAnchor"></a>
+                <a href="#/Ask%20-%20Prompt%20Function">
+                  <h3 class="section-name">Ask - Prompt Function</h3>
+                </a>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -202,7 +223,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Int</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByString.html">ExpressibleByString</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Int</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
 
                         </div>
                       </div>
@@ -229,7 +250,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Bool</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByString.html">ExpressibleByString</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Bool</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
 
                         </div>
                       </div>
@@ -256,7 +277,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Double</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByString.html">ExpressibleByString</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Double</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
 
                         </div>
                       </div>
@@ -283,69 +304,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Float</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByString.html">ExpressibleByString</a></span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/c:objc(cs)NSPipe"></a>
-                    <a name="//apple_ref/swift/Extension/Pipe" class="dashAnchor"></a>
-                    <a class="token" href="#/c:objc(cs)NSPipe">Pipe</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                        <a href="Extensions/Pipe.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">Pipe</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <div class="task-group">
-              <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:Sy"></a>
-                    <a name="//apple_ref/swift/Extension/StringProtocol" class="dashAnchor"></a>
-                    <a class="token" href="#/s:Sy">StringProtocol</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        
-                        <a href="Extensions/StringProtocol.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">extension</span> <span class="kt">StringProtocol</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">Float</span><span class="p">:</span> <span class="kt"><a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a></span></code></pre>
 
                         </div>
                       </div>
@@ -356,10 +315,10 @@
             </div>
             <div class="task-group">
               <div class="task-name-container">
-                <a name="/Data%20Extension"></a>
-                <a name="//apple_ref/swift/Section/Data Extension" class="dashAnchor"></a>
-                <a href="#/Data%20Extension">
-                  <h3 class="section-name">Data Extension</h3>
+                <a name="/Input/Output%20Operations"></a>
+                <a name="//apple_ref/swift/Section/Input/Output Operations" class="dashAnchor"></a>
+                <a href="#/Input/Output%20Operations">
+                  <h3 class="section-name">Input/Output Operations</h3>
                 </a>
               </div>
               <ul>
@@ -433,7 +392,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-11-13)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

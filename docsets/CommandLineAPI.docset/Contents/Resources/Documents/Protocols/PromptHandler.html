@@ -14,7 +14,8 @@
     <a title="PromptHandler Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CommandLineAPI --github_url Docs</a> (42% documented)</p>
+        <p><a href="../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -31,47 +32,46 @@
             <a href="../CommandLineAPI.html">CommandLineAPI</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Structs/CLI.html">CLI</a>
+                <a href="../Enums/CLI.html">CLI</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/StringStyle.html">– StringStyle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/AskOption.html">– AskOption</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Command.html">– Command</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Environment.html">– Environment</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Arguments.html">– Arguments</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Path.html">Path</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Path.html#/s:14CommandLineAPI4PathV5CacheC">– Cache</a>
+                <a href="../Structs/Path/Attributes.html">– Attributes</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Path/Error.html">– Error</a>
+                <a href="../Structs/Path/ChildSequence.html">– ChildSequence</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Path/EntryType.html">– EntryType</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Structs/Path/Attributes.html">– Attributes</a>
+                <a href="../Structs/Path/Error.html">– Error</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Path/Permissions.html">– Permissions</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Other%20Classes.html">Other Classes</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Classes/Arguments.html">Arguments</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Other%20Enums.html">Other Enumerations</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Enums/AskOption.html">AskOption</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/StringStyle.html">StringStyle</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Enums/TaskExecutor.html">TaskExecutor</a>
               </li>
             </ul>
           </li>
@@ -97,9 +97,6 @@
                 <a href="../Extensions/Int.html">Int</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Extensions/Pipe.html">Pipe</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Extensions/String.html">String</a>
               </li>
               <li class="nav-group-task">
@@ -122,24 +119,10 @@
             <a href="../Other%20Protocols.html">Other Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a href="../Protocols/ExpressibleByString.html">ExpressibleByString</a>
+                <a href="../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PromptHandler.html">PromptHandler</a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-group-name">
-            <a href="../Other%20Structs.html">Other Structures</a>
-            <ul class="nav-group-tasks">
-              <li class="nav-group-task">
-                <a href="../Structs/Command.html">Command</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/CommandRunResult.html">CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
-                <a href="../Structs/Environment.html">Environment</a>
               </li>
             </ul>
           </li>
@@ -155,7 +138,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A type that can handle print and read functions from command line prompt.</p>
 
           </section>
           <section class="section task-group-section">
@@ -174,10 +157,10 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Print string to prompt (stdout).</p>
+                        <p>Print a string to standart output (<code>stdout</code>).</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    Newline character is not printed automatically
+    Newline character is not printed automatically.
 
 </div>
 
@@ -202,7 +185,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>The string for output print</p>
+                                  <p>The string to be printed to standard output.</p>
                                 </div>
                               </td>
                             </tr>
@@ -225,7 +208,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Print an error string to error output (<code>stderr</code>).</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Newline character is not printed automatically.
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -235,6 +223,25 @@
                           <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">print</span><span class="p">(</span><span class="n">error</span> <span class="nv">string</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>string</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The error string to be printed to error output.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -252,7 +259,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read line from prompt (stdin). Returned string must have stripped termination newline.
+                        <p>Read line from standard input (stdin).
+Returned string must have stripped termination newline.
 If input cannot be read then must returns empty string.</p>
 
                       </div>
@@ -276,7 +284,7 @@ If input cannot be read then must returns empty string.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="" target="_blank" rel="external"></a>. All rights reserved. (Last updated: 2019-11-13)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
