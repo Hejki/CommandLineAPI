@@ -50,13 +50,16 @@ final class FilesystemRepresentationTests: XCTestCase {
             expect(all).to(haveCount(3))
             expect(all).to(contain(file1, file2, dir1))
 
-            all = tmp.children.includingHidden.compactMap { $0 }
-            expect(all).to(haveCount(4))
-            expect(all).to(contain(file1, file2, dir1, hiddenDir))
-
             all = tmp.children.recursive.compactMap { $0 }
             expect(all).to(haveCount(4))
             expect(all).to(contain(file1, file2, dir1, fileInsideDir))
+
+            all.removeAll()
+            for p in tmp.children.includingHidden {
+                all.append(p)
+            }
+            expect(all).to(haveCount(4))
+            expect(all).to(contain(file1, file2, dir1, hiddenDir))
         }
     }
 

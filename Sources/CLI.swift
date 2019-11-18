@@ -360,7 +360,7 @@ private struct ConsolePromptHandler: PromptHandler {
 public extension CLI {
 
     /**
-     Display prompt to the user.
+     Displays prompt to the user.
 
      - Parameters:
         - prompt: The message to display.
@@ -368,11 +368,13 @@ public extension CLI {
      - Returns: The string enters from the user.
      */
     static func ask(_ prompt: String, options: AskOption<String>...) -> String {
-        return Ask(prompt, options).run()
+        return Ask(options) {
+            $0.print(prompt)
+        }.run()
     }
 
     /**
-     Display prompt to the user.
+     Displays prompt to the user.
 
      If the user enters a string wich cannot be converted to the expected type,
      `ask` will keep prompting until a corect value has been entered.
@@ -384,7 +386,9 @@ public extension CLI {
      - Returns: The converted string enters from the user.
      */
     static func ask<T: ExpressibleByStringArgument>(_ prompt: String, type: T.Type = T.self, options: AskOption<T>...) -> T {
-        return Ask(prompt, options).run()
+        return Ask(options) {
+            $0.print(prompt)
+        }.run()
     }
 
     /**
@@ -449,13 +453,13 @@ public extension CLI {
     private struct Ask<T: ExpressibleByStringArgument> {
         private typealias ValidatorTuple = (message: String, validate: AskOption<T>.Validator)
 
-        private let prompt: String
+        private let printPrompt: (PromptHandler) -> Void
         private var defaultValue: T?
         private var confirmMessage: ((String) -> String)?
         private var validators = [ValidatorTuple]()
 
-        init(_ prompt: String, _ options: [AskOption<T>]) {
-            self.prompt = prompt
+        init(_ options: [AskOption<T>] = [], _ prompt: @escaping (PromptHandler) -> Void) {
+            self.printPrompt = prompt
 
             for option in options.compactMap({ $0.option }) {
                 switch option {
@@ -472,7 +476,7 @@ public extension CLI {
         }
 
         func run() -> T {
-            CLI.prompt.print(prompt)
+            printPrompt(CLI.prompt)
 
             while true {
                 guard let promptResult = readValidValue() else {
@@ -483,7 +487,7 @@ public extension CLI {
                     if CLI.ask(msg) {
                         return promptResult.value
                     }
-                    CLI.prompt.print(prompt)
+                    printPrompt(CLI.prompt)
                 } else {
                     return promptResult.value
                 }
@@ -503,7 +507,7 @@ public extension CLI {
 
             for validator in validators {
                 if !validator.validate(value) {
-                    CLI.prompt.print("\(validator.message)\n: ")
+                    CLI.prompt.print("\(validator.message)")
                     return nil
                 }
             }
@@ -620,7 +624,7 @@ public extension CLI.AskOption where T == String {
      - Returns: The created validator.
      */
     @inlinable
-    static func notEmptyValidator(_ message: String = "The entered value cannot be empty!") -> CLI.AskOption<T> {
+    static func notEmptyValidator(_ message: String = "The entered value cannot be empty!\n: ") -> CLI.AskOption<T> {
         return .validator(message) { !$0.isEmpty }
     }
 }
@@ -636,15 +640,61 @@ public extension CLI.AskOption where T: Comparable {
      - Returns: The created validator.
      */
     @inlinable
-    static func rangeValidator(_ range: Range<T>, _ message: String? = nil) -> CLI.AskOption<T> {
+    static func rangeValidator<R>(_ range: R, _ message: String? = nil) -> CLI.AskOption<T> where R: RangeExpression, R.Bound == T {
         return .validator(
-            message ?? "The entered value is not in range \(range)!",
+            message ?? "The entered value is not in range \(range)!\n: ",
             range.contains
         )
     }
 }
 
 // MARK: - Choose - Prompt Function
+public extension CLI {
+
+    /**
+     Displays a menu of items to the user to choose from.
+
+     - Parameters:
+        - prompt: The message to display.
+        - choices: The items to choose from.
+     - Returns: An one of the *choices* that the user choose.
+     - Precondition: The *choices* must be non empty array.
+     */
+    static func choose(_ prompt: String, choices: [String]) -> String {
+        precondition(choices.count > 0, "Number of choices must be greater than 0.")
+
+        let range = 1...choices.count
+        let validator = AskOption<String>.validator("invalid option\n\(prompt)") {
+            range.contains(Int($0) ?? 0)
+        }
+
+        let result = Ask<String>([validator]) { promptHandler in
+            for (offset, choose) in choices.enumerated() {
+                promptHandler.print("\(offset + 1)) \(choose)\n")
+            }
+            promptHandler.print(prompt)
+        }.run()
+
+        return choices[Int(result)! - 1]
+    }
+
+    /**
+     Displays a menu of items to the user to choose from.
+
+     - Parameters:
+        - prompt: The message to display.
+        - choices: The items to choose from. The choice key will be shown to the user (sorted)
+            and dictionary value for that key will be returned from this function.
+     - Returns: A value of the one of *choices* that the user choose.
+     - Precondition: The *choices* must be non empty dictionary.
+    */
+    static func choose<T>(_ prompt: String, choices: [String: T]) -> T {
+        let keys = Array(choices.keys).sorted()
+        let result = choose(prompt, choices: keys)
+
+        return choices[result]!
+    }
+}
 
 // MARK: - Run Commands
 public extension CLI {
@@ -656,7 +706,7 @@ public extension CLI {
         - command: The command to execute.
         - args: The command arguments.
         - executor: The command executor for execute defined command.
-     - Returns: Command result with exit status code and parsed stdout and stderr outputs.
+     - Returns: A command result with exit status code and parsed stdout and stderr outputs.
      - SeeAlso: `Command.execute()`
      */
     @inlinable
@@ -671,7 +721,7 @@ public extension CLI {
        - command: The command to execute.
        - args: The array with command arguments.
        - executor: The command executor for execute defined command.
-     - Returns: Command result with exit status code and stdout and stderr outputs.
+     - Returns: A command result with exit status code and stdout and stderr outputs.
      - SeeAlso: `Command.execute()`
      */
     @inlinable
@@ -681,19 +731,94 @@ public extension CLI {
     }
 
     /**
-     Object to hold results from `CLI.run(_:_:executor:)` or `Command.execute()`.
+     Run `echo -n` command with specified *text*. This command can be used to chain *text* output with
+     other commands using `CommandRunResult.pipe(to:_:)`. The executor is `.default`.
+
+     - Parameter text: The text to be printed.
+     - Returns: A command result.
+     */
+    @inlinable
+    static func echo(_ text: String) -> CommandRunResult {
+        return Command(["echo", "-n", text], executor: .default).execute()
+    }
+
+    /**
+     Object to hold results from `CLI.run(_:_:executor:)` or `Command.execute()`. The results can be chained to
+     another command by using `CommandRunResult.pipe(to:_:)` function or `|` operator.
 
      This object contains command exist status code and stdout and stderr outputs if available.
      */
     struct CommandRunResult {
+        /// The command for this result.
+        public let command: Command
+
         /// The exit status code of executed command.
         public let exitStatus: Int
 
         /// The string printed to the standard output by executed command.
-        public let stdout: String
+        public var stdout: String {
+            if let fileHandle = pipe?.fileHandleForReading {
+                return String(data: fileHandle.availableData, encoding: .utf8) ?? ""
+            }
+            return cachedStdout
+        }
 
         /// The string printed to the error output by executed command.
         public let stderr: String
+
+        fileprivate let pipe: Pipe?
+        private let cachedStdout: String
+
+        fileprivate init(_ command: Command, _ status: Int, out: String = "", err: String = "", pipe: Pipe? = nil) {
+            self.command = command
+            self.exitStatus = status
+            self.cachedStdout = out
+            self.stderr = err
+            self.pipe = pipe
+        }
+
+        /**
+         Chain output of this result to the another command. The executor of the new command
+         will be same as executor which provide this result.
+
+         - Parameters:
+            - command: The command to be executed.
+            - args: The command arguments.
+         - Returns: A new result of the new command.
+         */
+        public func pipe(to command: String, _ args: String...) -> CommandRunResult {
+            return pipe(to: command, args: args)
+        }
+
+        /**
+         Chain the result to a new command. See `pipe(to:_:)` for more info.
+         */
+        public func pipe(to command: String, args: [String]) -> CommandRunResult {
+            let arguments = command.split(separator: " ").map(String.init) + args
+            return self | arguments
+        }
+
+        /**
+         Chain the result to a new command. See `pipe(to:_:)` for more info.
+         */
+        public static func | (left: CommandRunResult, right: String) -> CommandRunResult {
+            return left.pipe(to: right)
+        }
+
+        /**
+         Chain the result to a new command. See `pipe(to:_:)` for more info.
+         */
+        public static func | (left: CommandRunResult, right: [String]) -> CommandRunResult {
+            if case .interactive = left.command.executor {
+                precondition(false, "The result from interactive executor cannot be used for chaining.")
+            }
+
+            guard left.exitStatus == 0 else {
+                CLI.println(error: "Cannot pipe to command '\(left.command)' because previous command ends with status \(left.exitStatus).")
+                return left
+            }
+            return Command(right, fromPipe: left).execute()
+        }
     }
 
     /**
@@ -711,10 +836,19 @@ public extension CLI {
         You can specify command working directory or environment variables.
      */
     struct Command: CustomStringConvertible {
-        fileprivate let arguments: [String]
-        fileprivate let executor: CommandExecutor
-        fileprivate let workingDirectory: Path
-        fileprivate let environment: [String: String]?
+        /// The command arguments that should be used to launch the executable.
+        public let arguments: [String]
+
+        /// The command executor.
+        public let executor: CommandExecutor
+
+        /// The path to working diretory for current command.
+        public let workingDirectory: Path
+
+        /// The environment for the command. If this is `nil`, the environment is inherited from the current process.
+        public let environment: [String: String]?
+
+        fileprivate let pipe: Pipe?
 
         /// A textual representation of command wit all arguments.
         public var description: String {
@@ -741,6 +875,15 @@ public extension CLI {
             self.executor = executor
             self.workingDirectory = workingDirectory
             self.environment = environment
+            self.pipe = nil
+        }
+
+        fileprivate init(_ arguments: [String], fromPipe previousResult: CommandRunResult) {
+            self.arguments = arguments
+            self.executor = previousResult.command.executor
+            self.workingDirectory = previousResult.command.workingDirectory
+            self.environment = previousResult.command.environment
+            self.pipe = previousResult.pipe
         }
 
         /**
@@ -758,7 +901,7 @@ public extension CLI {
      */
     enum CommandExecutor {
         /**
-         Not execute the command only prints string: "Executed: <<command.description>>" to standard output.
+         Not execute the command, only prints string: "Executed: <<command.description>>" to standard output.
          Returned `CommandRunResult` contains defined parameters with this enum.
 
          - Parameters:
@@ -769,14 +912,14 @@ public extension CLI {
         case dummy(status: Int = 0, stdout: String = "", stderr: String = "")
 
         /**
-          Execute command and consume all its outputs. This outputs can be later read from
+          Execute command and consume all outputs. This outputs can be later read from
          `CommandRunResult.stdout` and `CommandRunResult.stderr`. This executor is suitable for
          non-interactive, short running commands, like `ls`, `echo` etc.
          */
         case `default`
 
         /**
-         Execute command with it's standard output and error outputs redirected to system standard output and error.
+         Execute command with redirected standard/error outputs to system standard outputs.
          This executor can handle user's inputs from system standard input. The executor returns actual exit status
          of executed command but `stdout` and `stderr` of `CommandRunResult` will be always empty strings.
          */
@@ -789,8 +932,7 @@ public extension CLI {
             case .interactive:
                 return interactiveExecute(command)
             case let .dummy(status, stdout, stderr):
-                CLI.print("Executed: \(command)")
-                return CommandRunResult(exitStatus: status, stdout: stdout, stderr: stderr)
+                return dummyExecute(command, status, stdout, stderr)
             }
         }
 
@@ -800,14 +942,18 @@ public extension CLI {
 
             process.standardOutput = stdout
             process.standardError = stderr
+            if let stdin = command.pipe {
+                process.standardInput = stdin
+            }
 
             process.launch()
             process.waitUntilExit()
 
             return CommandRunResult(
-                exitStatus: Int(process.terminationStatus),
-                stdout: String(data: stdout.fileHandleForReading.availableData, encoding: .utf8) ?? "",
-                stderr: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? ""
+                command,
+                Int(process.terminationStatus),
+                err: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? "",
+                pipe: stdout
             )
         }
 
@@ -822,9 +968,10 @@ public extension CLI {
             process.waitUntilExit()
 
             return CommandRunResult(
-                exitStatus: Int(process.terminationStatus),
-                stdout: "",
-                stderr: ""
+                command,
+                Int(process.terminationStatus),
+                out: "",
+                err: ""
             )
         }
 
@@ -844,6 +991,19 @@ public extension CLI {
                 process.currentDirectoryPath = command.workingDirectory.path
             }
             return process
+        }
+
+        private func dummyExecute(_ command: Command, _ status: Int, _ stdout: String, _ stderr: String) -> CommandRunResult {
+            let pipe = Pipe()
+
+            CLI.println("Executed: \(command)")
+            if let data = stdout.data(using: .utf8) {
+                pipe.fileHandleForWriting.write(data)
+            } else {
+                pipe.fileHandleForWriting.write("".data(using: .utf8)!)
+            }
+            pipe.fileHandleForWriting.closeFile()
+            return CommandRunResult(command, status, out: stdout, err: stderr, pipe: pipe)
         }
     }
 }

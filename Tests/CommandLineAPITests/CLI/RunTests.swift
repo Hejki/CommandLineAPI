@@ -78,7 +78,7 @@ final class RunTests: XCTestCase {
             stderr: ""
         )
 
-        expect(self.ph.prints) == ["Executed: echo Hello", "Executed: dummy"]
+        expect(self.ph.prints) == ["Executed: echo Hello\n", "Executed: dummy\n"]
     }
 
     func testCWD() throws {
@@ -122,5 +122,57 @@ final class RunTests: XCTestCase {
         expect(result.exitStatus) == status
         expect(result.stdout) == stdout
         expect(result.stderr) == stderr
+    }
+
+    func testRun_pipe() {
+        var result = CLI.run("echo -n", "Hi!").pipe(to: "base64")
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "SGkh\n"
+        expect(result.command.arguments) == ["base64"]
+
+        result = CLI.run("echo -n", args: ["Hi!"])
+            .pipe(to: "base64")
+            .pipe(to: "base64", args: ["-D"])
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "Hi!"
+        expect(result.command.arguments) == ["base64", "-D"]
+
+        result = CLI.run("echo", "Hi!\nHello\ntest").pipe(to: "grep", "H")
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "Hi!\nHello\n"
+        expect(result.stderr) == ""
+        expect(result.command.arguments) == ["grep", "H"]
+
+        result = CLI.run("a", executor: .dummy(status: 0, stdout: "o", stderr: "e"))
+            .pipe(to: "b")
+            .pipe(to: "c")
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "o"
+        expect(result.stderr) == "e"
+        expect(result.command.arguments) == ["c"]
+        expect(self.ph.prints) == ["Executed: a\n", "Executed: b\n", "Executed: c\n"]
+
+        result = CLI.run("echo -n Hi!") | "base64" | ["base64", "-D"]
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "Hi!"
+        expect(result.command.arguments) == ["base64", "-D"]
+    }
+
+    func testRun_pipeFail() {
+        let result = CLI.run("cmdNotExist").pipe(to: "echo Hi")
+        expect(result.exitStatus) == 127
+        expect(result.command.arguments) == ["cmdNotExist"]
+
+        expect {
+            _ = CLI.run("ls", executor: .interactive).pipe(to: "echo")
+        }.to(throwAssertion())
+    }
+
+    func testEcho() {
+        let result = CLI.echo("YmFuYW5h") | "base64 -D"
+
+        expect(result.exitStatus) == 0
+        expect(result.stdout) == "banana"
+        expect(result.command.arguments) == ["base64", "-D"]
     }
 }

@@ -69,9 +69,9 @@ final class AskTests: XCTestCase {
         ph.prepare("-3", "5.3", "1.1")
 
         let res: Double = CLI.ask("?", options:
-            .validator("min") { $0 > 0 }, .validator("max") { $0 < 5 })
+            .validator("min\n: ") { $0 > 0 }, .validator("max: ") { $0 < 5 })
 
-        expect(self.ph.prints) == ["?", "min\n: ", "max\n: "]
+        expect(self.ph.prints) == ["?", "min\n: ", "max: "]
         expect(res) == 1.1
     }
 
@@ -113,7 +113,7 @@ final class AskTests: XCTestCase {
         ph.prepare("", "a")
 
         let res = CLI.ask("?", options: .notEmptyValidator("e"))
-        expect(self.ph.prints) == ["?", "e\n: "]
+        expect(self.ph.prints) == ["?", "e"]
         expect(res) == "a"
     }
 
@@ -126,10 +126,11 @@ final class AskTests: XCTestCase {
     }
 
     func testPrintln() {
+        CLI.print("p")
         CLI.println("println")
         CLI.print(error: "e")
         CLI.println(error: "err")
 
-        expect(self.ph.prints) == ["println\n", "ERR{e}", "ERR{err\n}"]
+        expect(self.ph.prints) == ["p", "println\n", "ERR{e}", "ERR{err\n}"]
     }
 }
