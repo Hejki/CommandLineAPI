@@ -780,8 +780,8 @@ public extension Path {
          The filesystem item's permissions.
          */
         public var permissions: Permissions {
-            get { Permissions(posix: fileAttributes[.posixPermissions] as! Int) }
-            set { setAttribute(.posixPermissions, to: newValue.posix) }
+            get { Permissions(rawValue: fileAttributes[.posixPermissions] as! Int) }
+            set { setAttribute(.posixPermissions, to: newValue.rawValue) }
         }
 
         /**
@@ -942,21 +942,80 @@ public extension Path {
         }
     }
 
-    #warning("TODO more methods for work with permissions u+x parser or init(u: [.read, .write]) etc.")
     /**
      A filesystem entry permission representation.
      */
-    struct Permissions: Equatable {
+    struct Permissions: Equatable, OptionSet, CustomStringConvertible {
         /// POSIX permission representation.
-        public let posix: Int
+        public let rawValue: Int
+
+        /// Octal permissions notation (eg: `664`).
+        public var octalString: String {
+            String(rawValue, radix: 8)
+        }
+
+        /// Permisions string representation (eg: `"rw-rw-r--"`)
+        public var description: String {
+            (contains(.userRead) ? "r" : "-")
+                + (contains(.userWrite) ? "w" : "-")
+                + (contains(.userExecute) ? "x" : "-")
+                + (contains(.groupRead) ? "r" : "-")
+                + (contains(.groupWrite) ? "w" : "-")
+                + (contains(.groupExecute) ? "x" : "-")
+                + (contains(.othersRead) ? "r" : "-")
+                + (contains(.othersWrite) ? "w" : "-")
+                + (contains(.othersExecute) ? "x" : "-")
+        }
 
         /**
          Creates a permissions instance from POSIX representation.
 
          - Parameter posix: Permissions POSIX reference.
          */
-        public init(posix: Int) {
-            self.posix = posix
+        public init(rawValue posix: Int) {
+            self.rawValue = posix
         }
+
+        /// A mask for user read permission.
+        public static let userRead = Permissions(rawValue: 1 << 8)
+
+        /// A mask for user write permission.
+        public static let userWrite = Permissions(rawValue: 1 << 7)
+
+        /// A mask for user execute permission.
+        public static let userExecute = Permissions(rawValue: 1 << 6)
+
+        /// A mask for group read permission.
+        public static let groupRead = Permissions(rawValue: 1 << 5)
+
+        /// A mask for group write permission.
+        public static let groupWrite = Permissions(rawValue: 1 << 4)
+
+        /// A mask for group execute permission.
+        public static let groupExecute = Permissions(rawValue: 1 << 3)
+
+        /// A mask for others read permission.
+        public static let othersRead = Permissions(rawValue: 1 << 2)
+
+        /// A mask for others write permission.
+        public static let othersWrite = Permissions(rawValue: 1 << 1)
+
+        /// A mask for others execute permission.
+        public static let othersExecute = Permissions(rawValue: 1)
+
+        /// A common mask for user only read and write permissions.
+        public static let userRW = Permissions(rawValue: 0o600)
+
+        /// A common mask for user only read, write and execute permissions.
+        public static let userRWX = Permissions(rawValue: 0o700)
+
+        /// A common mask for all read and user only write permissions.
+        public static let userRW_allR = Permissions(rawValue: 0o644)
+
+        /// A common mask for all execute and user only read, write permissions.
+        public static let userRWX_allX = Permissions(rawValue: 0o711)
+
+        /// A common mask for all read, execute and user only write permissions.
+        public static let userRWX_allRX = Permissions(rawValue: 0o755)
     }
 }

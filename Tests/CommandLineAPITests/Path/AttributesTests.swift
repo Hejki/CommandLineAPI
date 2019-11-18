@@ -74,7 +74,7 @@ final class AttributesTests: XCTestCase {
             if #available(OSX 10.12, *) {
                 expect(attributes.userName) == ProcessInfo.processInfo.userName
             }
-            expect(attributes.permissions.posix) == 0o644
+            expect(attributes.permissions.rawValue) == 0o644
             expect(attributes.size) == 1
         }
     }
@@ -88,18 +88,18 @@ final class AttributesTests: XCTestCase {
 
             attributes.creationDate = date
             attributes.modificationDate = date.addingTimeInterval(3)
-            attributes.permissions = Path.Permissions(posix: 0o777)
+            attributes.permissions = Path.Permissions(rawValue: 0o777)
             attributes.groupName = "staff"
 
             expect(attributes.creationDate) == date
             expect(attributes.modificationDate) == date.addingTimeInterval(3)
-            expect(attributes.permissions.posix) == 0o777
+            expect(attributes.permissions.rawValue) == 0o777
             expect(attributes.groupName) == "staff"
 
             try attributes.reload()
             expect(attributes.creationDate) == date
             expect(attributes.modificationDate) == date.addingTimeInterval(3)
-            expect(attributes.permissions.posix) == 0o777
+            expect(attributes.permissions.rawValue) == 0o777
             expect(attributes.groupName) == "staff"
         }
     }
