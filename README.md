@@ -2,9 +2,6 @@
 # CommandLineAPI
 ![badge-swift][] ![badge-platforms][] [![badge-spm][]][spm-link] [![badge-ci][]][ci] [![badge-docs][]][docs] [![badge-licence][]][licence]
 
-<!-- TODO link to documentation coverage -->
-<!-- determine right swift version 5.2 or 5.1? -->
-
 The library that can help you create a command line applications. This library is inspired by [Swiftline](https://github.com/nsomar/Swiftline) and [Path.swift](https://github.com/mxcl/Path.swift).
 
 ## Features
@@ -18,7 +15,7 @@ The library that can help you create a command line applications. This library i
 
 ## Path
 
-Path is a simple way for accessing, reading nad writing files and directories.
+Path is a simple way for accessing, reading and writing files and directories.
 
 Crate a Path instance:
 ```swift
@@ -34,36 +31,42 @@ Path(".stool/config.yaml", relativeTo: .home) // relative path to another path
 
 Shortcut paths for system directories:
 ```swift
-Path.root    // File system root
-Path.home    // Current user's home
-Path.current // Current working directory
+Path.root      // File system root
+Path.home      // Current user's home
+Path.current   // Current working directory
+Path.temporary // Path to temporary directory
 ```
 
 Path components and path chaining:
 ```swift
-// Paths can be joined with appending funcion or + operator
+// Paths can be joined with appending function or + operator
 let readme = Path.home.appending("tools") + "README.md"
 
 readme.url // URL representation
-readme.string // Absolute path string
+readme.path // Absolute path string
 readme.pathComponents // ["Users", "hejki", "tools", "README.md"]
-readme.extension // md
-readme.basename // README.md
-readme.basenameWithoutExtension // README
+readme.extension // "md"
+readme.basename // "README.md"
+readme.basenameWithoutExtension // "README"
 readme.parent // Path("/Users/hejki/tools")
+readme.path(relativeTo: Path.home + "Downloads") // "../tools/README.md"
 ```
 
 Iterate over the directory content:
 ```swift
-for path in Path.current.content {
+// Sequence with a shallow search of the specified directory, without hidden files
+for path in Path.current.children { 
     print(path)
 }
+
+// Use recursive to deep search and/or includingHidden for hidden files
+Path.current.recursive.includingHidden.forEach { print($0) }
 ```
 
 Access to file and directory attributes:
 ```swift
 readme.exist // `true` if this path represents an actual filesystem entry
-readme.type // The type of filesystem entry. Can be .file, .directory, .symlink, etc.
+readme.type // The type of filesystem entry. Can be .file, .directory, .symlink and .pipe
 
 let attributes = readme.attributes
 
@@ -112,9 +115,9 @@ print("Result is \(result.exitStatus, styled: .fgRed)")
 print("Result is \(result.exitStatus, styled: .fgRed, .italic)") // multiple styles at once
 ```
 
-Implementations of `StringProtocol` can use styles directly:
+The types that conforming `StringProtocol` can use styles directly:
 ```swift
-print("Init...".styled(.bgMagenta, .bold, .fgRed))
+print("Init...".styled(.bgMagenta, .bold, .fg(r: 12, g: 42, b: 0)))
 ```
 
 ## Prompt Functions
@@ -155,7 +158,7 @@ Types that confirms ExpressibleByStringArgument can be returned from ask.
 ```swift
 let timeout = CLI.ask("Enter timeout: ", type: Int.self)
 
-// If user enters something that cannot be converted to Int, a new prompt is diplayed,
+// If user enters something that cannot be converted to Int, a new prompt is displayed,
 // this prompt will keep displaying until the user enters an Int:
 // $ Enter timeout: No
 // $ Please enter a valid Int.
@@ -190,7 +193,24 @@ let i: Int = CLI.ask("Value: ", options: .default(3), .confirm(), positive)
 
 ### Choose
 
-    TODO: not implemented yet.
+Choose is used to prompt the user to select an item between several possible items.
+```swift
+let user = CLI.choose("Select user: ", choices: ["hejki", "guest"])
+
+// This will print:
+// $ 1. hejki
+// $ 2. guest
+// $ Select user: 
+```
+
+The user must choose one item from the list by entering its number. If the user enters a wrong input, a prompt will keep showing until the user makes a correct choice.
+
+Choices can be supplied with dictionary, to display a different value than you later get as a result.
+```swift
+let difficulty = CLI.choose("Select difficulty: ", choices: [
+    "Easy": 0, "Hard": 1, "Extreme": 10
+])
+```
 
 ## Run
 
@@ -204,9 +224,9 @@ print(result.stdout)
 
 Each command can be run with one of available executors. The executor defines how to run command.
 
-* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all its outputs. Command outputs will be available after task execution in task result. This executor is default for `CLI.run` functions.
-* `.dummy` executor which only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitStatus.
-* `.interactive` executor runs commands with it's standard output and error outputs redirected to system standard output and error. This executor can handle user's inputs from system standard input. The command outputs will not be recorded.
+* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for `CLI.run` functions.
+* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitStatus.
+* `.interactive` executor runs command with redirected standard/error outputs to system outputs. This executor can handle user's inputs from system standard input. The command output will not be recorded.
 
 For more complex executions use `Command` type directly:
 ```swift
@@ -220,6 +240,12 @@ let command = CLI.Command(
 let result = command.execute()
 ```
 
+Command results can be chained together by using pipes:
+```swift
+let encode = CLI.run("echo", "-n", password).pipe(to: "base64").stdout
+let decode = CLI.echo("YmFuYW5h") | "base64 -D"
+```
+
 ## Env
 
 Read and write the environment variables passed to the script:
@@ -229,10 +255,10 @@ CLI.env.keys
 
 // Get environment variable
 CLI.env["PATH"]
+
+// Set environment variable
+CLI.env["PATH"] = "~/bin"
 ```
-<!-- TODO: not implemented yet. -->
-<!-- // Set environment variable -->
-<!-- CLI.env["PATH"] = "~/bin" -->
 
 ## Args
 
