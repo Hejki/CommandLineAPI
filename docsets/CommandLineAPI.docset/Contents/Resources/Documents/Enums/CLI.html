@@ -14,7 +14,7 @@
     <a title="CLI Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p><a href="../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -526,7 +526,7 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Display prompt to the user.</p>
+                        <p>Displays prompt to the user.</p>
 
                       </div>
                       <div class="declaration">
@@ -588,7 +588,7 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Display prompt to the user.</p>
+                        <p>Displays prompt to the user.</p>
 
 <p>If the user enters a string wich cannot be converted to the expected type,
 <code>ask</code> will keep prompting until a corect value has been entered.</p>
@@ -694,6 +694,152 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
             </div>
             <div class="task-group">
               <div class="task-name-container">
+                <a name="/Choose%20-%20Prompt%20Function"></a>
+                <a name="//apple_ref/swift/Section/Choose - Prompt Function" class="dashAnchor"></a>
+                <a href="#/Choose%20-%20Prompt%20Function">
+                  <h3 class="section-name">Choose - Prompt Function</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO6choose_7choicesS2S_SaySSGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/choose(_:choices:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO6choose_7choicesS2S_SaySSGtFZ">choose(_:choices:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays a menu of items to the user to choose from.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    The <em>choices</em> must be non empty array.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="nf">choose</span><span class="p">(</span><span class="n">_</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">choices</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prompt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>choices</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The items to choose from.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An one of the <em>choices</em> that the user choose.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO6choose_7choicesxSS_SDySSxGtlFZ"></a>
+                    <a name="//apple_ref/swift/Method/choose(_:choices:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO6choose_7choicesxSS_SDySSxGtlFZ">choose(_:choices:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Displays a menu of items to the user to choose from.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    The <em>choices</em> must be non empty dictionary.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="n">choose</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">prompt</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">choices</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">T</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">T</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>prompt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The message to display.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>choices</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The items to choose from. The choice key will be shown to the user (sorted)
+and dictionary value for that key will be returned from this function.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A value of the one of <em>choices</em> that the user choose.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
                 <a name="/Run%20Commands"></a>
                 <a name="//apple_ref/swift/Section/Run Commands" class="dashAnchor"></a>
                 <a href="#/Run%20Commands">
@@ -776,7 +922,7 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Command result with exit status code and parsed stdout and stderr outputs.</p>
+                        <p>A command result with exit status code and parsed stdout and stderr outputs.</p>
                       </div>
                     </section>
                   </div>
@@ -856,7 +1002,59 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>Command result with exit status code and stdout and stderr outputs.</p>
+                        <p>A command result with exit status code and stdout and stderr outputs.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO4echoyAC0A9RunResultVSSFZ"></a>
+                    <a name="//apple_ref/swift/Method/echo(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO4echoyAC0A9RunResultVSSFZ">echo(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Run <code>echo -n</code> command with specified <em>text</em>. This command can be used to chain <em>text</em> output with
+other commands using <code><a href="../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">CommandRunResult.pipe(to:_:)</a></code>. The executor is <code>.default</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">echo</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>text</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The text to be printed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A command result.</p>
                       </div>
                     </section>
                   </div>
@@ -874,7 +1072,8 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Object to hold results from <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>.</p>
+                        <p>Object to hold results from <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>. The results can be chained to
+another command by using <code><a href="../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">CommandRunResult.pipe(to:_:)</a></code> function or <code>|</code> operator.</p>
 
 <p>This object contains command exist status code and stdout and stderr outputs if available.</p>
 
@@ -1050,7 +1249,7 @@ The arguments are parsed only once.
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

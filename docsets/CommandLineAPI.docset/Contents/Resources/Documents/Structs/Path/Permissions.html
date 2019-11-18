@@ -14,7 +14,7 @@
     <a title="Permissions Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p><a href="../../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -134,7 +134,7 @@
             <h1>Permissions</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Permissions</span> <span class="p">:</span> <span class="kt">Equatable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Permissions</span> <span class="p">:</span> <span class="kt">Equatable</span><span class="p">,</span> <span class="kt">OptionSet</span><span class="p">,</span> <span class="kt">CustomStringConvertible</span></code></pre>
 
                 </div>
               </div>
@@ -147,9 +147,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV11PermissionsV5posixSivp"></a>
-                    <a name="//apple_ref/swift/Property/posix" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV5posixSivp">posix</a>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV8rawValueSivp"></a>
+                    <a name="//apple_ref/swift/Property/rawValue" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV8rawValueSivp">rawValue</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -164,7 +164,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">posix</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">rawValue</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -174,9 +174,63 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV11PermissionsV5posixAESi_tcfc"></a>
-                    <a name="//apple_ref/swift/Method/init(posix:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV5posixAESi_tcfc">init(posix:)</a>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV11octalStringSSvp"></a>
+                    <a name="//apple_ref/swift/Property/octalString" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV11octalStringSSvp">octalString</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Octal permissions notation (eg: <code>664</code>).</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">octalString</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV11descriptionSSvp"></a>
+                    <a name="//apple_ref/swift/Property/description" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV11descriptionSSvp">description</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Permisions string representation (eg: <code>&quot;rw-rw-r--&quot;</code>)</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">description</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV8rawValueAESi_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(rawValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV8rawValueAESi_tcfc">init(rawValue:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -191,7 +245,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">posix</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="n"><a href="../../Structs/Path/Permissions.html#/s:14CommandLineAPI4PathV11PermissionsV8rawValueSivp">rawValue</a></span> <span class="nv">posix</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span></code></pre>
 
                         </div>
                       </div>
@@ -217,12 +271,390 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV8userReadAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRead" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV8userReadAEvpZ">userRead</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for user read permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRead</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV9userWriteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userWrite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV9userWriteAEvpZ">userWrite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for user write permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userWrite</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV11userExecuteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userExecute" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV11userExecuteAEvpZ">userExecute</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for user execute permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userExecute</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV9groupReadAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/groupRead" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV9groupReadAEvpZ">groupRead</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for group read permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">groupRead</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV10groupWriteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/groupWrite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV10groupWriteAEvpZ">groupWrite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for group write permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">groupWrite</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV12groupExecuteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/groupExecute" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV12groupExecuteAEvpZ">groupExecute</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for group execute permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">groupExecute</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV10othersReadAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/othersRead" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV10othersReadAEvpZ">othersRead</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for others read permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">othersRead</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV11othersWriteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/othersWrite" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV11othersWriteAEvpZ">othersWrite</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for others write permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">othersWrite</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV13othersExecuteAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/othersExecute" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV13othersExecuteAEvpZ">othersExecute</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A mask for others execute permission.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">othersExecute</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV6userRWAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRW" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV6userRWAEvpZ">userRW</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A common mask for user only read and write permissions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRW</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV7userRWXAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRWX" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV7userRWXAEvpZ">userRWX</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A common mask for user only read, write and execute permissions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRWX</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV11userRW_allRAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRW_allR" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV11userRW_allRAEvpZ">userRW_allR</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A common mask for all read and user only write permissions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRW_allR</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV12userRWX_allXAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRWX_allX" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV12userRWX_allXAEvpZ">userRWX_allX</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A common mask for all execute and user only read, write permissions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRWX_allX</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI4PathV11PermissionsV13userRWX_allRXAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/userRWX_allRX" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI4PathV11PermissionsV13userRWX_allRXAEvpZ">userRWX_allRX</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A common mask for all read, execute and user only write permissions.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">userRWX_allRX</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span><span class="o">.</span><span class="kt">Permissions</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

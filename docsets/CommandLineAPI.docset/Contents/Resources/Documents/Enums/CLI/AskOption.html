@@ -14,7 +14,7 @@
     <a title="AskOption Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p><a href="../../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -384,7 +384,7 @@ and returns a Boolean value to indicate if this <em>value</em> is valid or not.<
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">notEmptyValidator</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"The entered value cannot be empty!"</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">notEmptyValidator</span><span class="p">(</span><span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"The entered value cannot be empty!</span><span class="se">\n</span><span class="s">: "</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
 
                         </div>
                       </div>
@@ -428,9 +428,9 @@ and returns a Boolean value to indicate if this <em>value</em> is valid or not.<
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGSnyxG_SSSgtFZ"></a>
+                    <a name="/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGqd___SSSgt5BoundQyd__RszSXRd__lFZ"></a>
                     <a name="//apple_ref/swift/Method/rangeValidator(_:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGSnyxG_SSSgtFZ">rangeValidator(_:_:)</a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO9AskOptionOAASLRzrlE14rangeValidatoryAEy_xGqd___SSSgt5BoundQyd__RszSXRd__lFZ">rangeValidator(_:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -446,7 +446,7 @@ and returns a Boolean value to indicate if this <em>value</em> is valid or not.<
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">rangeValidator</span><span class="p">(</span><span class="n">_</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">Range</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span></code></pre>
+<span class="kd">static</span> <span class="kd">func</span> <span class="n">rangeValidator</span><span class="o">&lt;</span><span class="kt">R</span><span class="o">&gt;</span><span class="p">(</span><span class="n">_</span> <span class="nv">range</span><span class="p">:</span> <span class="kt">R</span><span class="p">,</span> <span class="n">_</span> <span class="nv">message</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">AskOption</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span> <span class="k">where</span> <span class="kt">T</span> <span class="o">==</span> <span class="kt">R</span><span class="o">.</span><span class="kt">Bound</span><span class="p">,</span> <span class="kt">R</span> <span class="p">:</span> <span class="kt">RangeExpression</span></code></pre>
 
                         </div>
                       </div>
@@ -493,7 +493,7 @@ and returns a Boolean value to indicate if this <em>value</em> is valid or not.<
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

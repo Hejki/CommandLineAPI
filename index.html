@@ -13,7 +13,7 @@
     <a title="CommandLineAPI  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p><a href="index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -135,10 +135,6 @@
 
 <p><img src="https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat" alt="badge-swift"> <img src="https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://hejki.github.io/CommandLineAPI"><img src="https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true" alt="badge-docs"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
 
-<!-- TODO link to documentation coverage -->
-
-<!-- determine right swift version 5.2 or 5.1? -->
-
 <p>The library that can help you create a command line applications. This library is inspired by <a href="https://github.com/nsomar/Swiftline">Swiftline</a> and <a href="https://github.com/mxcl/Path.swift">Path.swift</a>.</p>
 <h2 id='features' class='heading'>Features</h2>
 
@@ -152,7 +148,7 @@
 </ul>
 <h2 id='path' class='heading'>Path</h2>
 
-<p>Path is a simple way for accessing, reading nad writing files and directories.</p>
+<p>Path is a simple way for accessing, reading and writing files and directories.</p>
 
 <p>Crate a Path instance:</p>
 <pre class="highlight swift"><code><span class="c1">// Path are always absolute</span>
@@ -166,33 +162,39 @@
 </code></pre>
 
 <p>Shortcut paths for system directories:</p>
-<pre class="highlight swift"><code><span class="kt">Path</span><span class="o">.</span><span class="n">root</span>    <span class="c1">// File system root</span>
-<span class="kt">Path</span><span class="o">.</span><span class="n">home</span>    <span class="c1">// Current user's home</span>
-<span class="kt">Path</span><span class="o">.</span><span class="n">current</span> <span class="c1">// Current working directory</span>
+<pre class="highlight swift"><code><span class="kt">Path</span><span class="o">.</span><span class="n">root</span>      <span class="c1">// File system root</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">home</span>      <span class="c1">// Current user's home</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">current</span>   <span class="c1">// Current working directory</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">temporary</span> <span class="c1">// Path to temporary directory</span>
 </code></pre>
 
 <p>Path components and path chaining:</p>
-<pre class="highlight swift"><code><span class="c1">// Paths can be joined with appending funcion or + operator</span>
+<pre class="highlight swift"><code><span class="c1">// Paths can be joined with appending function or + operator</span>
 <span class="k">let</span> <span class="nv">readme</span> <span class="o">=</span> <span class="kt">Path</span><span class="o">.</span><span class="n">home</span><span class="o">.</span><span class="nf">appending</span><span class="p">(</span><span class="s">"tools"</span><span class="p">)</span> <span class="o">+</span> <span class="s">"README.md"</span>
 
 <span class="n">readme</span><span class="o">.</span><span class="n">url</span> <span class="c1">// URL representation</span>
-<span class="n">readme</span><span class="o">.</span><span class="n">string</span> <span class="c1">// Absolute path string</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">path</span> <span class="c1">// Absolute path string</span>
 <span class="n">readme</span><span class="o">.</span><span class="n">pathComponents</span> <span class="c1">// ["Users", "hejki", "tools", "README.md"]</span>
-<span class="n">readme</span><span class="o">.</span><span class="kd">extension</span> <span class="c1">// md</span>
-<span class="n">readme</span><span class="o">.</span><span class="n">basename</span> <span class="c1">// README.md</span>
-<span class="n">readme</span><span class="o">.</span><span class="n">basenameWithoutExtension</span> <span class="c1">// README</span>
+<span class="n">readme</span><span class="o">.</span><span class="kd">extension</span> <span class="c1">// "md"</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">basename</span> <span class="c1">// "README.md"</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">basenameWithoutExtension</span> <span class="c1">// "README"</span>
 <span class="n">readme</span><span class="o">.</span><span class="n">parent</span> <span class="c1">// Path("/Users/hejki/tools")</span>
+<span class="n">readme</span><span class="o">.</span><span class="nf">path</span><span class="p">(</span><span class="nv">relativeTo</span><span class="p">:</span> <span class="kt">Path</span><span class="o">.</span><span class="n">home</span> <span class="o">+</span> <span class="s">"Downloads"</span><span class="p">)</span> <span class="c1">// "../tools/README.md"</span>
 </code></pre>
 
 <p>Iterate over the directory content:</p>
-<pre class="highlight swift"><code><span class="k">for</span> <span class="n">path</span> <span class="k">in</span> <span class="kt">Path</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">content</span> <span class="p">{</span>
+<pre class="highlight swift"><code><span class="c1">// Sequence with a shallow search of the specified directory, without hidden files</span>
+<span class="k">for</span> <span class="n">path</span> <span class="k">in</span> <span class="kt">Path</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">children</span> <span class="p">{</span> 
     <span class="nf">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="p">}</span>
+
+<span class="c1">// Use recursive to deep search and/or includingHidden for hidden files</span>
+<span class="kt">Path</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">recursive</span><span class="o">.</span><span class="n">includingHidden</span><span class="o">.</span><span class="n">forEach</span> <span class="p">{</span> <span class="nf">print</span><span class="p">(</span><span class="nv">$0</span><span class="p">)</span> <span class="p">}</span>
 </code></pre>
 
 <p>Access to file and directory attributes:</p>
 <pre class="highlight swift"><code><span class="n">readme</span><span class="o">.</span><span class="n">exist</span> <span class="c1">// `true` if this path represents an actual filesystem entry</span>
-<span class="n">readme</span><span class="o">.</span><span class="n">type</span> <span class="c1">// The type of filesystem entry. Can be .file, .directory, .symlink, etc.</span>
+<span class="n">readme</span><span class="o">.</span><span class="n">type</span> <span class="c1">// The type of filesystem entry. Can be .file, .directory, .symlink and .pipe</span>
 
 <span class="k">let</span> <span class="nv">attributes</span> <span class="o">=</span> <span class="n">readme</span><span class="o">.</span><span class="n">attributes</span>
 
@@ -237,8 +239,8 @@
 <span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="c1">// multiple styles at once</span>
 </code></pre>
 
-<p>Implementations of <code>StringProtocol</code> can use styles directly:</p>
-<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">))</span>
+<p>The types that conforming <code>StringProtocol</code> can use styles directly:</p>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="nf">fg</span><span class="p">(</span><span class="nv">r</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nv">g</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nv">b</span><span class="p">:</span> <span class="mi">0</span><span class="p">)))</span>
 </code></pre>
 <h2 id='prompt-functions' class='heading'>Prompt Functions</h2>
 <h3 id='print' class='heading'>Print</h3>
@@ -272,7 +274,7 @@
 <p>Types that confirms ExpressibleByStringArgument can be returned from ask.</p>
 <pre class="highlight swift"><code><span class="k">let</span> <span class="nv">timeout</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Enter timeout: "</span><span class="p">,</span> <span class="nv">type</span><span class="p">:</span> <span class="kt">Int</span><span class="o">.</span><span class="k">self</span><span class="p">)</span>
 
-<span class="c1">// If user enters something that cannot be converted to Int, a new prompt is diplayed,</span>
+<span class="c1">// If user enters something that cannot be converted to Int, a new prompt is displayed,</span>
 <span class="c1">// this prompt will keep displaying until the user enters an Int:</span>
 <span class="c1">// $ Enter timeout: No</span>
 <span class="c1">// $ Please enter a valid Int.</span>
@@ -304,7 +306,22 @@
 <span class="k">let</span> <span class="nv">i</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">ask</span><span class="p">(</span><span class="s">"Value: "</span><span class="p">,</span> <span class="nv">options</span><span class="p">:</span> <span class="o">.</span><span class="nf">default</span><span class="p">(</span><span class="mi">3</span><span class="p">),</span> <span class="o">.</span><span class="nf">confirm</span><span class="p">(),</span> <span class="n">positive</span><span class="p">)</span>
 </code></pre>
 <h3 id='choose' class='heading'>Choose</h3>
-<pre class="highlight plaintext"><code>TODO: not implemented yet.
+
+<p>Choose is used to prompt the user to select an item between several possible items.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">user</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">choose</span><span class="p">(</span><span class="s">"Select user: "</span><span class="p">,</span> <span class="nv">choices</span><span class="p">:</span> <span class="p">[</span><span class="s">"hejki"</span><span class="p">,</span> <span class="s">"guest"</span><span class="p">])</span>
+
+<span class="c1">// This will print:</span>
+<span class="c1">// $ 1. hejki</span>
+<span class="c1">// $ 2. guest</span>
+<span class="c1">// $ Select user: </span>
+</code></pre>
+
+<p>The user must choose one item from the list by entering its number. If the user enters a wrong input, a prompt will keep showing until the user makes a correct choice.</p>
+
+<p>Choices can be supplied with dictionary, to display a different value than you later get as a result.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">difficulty</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">choose</span><span class="p">(</span><span class="s">"Select difficulty: "</span><span class="p">,</span> <span class="nv">choices</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s">"Easy"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">"Hard"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">"Extreme"</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">])</span>
 </code></pre>
 <h2 id='run' class='heading'>Run</h2>
 
@@ -317,9 +334,9 @@
 <p>Each command can be run with one of available executors. The executor defines how to run command.</p>
 
 <ul>
-<li><code>.default</code> executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all its outputs. Command outputs will be available after task execution in task result. This executor is default for <code>CLI.run</code> functions.</li>
-<li><code>.dummy</code> executor which only prints command to <code>CLI.println</code>. You can specify returned stdout, stderr strings and exitStatus.</li>
-<li><code>.interactive</code> executor runs commands with it&rsquo;s standard output and error outputs redirected to system standard output and error. This executor can handle user&rsquo;s inputs from system standard input. The command outputs will not be recorded.</li>
+<li><code>.default</code> executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for <code>CLI.run</code> functions.</li>
+<li><code>.dummy</code> executor that only prints command to <code>CLI.println</code>. You can specify returned stdout, stderr strings and exitStatus.</li>
+<li><code>.interactive</code> executor runs command with redirected standard/error outputs to system outputs. This executor can handle user&rsquo;s inputs from system standard input. The command output will not be recorded.</li>
 </ul>
 
 <p>For more complex executions use <code>Command</code> type directly:</p>
@@ -332,6 +349,11 @@
 
 <span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre>
+
+<p>Command results can be chained together by using pipes:</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">encode</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="nf">pipe</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="s">"base64"</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span>
+<span class="k">let</span> <span class="nv">decode</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">echo</span><span class="p">(</span><span class="s">"YmFuYW5h"</span><span class="p">)</span> <span class="o">|</span> <span class="s">"base64 -D"</span>
+</code></pre>
 <h2 id='env' class='heading'>Env</h2>
 
 <p>Read and write the environment variables passed to the script:</p>
@@ -340,13 +362,10 @@
 
 <span class="c1">// Get environment variable</span>
 <span class="kt">CLI</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s">"PATH"</span><span class="p">]</span>
+
+<span class="c1">// Set environment variable</span>
+<span class="kt">CLI</span><span class="o">.</span><span class="n">env</span><span class="p">[</span><span class="s">"PATH"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"~/bin"</span>
 </code></pre>
-
-<!-- TODO: not implemented yet. -->
-
-<!-- // Set environment variable -->
-
-<!-- CLI.env["PATH"] = "~/bin" -->
 <h2 id='args' class='heading'>Args</h2>
 
 <p>Returns the arguments passed to the script.</p>
@@ -361,7 +380,7 @@
 <h2 id='instalation' class='heading'>Instalation</h2>
 
 <p>To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your <code>Package.swift</code> file. For more information, please see the <a href="https://github.com/apple/swift-package-manager/tree/master/Documentation">Swift Package Manager documentation</a>.</p>
-<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"0.2.0"</span><span class="p">)</span>
 </code></pre>
 <h2 id='alternatives' class='heading'>Alternatives</h2>
 <h4 id='for-path-handling' class='heading'>for path handling</h4>
@@ -383,7 +402,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

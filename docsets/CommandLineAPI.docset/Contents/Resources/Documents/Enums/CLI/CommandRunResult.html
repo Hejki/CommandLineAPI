@@ -14,7 +14,7 @@
     <a title="CommandRunResult Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">CommandLineAPI 0.1.0 Docs</a> (100% documented)</p>
+        <p><a href="../../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -138,7 +138,8 @@
 
                 </div>
               </div>
-            <p>Object to hold results from <code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>.</p>
+            <p>Object to hold results from <code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>. The results can be chained to
+another command by using <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">CommandRunResult.pipe(to:_:)</a></code> function or <code>|</code> operator.</p>
 
 <p>This object contains command exist status code and stdout and stderr outputs if available.</p>
 
@@ -146,6 +147,33 @@
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV7commandAC0A0Vvp"></a>
+                    <a name="//apple_ref/swift/Property/command" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV7commandAC0A0Vvp">command</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The command for this result.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">command</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI/Command.html">Command</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -193,7 +221,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">stdout</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">stdout</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -227,12 +255,156 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF"></a>
+                    <a name="//apple_ref/swift/Method/pipe(to:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">pipe(to:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chain output of this result to the another command. The executor of the new command
+will be same as executor which provide this result.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pipe</span><span class="p">(</span><span class="n">to</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">String</span><span class="o">...</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CommandRunResult</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>command</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command to be executed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>args</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The command arguments.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new result of the new command.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to4argsAESS_SaySSGtF"></a>
+                    <a name="//apple_ref/swift/Method/pipe(to:args:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to4argsAESS_SaySSGtF">pipe(to:args:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chain the result to a new command. See <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">pipe(to:_:)</a></code> for more info.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">pipe</span><span class="p">(</span><span class="n">to</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">args</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">CommandRunResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV1ooiyA2E_SStFZ"></a>
+                    <a name="//apple_ref/swift/Method/|(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV1ooiyA2E_SStFZ">|(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chain the result to a new command. See <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">pipe(to:_:)</a></code> for more info.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">|</span> <span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">CommandRunResult</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CommandRunResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV1ooiyA2E_SaySSGtFZ"></a>
+                    <a name="//apple_ref/swift/Method/|(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV1ooiyA2E_SaySSGtFZ">|(_:_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Chain the result to a new command. See <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">pipe(to:_:)</a></code> for more info.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="o">|</span> <span class="p">(</span><span class="nv">left</span><span class="p">:</span> <span class="kt">CommandRunResult</span><span class="p">,</span> <span class="nv">right</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">CommandRunResult</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-17)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
