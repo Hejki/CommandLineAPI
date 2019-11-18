@@ -57,7 +57,7 @@ final class ChooseTests: XCTestCase {
             "1) a\n", "2) b\n", "ch: ",
             "invalid option\nch: ",
             "invalid option\nch: ",
-            "invalid option\nch: "
+            "invalid option\nch: ",
         ]
         expect(res) == "a"
     }

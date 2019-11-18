@@ -663,7 +663,7 @@ public extension CLI {
     static func choose(_ prompt: String, choices: [String]) -> String {
         precondition(choices.count > 0, "Number of choices must be greater than 0.")
 
-        let range = 1...choices.count
+        let range = 1 ... choices.count
         let validator = AskOption<String>.validator("invalid option\n\(prompt)") {
             range.contains(Int($0) ?? 0)
         }
@@ -687,7 +687,7 @@ public extension CLI {
             and dictionary value for that key will be returned from this function.
      - Returns: A value of the one of *choices* that the user choose.
      - Precondition: The *choices* must be non empty dictionary.
-    */
+     */
     static func choose<T>(_ prompt: String, choices: [String: T]) -> T {
         let keys = Array(choices.keys).sorted()
         let result = choose(prompt, choices: keys)
