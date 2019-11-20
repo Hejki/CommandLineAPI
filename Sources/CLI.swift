@@ -48,6 +48,14 @@ public enum CLI {
 
     /// Access to parsed command line arguments for current process.
     public static let args = Arguments()
+
+    /**
+     Holds global instance of `ProcessBuilder` that is used for create
+     `Process` instances for `Command` execution. Default is `CLI.Shell.zsh`.
+
+     - SeeAlso: `CLI.Shell`
+     */
+    public static var processBuilder: ProcessBuilder = CLI.Shell.zsh
 }
 
 // MARK: - String Style
@@ -713,31 +721,15 @@ public extension CLI {
      Run external command with defined executor.
 
      - Parameters:
-        - command: The command to execute.
-        - args: The command arguments.
+        - args: The command with arguments to be executed.
         - executor: The command executor for execute defined command.
      - Returns: A command result with exit status code and parsed stdout and stderr outputs.
+     - Precondition: The command arguments is not empty.
      - SeeAlso: `Command.execute()`
      */
     @inlinable
-    static func run(_ command: String, _ args: String..., executor: CommandExecutor = .default) -> CommandRunResult {
-        return run(command, args: args, executor: executor)
-    }
-
-    /**
-     Run external command with defined executor.
-
-     - Parameters:
-       - command: The command to execute.
-       - args: The array with command arguments.
-       - executor: The command executor for execute defined command.
-     - Returns: A command result with exit status code and stdout and stderr outputs.
-     - SeeAlso: `Command.execute()`
-     */
-    @inlinable
-    static func run(_ command: String, args: [String], executor: CommandExecutor = .default) -> CommandRunResult {
-        let arguments = command.split(separator: " ").map(String.init) + args
-        return Command(arguments, executor: executor).execute()
+    static func run(_ args: String..., executor: CommandExecutor = .default) -> CommandRunResult {
+            return Command(args, executor: executor).execute()
     }
 
     /**
@@ -749,7 +741,7 @@ public extension CLI {
      */
     @inlinable
     static func echo(_ text: String) -> CommandRunResult {
-        return Command(["echo", "-n", text], executor: .default).execute()
+        return Command(["echo", "-n", text.quoted], executor: .default).execute()
     }
 
     /**
@@ -797,20 +789,22 @@ public extension CLI {
          will be same as executor which provide this result.
 
          - Parameters:
-            - command: The command to be executed.
-            - args: The command arguments.
+            - args: The command and arguments to be executed.
          - Returns: A new result of the new command.
+         - Precondition: The current result command executor is not `.interactive`
+         - Precondition: The *commandAguments* is not empty.
          */
-        public func pipe(to command: String, _ args: String...) -> CommandRunResult {
-            return pipe(to: command, args: args)
-        }
+        public func pipe(to args: String...) -> CommandRunResult {
+            if case .interactive = command.executor {
+                precondition(false, "The result from interactive executor cannot be used for chaining.")
+            }
+            precondition(!args.isEmpty, "The command cannot be empty.")
 
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public func pipe(to command: String, args: [String]) -> CommandRunResult {
-            let arguments = command.split(separator: " ").map(String.init) + args
-            return self | arguments
+            guard isSuccess else {
+                CLI.println(error: "Cannot pipe to command '\(args.first!)' because previous command ends with status \(exitCode).")
+                return self
+            }
+            return Command(args, fromPipe: self).execute()
         }
 
         /**
@@ -818,21 +812,6 @@ public extension CLI {
          */
         public static func | (left: CommandRunResult, right: String) -> CommandRunResult {
             return left.pipe(to: right)
-        }
-
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public static func | (left: CommandRunResult, right: [String]) -> CommandRunResult {
-            if case .interactive = left.command.executor {
-                precondition(false, "The result from interactive executor cannot be used for chaining.")
-            }
-
-            guard left.exitCode == 0 else {
-                CLI.println(error: "Cannot pipe to command '\(left.command)' because previous command ends with status \(left.exitCode).")
-                return left
-            }
-            return Command(right, fromPipe: left).execute()
         }
     }
 
@@ -851,8 +830,8 @@ public extension CLI {
         You can specify command working directory or environment variables.
      */
     struct Command: CustomStringConvertible {
-        /// The command arguments that should be used to launch the executable.
-        public let arguments: [String]
+        /// The command to execute.
+        fileprivate let commandString: String
 
         /// The command executor.
         public let executor: CommandExecutor
@@ -866,15 +845,13 @@ public extension CLI {
         fileprivate let pipe: Pipe?
 
         /// A textual representation of command wit all arguments.
-        public var description: String {
-            arguments.joined(separator: " ")
-        }
+        public var description: String { commandString }
 
         /**
          Creates an instance of command.
 
          - Parameters:
-            - arguments: The array with all arguments of command.
+            - arguments: The array with all command parts.
             - executor: The command executor which will be used to execute command.
             - workingDirectory: The current working directory for executed command.
             - environment: The environment variables for executed command.
@@ -886,15 +863,18 @@ public extension CLI {
             workingDirectory: Path = .current,
             environment: [String: String]? = nil
         ) {
-            self.arguments = arguments
+            self.commandString = arguments.joined(separator: " ")
             self.executor = executor
             self.workingDirectory = workingDirectory
             self.environment = environment
             self.pipe = nil
         }
 
-        fileprivate init(_ arguments: [String], fromPipe previousResult: CommandRunResult) {
-            self.arguments = arguments
+        fileprivate init(
+            _ arguments: [String],
+            fromPipe previousResult: CommandRunResult
+        ) {
+            self.commandString = arguments.joined(separator: " ")
             self.executor = previousResult.command.executor
             self.workingDirectory = previousResult.command.workingDirectory
             self.environment = previousResult.command.environment
@@ -991,10 +971,7 @@ public extension CLI {
         }
 
         private func createProcess(_ command: Command) -> Process {
-            let process = Process()
-
-            process.launchPath = "/usr/bin/env"
-            process.arguments = command.arguments
+            let process = CLI.processBuilder.create(command.commandString)
 
             if let env = command.environment {
                 process.environment = env
@@ -1020,6 +997,64 @@ public extension CLI {
             pipe.fileHandleForWriting.closeFile()
             return CommandRunResult(command, status, out: stdout, err: stderr, pipe: pipe)
         }
+    }
+
+    /// Basic implementation of `ProcessBuilder`, used to execute common shells.
+    struct Shell: ProcessBuilder {
+        private let launchPath: String
+        private let argumentsPrefix: [String]
+
+        /// Process builder that uses `/usr/bin/env`.
+        public static var env = Shell("/usr/bin/env")
+
+        /// Process builder that uses `bash` shell.
+        public static var bash = Shell("/bin/bash", "-c")
+
+        /// Process builder that uses `zsh` shell.
+        public static var zsh = Shell("/bin/zsh", "-c")
+
+        private init(_ launchPath: String, _ prefix: String...) {
+            self.launchPath = launchPath
+            self.argumentsPrefix = prefix
+        }
+
+        public func create(_ command: String) -> Process {
+            let process = Process()
+
+            process.launchPath = launchPath
+            process.arguments = argumentsPrefix + [command]
+            return process
+        }
+    }
+}
+
+/**
+ Type for builders that creates instances of `Process` for command execution.
+ */
+public protocol ProcessBuilder {
+
+    /**
+     Creates a new `Process` instance to execute specified command.
+
+     - Parameter command: The command to execute.
+     - Returns: A new process instance.
+     */
+    func create(_ command: String) -> Process
+}
+
+public extension CustomStringConvertible {
+
+    /**
+     Quoted version of this textual representation. Adds a double quotes `"`
+     at the begin and end of the *description* to create a string.
+     If this contains some double quotes they will be escaped.
+     */
+    var quoted: String {
+        var str = description
+        if str.contains("\"") {
+            str = str.replacingOccurrences(of: "\"", with: "\\\"")
+        }
+        return "\"\(str)\""
     }
 }
 

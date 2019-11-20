@@ -27,11 +27,6 @@ import Nimble
 import XCTest
 
 final class AttributesTests: XCTestCase {
-//
-//    override func setUp() {
-//        try? dataFile.delete()
-//        _ = try? "a".write(to: dataFile)
-//    }
 
     func testType() throws {
         expect(Path.root.appending("/tmp").type) == .symlink
@@ -44,7 +39,7 @@ final class AttributesTests: XCTestCase {
             expect(file.type) == .file
 
             let pipe = dir.appending("pipe")
-            _ = CLI.run("mkfifo", pipe.path)
+            _ = CLI.run("mkfifo", pipe.path.quoted)
             expect(pipe.type) == .pipe
         }
     }

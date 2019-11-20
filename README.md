@@ -244,9 +244,12 @@ let result = command.execute()
 
 Command results can be chained together by using pipes:
 ```swift
-let encode = CLI.run("echo", "-n", password).pipe(to: "base64").stdout
+CLI.run("ps aux | grep php | awk '{print $2}' | xargs kill")
+let encode = CLI.run("echo", "-n", password.quoted).pipe(to: "base64").stdout
 let decode = CLI.echo("YmFuYW5h") | "base64 -D"
 ```
+
+Commands are executed within context of some shell. If you want change the default `zsh` shell for command execution, see the documentation of `CLI.processBuilder` variable for more informations.
 
 ## Env
 
