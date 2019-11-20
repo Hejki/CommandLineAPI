@@ -28,15 +28,15 @@ import XCTest
 
 final class PathInitTests: XCTestCase {
 
-    func testCommonPaths() {
+    func testCommonPaths() throws {
         expect(Path.root.path) == "/"
-        expect(Path.current.path) == FileManager.default.currentDirectoryPath
+        try expect(Path.current.path) ==  Path(FileManager.default.currentDirectoryPath).path
         expect(Path.home.path) == NSHomeDirectory()
         expect(Path.temporary.path.hasPrefix("/var/folders/")) == true
     }
 
     @available(OSX 10.12, *)
-    func testInit() {
+    func testInit() throws {
         let currentHome = NSHomeDirectory()
         let userName = ProcessInfo.processInfo.userName
 
@@ -47,7 +47,7 @@ final class PathInitTests: XCTestCase {
         expectInit(path: "~\(userName)/tmp", toBe: NSHomeDirectoryForUser(userName)! + "/tmp")
         expectInit(path: "/tmp/..", toBe: "/")
         expectInit(path: "/../.././tmp/../.", toBe: "/")
-        expectInit(path: "tmp", toBe: FileManager.default.currentDirectoryPath + "/tmp")
+        expectInit(path: "tmp", toBe: try Path(FileManager.default.currentDirectoryPath).path + "/tmp")
 
         #if os(macOS)
         expectInit(path: "/private/tmp", toBe: "/tmp")

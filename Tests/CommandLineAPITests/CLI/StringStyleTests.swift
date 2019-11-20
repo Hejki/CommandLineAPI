@@ -95,6 +95,20 @@ final class StringStyleTests: XCTestCase {
         }
     }
 
+    func testDisableStyles() {
+        CLI.enableStringStyles = false
+        defer {
+            CLI.enableStringStyles = true
+        }
+
+        expect(Style.bgWhite.enrich("e")) == "e"
+        expect("t".styled(.fgRed)) == "t"
+        expect("\(12, style: .italic)") == "12"
+
+        let styles: [Style] = [.bgYellow, .fgWhite, .bold, .italic]
+        expect(styles.enrich("32")) == "32"
+    }
+
     private struct S: CustomStringConvertible {
         var description: String {
             "s"

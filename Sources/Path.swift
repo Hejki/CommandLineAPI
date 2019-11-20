@@ -175,7 +175,7 @@ public extension Path {
 
     /// The `Path` to the current working directory.
     static var current: Path {
-        return .init(exactPath: FileManager.default.currentDirectoryPath)
+        return try! .init(FileManager.default.currentDirectoryPath)
     }
 
     /// The current user's home
@@ -200,7 +200,7 @@ public extension Path {
         if #available(OSX 10.12, *) {
             return try! .init(url: FileManager.default.temporaryDirectory)
         }
-        return .init(exactPath: NSTemporaryDirectory())
+        return try! .init(NSTemporaryDirectory())
     }
 }
 
@@ -686,9 +686,8 @@ extension Path: ExpressibleByStringArgument {
     }
 }
 
-// MARK: - Equatable, Hashable
-extension Path: Equatable, Hashable {
-
+// MARK: - Equatable, Hashable, etc.
+extension Path: Equatable, Hashable, Comparable {
     @inlinable
     public static func == (lhs: Path, rhs: Path) -> Bool {
         return lhs.path == rhs.path
@@ -697,6 +696,32 @@ extension Path: Equatable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(path)
     }
+
+    public static func < (lhs: Path, rhs: Path) -> Bool {
+        lhs.path < rhs.path
+    }
+}
+
+extension Path: Codable {
+
+    /**
+     Creates a new instance of path by decoding from the given decoder.
+
+     - Parameter decoder: The decoder to read data from.
+     */
+    public init(from decoder: Decoder) throws {
+        try self.init(decoder.singleValueContainer().decode(String.self))
+    }
+
+    /**
+     Encodes this path into the given encoder.
+
+     - Parameter encoder: The encoder to write data to.
+     */
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.path)
+    }
 }
 
 // MARK: - Bundle Extension
@@ -704,7 +729,7 @@ public extension Bundle {
 
     /// The `Path` of the receiver's bundle directory.
     var path: Path {
-        Path(exactPath: bundlePath)
+        try! Path(bundlePath)
     }
 
     /**
@@ -819,15 +844,13 @@ public extension Path {
      A sequence of child locations contained within a given folder.
      You obtain an instance of this type by accessing `children` on `Path` instance.
      */
-    struct ChildSequence: Sequence, IteratorProtocol {
-        fileprivate let path: Path
-        fileprivate var enumerator: FileManager.DirectoryEnumerator?
-        fileprivate var enumeratorOptions: FileManager.DirectoryEnumerationOptions
+    struct ChildSequence: Sequence {
+        private let path: Path
+        private var enumeratorOptions: FileManager.DirectoryEnumerationOptions
 
         fileprivate init(_ path: Path) {
             self.path = path
             self.enumeratorOptions = [.skipsPackageDescendants, .skipsSubdirectoryDescendants, .skipsHiddenFiles]
-            self.enumerator = Self.enumerator(for: self)
         }
 
         /**
@@ -838,7 +861,6 @@ public extension Path {
 
             sequence.enumeratorOptions.remove(.skipsSubdirectoryDescendants)
             sequence.enumeratorOptions.remove(.skipsPackageDescendants)
-            sequence.enumerator = Self.enumerator(for: sequence)
             return sequence
         }
 
@@ -850,8 +872,41 @@ public extension Path {
             var sequence = self
 
             sequence.enumeratorOptions.remove(.skipsHiddenFiles)
-            sequence.enumerator = Self.enumerator(for: sequence)
             return sequence
+        }
+
+        /**
+         Checks if this sequence is empty.
+         */
+        public var isEmpty: Bool {
+            first(where: { _ in true }) == nil
+        }
+
+        /**
+         Count the number of items countained within this sequence.
+         */
+        public var count: Int {
+            reduce(0) { count, _ in count + 1 }
+        }
+
+        public func makeIterator() -> ChildSequenceIterator {
+            ChildSequenceIterator(FileManager.default.enumerator(
+                at: path.url,
+                includingPropertiesForKeys: nil,
+                options: enumeratorOptions
+            ))
+        }
+    }
+
+    /**
+     The type of iterator used byt `Path.ChildSequence`. Don't interact with this type directly.
+     See `Path.ChildSequence` for more information.
+     */
+    struct ChildSequenceIterator: IteratorProtocol {
+        fileprivate var enumerator: FileManager.DirectoryEnumerator?
+
+        fileprivate init(_ enumerator: FileManager.DirectoryEnumerator?) {
+            self.enumerator = enumerator
         }
 
         /**
@@ -870,15 +925,6 @@ public extension Path {
                 return path
             }
             return nil
-        }
-
-        /// Make a new file enumerator.
-        private static func enumerator(for seq: ChildSequence) -> FileManager.DirectoryEnumerator? {
-            return FileManager.default.enumerator(
-                at: seq.path.url,
-                includingPropertiesForKeys: nil,
-                options: seq.enumeratorOptions
-            )
         }
     }
 

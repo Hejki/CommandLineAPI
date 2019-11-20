@@ -36,6 +36,13 @@ public enum CLI {
      */
     public static var prompt: PromptHandler = ConsolePromptHandler()
 
+    /**
+     Flag for globally enable or disable the `StringStyle` formatting.
+     If set to `false`, string styles not be evaluated inside strings.
+     Default is `true`.
+     */
+    public static var enableStringStyles: Bool = true
+
     /// Access to environment variables of current process.
     public static var env = Environment()
 
@@ -54,7 +61,7 @@ public extension CLI {
 
      This styles can be used in string iterpolation:
      ```swift
-     print("Result is \(result.exitStatus, styled: .fgRed, .italic)")
+     print("Result is \(result.exitCode, styled: .fgRed, .italic)")
      ```
 
      or can be used with any instances of `StringProtocol`:
@@ -71,6 +78,9 @@ public extension CLI {
         }
 
         func enrich<S: StringProtocol>(_ string: S) -> String {
+            guard CLI.enableStringStyles else {
+                return string.description
+            }
             return "\(escapeCode)\(string)\(resetCode)"
         }
 
@@ -219,7 +229,7 @@ extension Array where Element == CLI.StringStyle {
 
     /// Add all `StringStyle`s in array to specified string.
     func enrich<S: CustomStringConvertible>(_ string: S) -> String {
-        if isEmpty {
+        if isEmpty || !CLI.enableStringStyles {
             return string.description
         }
 
@@ -518,7 +528,7 @@ public extension CLI {
 
 /**
  A type that can be initialized with a string argument.
- Any type that extends this can be used in `CLI.ask(_:options:)` and `CLI.choose` functions.
+ Any type that extends this can be used in `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
  */
 public protocol ExpressibleByStringArgument {
 
@@ -535,7 +545,7 @@ extension String: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -548,7 +558,7 @@ extension Int: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -564,7 +574,7 @@ extension Bool: ExpressibleByStringArgument {
      values `n`, `no` and `false` are represents the boolean value `false`,
      other values are returned as uninitialized object.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     public init?(stringArgument arg: String) {
         let str = arg.lowercased()
@@ -583,7 +593,7 @@ extension Double: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -596,7 +606,7 @@ extension Float: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -752,8 +762,8 @@ public extension CLI {
         /// The command for this result.
         public let command: Command
 
-        /// The exit status code of executed command.
-        public let exitStatus: Int
+        /// The exit code of executed command.
+        public let exitCode: Int
 
         /// The string printed to the standard output by executed command.
         public var stdout: String {
@@ -769,9 +779,14 @@ public extension CLI {
         fileprivate let pipe: Pipe?
         private let cachedStdout: String
 
+        /// Returns `true` if *exitCode* is `0`.
+        var isSuccess: Bool {
+            exitCode == 0
+        }
+
         fileprivate init(_ command: Command, _ status: Int, out: String = "", err: String = "", pipe: Pipe? = nil) {
             self.command = command
-            self.exitStatus = status
+            self.exitCode = status
             self.cachedStdout = out
             self.stderr = err
             self.pipe = pipe
@@ -813,8 +828,8 @@ public extension CLI {
                 precondition(false, "The result from interactive executor cannot be used for chaining.")
             }
 
-            guard left.exitStatus == 0 else {
-                CLI.println(error: "Cannot pipe to command '\(left.command)' because previous command ends with status \(left.exitStatus).")
+            guard left.exitCode == 0 else {
+                CLI.println(error: "Cannot pipe to command '\(left.command)' because previous command ends with status \(left.exitCode).")
                 return left
             }
             return Command(right, fromPipe: left).execute()

@@ -40,6 +40,11 @@ final class PathOtherTests: XCTestCase {
         }
     }
 
+    func testComparable() {
+        expect(Path.current.appending("a")) < Path.current.appending("b")
+        expect(Path.current.appending("a/b")) > Path.current.appending("a/a")
+    }
+
     func testBundle() throws {
         try Path.createTemporaryDirectory { dir -> Void in
             guard let bundle = Bundle(path: dir.path) else {
@@ -71,5 +76,20 @@ final class PathOtherTests: XCTestCase {
         for (e, msg) in zip(e, msg) {
             expect(e.localizedDescription) == msg
         }
+    }
+
+    func testCodable() throws {
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        let fullPath = "/mypath/file.txt"
+
+        let encoded = try encoder.encode(Path.root.appending(fullPath))
+        expect(String(data: encoded, encoding: .utf8)) == "\"\\/mypath\\/file.txt\""
+
+        var decoded = try decoder.decode(Path.self, from: encoded)
+        expect(decoded.path) == fullPath
+
+        decoded = try decoder.decode(Path.self, from: "\"/mypath/file.txt\"".data(using: .utf8)!)
+        expect(decoded.path) == fullPath
     }
 }

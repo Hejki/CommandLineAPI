@@ -89,7 +89,7 @@ final class RunTests: XCTestCase {
             let r1 = CLI.Command(["ls"], workingDirectory: dir).execute()
             let r2 = CLI.Command(["ls", "-a"], workingDirectory: dir).execute()
 
-            expect(r1.exitStatus) == 0
+            expect(r1.exitCode) == 0
             expect(r1.stdout) == "a\nb\n"
             expect(r2.stdout) == ".\n..\na\nb\n"
         }
@@ -101,7 +101,7 @@ final class RunTests: XCTestCase {
             environment: ["TEST_ENV_VAR": "varenv"]
         ).execute()
 
-        expect(res.exitStatus) == 0
+        expect(res.exitCode) == 0
         expect(res.stdout) == "varenv\n"
         expect(res.stderr) == ""
     }
@@ -109,7 +109,7 @@ final class RunTests: XCTestCase {
     func testRunVarargs() {
         let res = CLI.run("echo", "-n", "b", executor: .interactive)
 
-        expect(res.exitStatus) == 0
+        expect(res.exitCode) == 0
         expect(res.stdout) == ""
         expect(res.stderr) == ""
     }
@@ -119,26 +119,26 @@ final class RunTests: XCTestCase {
 
         let result = CLI.run(cmd, args: args, executor: executor)
 
-        expect(result.exitStatus) == status
+        expect(result.exitCode) == status
         expect(result.stdout) == stdout
         expect(result.stderr) == stderr
     }
 
     func testRun_pipe() {
         var result = CLI.run("echo -n", "Hi!").pipe(to: "base64")
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "SGkh\n"
         expect(result.command.arguments) == ["base64"]
 
         result = CLI.run("echo -n", args: ["Hi!"])
             .pipe(to: "base64")
             .pipe(to: "base64", args: ["-D"])
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "Hi!"
         expect(result.command.arguments) == ["base64", "-D"]
 
         result = CLI.run("echo", "Hi!\nHello\ntest").pipe(to: "grep", "H")
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "Hi!\nHello\n"
         expect(result.stderr) == ""
         expect(result.command.arguments) == ["grep", "H"]
@@ -146,21 +146,21 @@ final class RunTests: XCTestCase {
         result = CLI.run("a", executor: .dummy(status: 0, stdout: "o", stderr: "e"))
             .pipe(to: "b")
             .pipe(to: "c")
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "o"
         expect(result.stderr) == "e"
         expect(result.command.arguments) == ["c"]
         expect(self.ph.prints) == ["Executed: a\n", "Executed: b\n", "Executed: c\n"]
 
         result = CLI.run("echo -n Hi!") | "base64" | ["base64", "-D"]
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "Hi!"
         expect(result.command.arguments) == ["base64", "-D"]
     }
 
     func testRun_pipeFail() {
         let result = CLI.run("cmdNotExist").pipe(to: "echo Hi")
-        expect(result.exitStatus) == 127
+        expect(result.exitCode) == 127
         expect(result.command.arguments) == ["cmdNotExist"]
 
         expect {
@@ -171,7 +171,7 @@ final class RunTests: XCTestCase {
     func testEcho() {
         let result = CLI.echo("YmFuYW5h") | "base64 -D"
 
-        expect(result.exitStatus) == 0
+        expect(result.exitCode) == 0
         expect(result.stdout) == "banana"
         expect(result.command.arguments) == ["base64", "-D"]
     }

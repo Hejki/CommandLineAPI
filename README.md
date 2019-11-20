@@ -111,14 +111,16 @@ String styles helps styling the strings before printing them to the terminal. Yo
 
 Change style of string part using string interpolation extension:
 ```swift
-print("Result is \(result.exitStatus, styled: .fgRed)")
-print("Result is \(result.exitStatus, styled: .fgRed, .italic)") // multiple styles at once
+print("Result is \(result.exitCode, styled: .fgRed)")
+print("Result is \(result.exitCode, styled: .fgRed, .italic)") // multiple styles at once
 ```
 
 The types that conforming `StringProtocol` can use styles directly:
 ```swift
 print("Init...".styled(.bgMagenta, .bold, .fg(r: 12, g: 42, b: 0)))
 ```
+
+The string style interpolation can be globaly disabled by setting `CLI.enableStringStyles` to `false`, the interpolation is enabled by default.
 
 ## Prompt Functions
 
@@ -162,9 +164,9 @@ let timeout = CLI.ask("Enter timeout: ", type: Int.self)
 // this prompt will keep displaying until the user enters an Int:
 // $ Enter timeout: No
 // $ Please enter a valid Int.
-// $ 2.3
+// > 2.3
 // $ Please enter a valid Int.
-// $ 2
+// > 2
 ```
 
 Prompt can be customized througt ask options.
@@ -218,14 +220,14 @@ Run provides a quick way to run an external command and read its standard/error 
 
 ```swift
 let result = CLI.run("ls -al")
-print(result.exitStatus)
+print(result.exitCode)
 print(result.stdout)
 ```
 
 Each command can be run with one of available executors. The executor defines how to run command.
 
 * `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for `CLI.run` functions.
-* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitStatus.
+* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitCode.
 * `.interactive` executor runs command with redirected standard/error outputs to system outputs. This executor can handle user's inputs from system standard input. The command output will not be recorded.
 
 For more complex executions use `Command` type directly:
@@ -277,7 +279,7 @@ CLI.args.parameters == ["init", "tool"]
 
 To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your `Package.swift` file. For more information, please see the [Swift Package Manager documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation).
 ```swift
-.package(url: "https://github.com/Hejki/CommandLineAPI", from: "0.2.0")
+.package(url: "https://github.com/Hejki/CommandLineAPI", from: "0.3.0")
 ```
 
 ## Alternatives
@@ -294,6 +296,10 @@ To install CommandLineAPI for use in a Swift Package Manager powered tool, add C
 * [Swiftline](https://github.com/nsomar/Swiftline) by Omar Abdelhafith
 * [Commander](https://github.com/kylef/Commander) by Kyle Fuller 
 
+## Questions or feedback?
+
+Feel free to [open an issue][new-issue], or find me [@hejki on Twitter](https://twitter.com/hejki).
+
 [badge-swift]: https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat
 [badge-spm]: https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat
 [spm-link]: https://swift.org/package-manager
@@ -304,3 +310,4 @@ To install CommandLineAPI for use in a Swift Package Manager powered tool, add C
 [licence]: https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE
 [docs]: https://hejki.github.io/CommandLineAPI
 [badge-docs]: https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true
+[new-issue]: https://github.com/Hejki/CommandLineAPI/issues/new
