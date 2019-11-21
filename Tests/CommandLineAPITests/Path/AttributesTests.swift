@@ -39,7 +39,7 @@ final class AttributesTests: XCTestCase {
             expect(file.type) == .file
 
             let pipe = dir.appending("pipe")
-            _ = CLI.run("mkfifo", pipe.path.quoted)
+            _ = try CLI.run("mkfifo", pipe.path.quoted)
             expect(pipe.type) == .pipe
         }
     }

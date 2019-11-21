@@ -728,91 +728,8 @@ public extension CLI {
      - SeeAlso: `Command.execute()`
      */
     @inlinable
-    static func run(_ args: String..., executor: CommandExecutor = .default) -> CommandRunResult {
-            return Command(args, executor: executor).execute()
-    }
-
-    /**
-     Run `echo -n` command with specified *text*. This command can be used to chain *text* output with
-     other commands using `CommandRunResult.pipe(to:_:)`. The executor is `.default`.
-
-     - Parameter text: The text to be printed.
-     - Returns: A command result.
-     */
-    @inlinable
-    static func echo(_ text: String) -> CommandRunResult {
-        return Command(["echo", "-n", text.quoted], executor: .default).execute()
-    }
-
-    /**
-     Object to hold results from `CLI.run(_:_:executor:)` or `Command.execute()`. The results can be chained to
-     another command by using `CommandRunResult.pipe(to:_:)` function or `|` operator.
-
-     This object contains command exist status code and stdout and stderr outputs if available.
-     */
-    struct CommandRunResult {
-        /// The command for this result.
-        public let command: Command
-
-        /// The exit code of executed command.
-        public let exitCode: Int
-
-        /// The string printed to the standard output by executed command.
-        public var stdout: String {
-            if let fileHandle = pipe?.fileHandleForReading {
-                return String(data: fileHandle.availableData, encoding: .utf8) ?? ""
-            }
-            return cachedStdout
-        }
-
-        /// The string printed to the error output by executed command.
-        public let stderr: String
-
-        fileprivate let pipe: Pipe?
-        private let cachedStdout: String
-
-        /// Returns `true` if *exitCode* is `0`.
-        var isSuccess: Bool {
-            exitCode == 0
-        }
-
-        fileprivate init(_ command: Command, _ status: Int, out: String = "", err: String = "", pipe: Pipe? = nil) {
-            self.command = command
-            self.exitCode = status
-            self.cachedStdout = out
-            self.stderr = err
-            self.pipe = pipe
-        }
-
-        /**
-         Chain output of this result to the another command. The executor of the new command
-         will be same as executor which provide this result.
-
-         - Parameters:
-            - args: The command and arguments to be executed.
-         - Returns: A new result of the new command.
-         - Precondition: The current result command executor is not `.interactive`
-         - Precondition: The *commandAguments* is not empty.
-         */
-        public func pipe(to args: String...) -> CommandRunResult {
-            if case .interactive = command.executor {
-                precondition(false, "The result from interactive executor cannot be used for chaining.")
-            }
-            precondition(!args.isEmpty, "The command cannot be empty.")
-
-            guard isSuccess else {
-                CLI.println(error: "Cannot pipe to command '\(args.first!)' because previous command ends with status \(exitCode).")
-                return self
-            }
-            return Command(args, fromPipe: self).execute()
-        }
-
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public static func | (left: CommandRunResult, right: String) -> CommandRunResult {
-            return left.pipe(to: right)
-        }
+    static func run(_ args: String..., executor: CommandExecutor = .default) throws -> String {
+            return try Command(args, executor: executor).execute()
     }
 
     /**
@@ -842,8 +759,6 @@ public extension CLI {
         /// The environment for the command. If this is `nil`, the environment is inherited from the current process.
         public let environment: [String: String]?
 
-        fileprivate let pipe: Pipe?
-
         /// A textual representation of command wit all arguments.
         public var description: String { commandString }
 
@@ -867,18 +782,6 @@ public extension CLI {
             self.executor = executor
             self.workingDirectory = workingDirectory
             self.environment = environment
-            self.pipe = nil
-        }
-
-        fileprivate init(
-            _ arguments: [String],
-            fromPipe previousResult: CommandRunResult
-        ) {
-            self.commandString = arguments.joined(separator: " ")
-            self.executor = previousResult.command.executor
-            self.workingDirectory = previousResult.command.workingDirectory
-            self.environment = previousResult.command.environment
-            self.pipe = previousResult.pipe
         }
 
         /**
@@ -886,8 +789,8 @@ public extension CLI {
 
          - Returns: The command execution result.
          */
-        public func execute() -> CommandRunResult {
-            return executor.execute(self)
+        public func execute() throws -> String {
+            return try executor.execute(self)
         }
     }
 
@@ -920,54 +823,55 @@ public extension CLI {
          */
         case interactive
 
-        fileprivate func execute(_ command: Command) -> CommandRunResult {
+        fileprivate func execute(_ command: Command) throws -> String {
             switch self {
             case .default:
-                return currentTaskExecute(command)
+                return try currentTaskExecute(command)
             case .interactive:
-                return interactiveExecute(command)
+                return try interactiveExecute(command)
             case let .dummy(status, stdout, stderr):
-                return dummyExecute(command, status, stdout, stderr)
+                return try dummyExecute(command, status, stdout, stderr)
             }
         }
 
-        private func currentTaskExecute(_ command: Command) -> CommandRunResult {
+        private func currentTaskExecute(_ command: Command) throws -> String {
             let process = createProcess(command)
             let (stdout, stderr) = (Pipe(), Pipe())
 
             process.standardOutput = stdout
             process.standardError = stderr
-            if let stdin = command.pipe {
-                process.standardInput = stdin
-            }
-
             process.launch()
             process.waitUntilExit()
 
-            return CommandRunResult(
-                command,
+            return try createResult(
                 Int(process.terminationStatus),
-                err: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? "",
-                pipe: stdout
+                out: String(data: stdout.fileHandleForReading.availableData, encoding: .utf8) ?? "",
+                err: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? ""
             )
         }
 
-        private func interactiveExecute(_ command: Command) -> CommandRunResult {
+        private func interactiveExecute(_ command: Command) throws -> String {
             let process = createProcess(command)
 
             process.standardOutput = FileHandle.standardOutput
             process.standardError = FileHandle.standardError
             process.standardOutput = FileHandle.standardOutput
-
             process.launch()
             process.waitUntilExit()
 
-            return CommandRunResult(
-                command,
-                Int(process.terminationStatus),
-                out: "",
-                err: ""
-            )
+            return try createResult(Int(process.terminationStatus))
+        }
+
+        private func dummyExecute(_ command: Command, _ status: Int, _ stdout: String, _ stderr: String) throws -> String {
+            CLI.println("Executed: \(command)")
+            return try createResult(status, out: stdout, err: stderr)
+        }
+
+        private func createResult(_ terminationStatus: Int, out: String = "", err: String = "") throws -> String {
+            if terminationStatus != 0 {
+                throw CommandExecutionError(terminationStatus: terminationStatus, stderr: err, stdout: out)
+            }
+            return out
         }
 
         private func createProcess(_ command: Command) -> Process {
@@ -983,19 +887,6 @@ public extension CLI {
                 process.currentDirectoryPath = command.workingDirectory.path
             }
             return process
-        }
-
-        private func dummyExecute(_ command: Command, _ status: Int, _ stdout: String, _ stderr: String) -> CommandRunResult {
-            let pipe = Pipe()
-
-            CLI.println("Executed: \(command)")
-            if let data = stdout.data(using: .utf8) {
-                pipe.fileHandleForWriting.write(data)
-            } else {
-                pipe.fileHandleForWriting.write("".data(using: .utf8)!)
-            }
-            pipe.fileHandleForWriting.closeFile()
-            return CommandRunResult(command, status, out: stdout, err: stderr, pipe: pipe)
         }
     }
 
@@ -1025,6 +916,18 @@ public extension CLI {
             process.arguments = argumentsPrefix + [command]
             return process
         }
+    }
+
+    /// The error type that are used if command not executed correctly.
+    struct CommandExecutionError: Error {
+        /// The termination status of the command that was run.
+        public let terminationStatus: Int
+
+        /// The error message as returned through `stderr`.
+        public let stderr: String
+
+        /// The output of the command as returned through `stdout`.
+        public var stdout: String
     }
 }
 

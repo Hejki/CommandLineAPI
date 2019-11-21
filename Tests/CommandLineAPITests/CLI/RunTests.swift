@@ -34,46 +34,20 @@ final class RunTests: XCTestCase {
     }
 
     func testCurrentTaskRun() {
-        run(
-            CLI.run("echo", "Hello", executor: .default),
-            status: 0,
-            stdout: "Hello\n",
-            stderr: ""
-        )
-
-        run(
-            CLI.run("echo", "-n", "Hello"),
-            status: 0,
-            stdout: "Hello",
-            stderr: ""
-        )
-
-        run(
-            CLI.run("echo -n Hello World"),
-            status: 0,
-            stdout: "Hello World",
-            stderr: ""
-        )
-
+        expect(try CLI.run("echo", "Hello", executor: .default)) == "Hello\n"
+        expect(try CLI.run("echo", "-n", "Hello")) == "Hello"
+        expect(try CLI.run("echo -n Hello World")) == "Hello World"
         expect(self.ph.prints) == []
     }
 
     func testDummyExecutor() {
-        run(
-            CLI.run("echo", "Hello", executor: .dummy()),
-            status: 0,
-            stdout: "",
-            stderr: ""
-        )
+        expect(try CLI.run("echo", "Hello", executor: .dummy())) == ""
+        expect(try CLI.run("dummy", executor: .dummy(status: 0, stdout: "out"))) == "out"
 
-        run(
-            CLI.run("dummy", executor: .dummy(status: 123, stdout: "out")),
-            status: 123,
-            stdout: "out",
-            stderr: ""
-        )
+        expect(try CLI.run("d", executor: .dummy(status: 123, stdout: "o", stderr: "e")))
+            .to(throwError(CLI.CommandExecutionError(terminationStatus: 123, stderr: "e", stdout: "o")))
 
-        expect(self.ph.prints) == ["Executed: echo Hello\n", "Executed: dummy\n"]
+        expect(self.ph.prints) == ["Executed: echo Hello\n", "Executed: dummy\n", "Executed: d\n"]
     }
 
     func testCWD() throws {
@@ -81,112 +55,60 @@ final class RunTests: XCTestCase {
             try dir.appending("a").touch()
             try dir.appending("b").touch()
 
-            let r1 = CLI.Command(["ls"], workingDirectory: dir).execute()
-            let r2 = CLI.Command(["ls", "-a"], workingDirectory: dir).execute()
+            let r1 = try CLI.Command(["ls"], workingDirectory: dir).execute()
+            let r2 = try CLI.Command(["ls", "-a"], workingDirectory: dir).execute()
 
-            expect(r1.exitCode) == 0
-            expect(r1.stdout) == "a\nb\n"
-            expect(r2.stdout) == ".\n..\na\nb\n"
+            expect(r1) == "a\nb\n"
+            expect(r2) == ".\n..\na\nb\n"
         }
     }
 
-    func testEnv() {
-        let res = CLI.Command(
+    func testEnv() throws {
+        let res = try CLI.Command(
             ["printenv", "TEST_ENV_VAR"],
             environment: ["TEST_ENV_VAR": "varenv"]
         ).execute()
 
-        expect(res.exitCode) == 0
-        expect(res.stdout) == "varenv\n"
-        expect(res.stderr) == ""
+        expect(res) == "varenv\n"
     }
 
-    func testRunVarargs() {
-        let res = CLI.run("echo", "-n", "b", executor: .interactive)
+    func testRunVarargs() throws {
+        let res = try CLI.run("echo", "-n", "b", executor: .interactive)
 
-        expect(res.exitCode) == 0
-        expect(res.stdout) == ""
-        expect(res.stderr) == ""
+        expect(res) == ""
     }
 
-    private func run(
-        _ run: @autoclosure () -> CLI.CommandRunResult,
-        status: Int, stdout: String, stderr: String
-    ) {
+    func testRun_pipe() throws {
+        var result = try CLI.run("echo -n", "Hi! | base64")
+        expect(result) == "SGkh\n"
 
-        let result = run()
+        result = try CLI.run("echo -n", "Hi! | base64 | base64 -D")
+        expect(result) == "Hi!"
 
-        expect(result.exitCode) == status
-        expect(result.stdout) == stdout
-        expect(result.stderr) == stderr
+        result = try CLI.run("echo", "Hi!\nHello\ntest".quoted, "|", "grep H")
+        expect(result) == "Hi!\nHello\n"
     }
 
-    func testRun_pipe() {
-        var result = CLI.run("echo -n", "Hi!").pipe(to: "base64")
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "SGkh\n"
-        expect(result.command.description) == "base64"
-
-        result = CLI.run("echo -n", "Hi!")
-            .pipe(to: "base64")
-            .pipe(to: "base64", "-D")
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "Hi!"
-        expect(result.command.description) == "base64 -D"
-
-        result = CLI.run("echo", "Hi!\nHello\ntest".quoted).pipe(to: "grep H")
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "Hi!\nHello\n"
-        expect(result.stderr) == ""
-        expect(result.command.description) == "grep H"
-
-        result = CLI.run("a", executor: .dummy(status: 0, stdout: "o", stderr: "e"))
-            .pipe(to: "b")
-            .pipe(to: "c")
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "o"
-        expect(result.stderr) == "e"
-        expect(result.command.description) == "c"
-        expect(self.ph.prints) == ["Executed: a\n", "Executed: b\n", "Executed: c\n"]
-
-        result = CLI.run("echo -n Hi!") | "base64" | "base64 -D"
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "Hi!"
-        expect(result.command.description) == "base64 -D"
-
-        result = CLI.run("echo -n Hi! | base64 | base64 -D")
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "Hi!"
-        expect(result.command.description) == "echo -n Hi! | base64 | base64 -D"
+    func testRun_pipeFail() throws {
+        expect(try CLI.run("cmdNotExist")).to(
+            throwError(CLI.CommandExecutionError(terminationStatus: 127, stderr: "", stdout: "")))
     }
 
-    func testRun_pipeFail() {
-        let result = CLI.run("cmdNotExist").pipe(to: "echo Hi")
-        expect(result.exitCode) == 127
-        expect(result.command.description) == "cmdNotExist"
-
-        expect {
-            _ = CLI.run("ls", executor: .interactive).pipe(to: "echo")
-        }.to(throwAssertion())
-    }
-
-    func testEcho() {
-        let result = CLI.echo("YmFuYW5h") | "base64 -D"
-
-        expect(result.exitCode) == 0
-        expect(result.stdout) == "banana"
-        expect(result.command.description) == "base64 -D"
-    }
-
-    func testProcess_env() {
+    func testProcess_env() throws {
         CLI.processBuilder = CLI.Shell.env
-        expect(CLI.run("swift", "--version").exitCode) == 127
+        do {
+            _ = try CLI.run("swift", "--version")
+        } catch let error as CLI.CommandExecutionError {
+            expect(error.terminationStatus) == 127
+            expect(error.stderr) == "env: swift --version: No such file or directory\n"
+            expect(error.stdout) == ""
+        }
 
         CLI.processBuilder = CLI.Shell.bash
-        expect(CLI.run("swift --version").exitCode) == 0
+        expect(try CLI.run("swift --version")).to(contain("Swift"))
 
         CLI.processBuilder = CLI.Shell.zsh
-        expect(CLI.run("swift --version").exitCode) == 0
+        expect(try CLI.run("swift --version")).to(contain("Swift"))
     }
 
     func testRun_pipeInString() throws {
@@ -195,9 +117,8 @@ final class RunTests: XCTestCase {
             try tmp.touch("b")
             try tmp.touch("_a")
 
-            let result = CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp).execute()
-            expect(result.exitCode) == 0
-            expect(result.stdout) == "a\n_a\n"
+            let result = try CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp).execute()
+            expect(result) == "a\n_a\n"
         }
     }
 }

@@ -216,18 +216,31 @@ let difficulty = CLI.choose("Select difficulty: ", choices: [
 
 ## Run
 
-Run provides a quick way to run an external command and read its standard/error output and exit status.
+Run provides a quick way to run an external command and read its standard output.
 
 ```swift
-let result = CLI.run("ls -al")
-print(result.exitCode)
-print(result.stdout)
+let files = try CLI.run("ls -al")
+print(files)
+
+// Complex example with pipes different commands together
+try CLI.run("ps aux | grep php | awk '{print $2}' | xargs kill")
+```
+
+In case of error, `run` will automatically read `stderr` and format it into a typed Swift error:
+```swift
+do {
+    try CLI.run("swift", "build")
+} catch let error as CLI.CommandExecutionError {
+    print(error.terminationStatus) // Prints termination status code
+    print(error.stderr) // Prints error output
+    print(error.stdout) // Prints standard output
+}
 ```
 
 Each command can be run with one of available executors. The executor defines how to run command.
 
-* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for `CLI.run` functions.
-* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitCode.
+* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command standard output will be returned after task execution. This executor is default for `CLI.run` functions.
+* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout string, stderr and exitCode.
 * `.interactive` executor runs command with redirected standard/error outputs to system outputs. This executor can handle user's inputs from system standard input. The command output will not be recorded.
 
 For more complex executions use `Command` type directly:
@@ -239,17 +252,10 @@ let command = CLI.Command(
     environment: ["PATH": "/usr/bin/"]
 )
 
-let result = command.execute()
+let result = try command.execute()
 ```
 
-Command results can be chained together by using pipes:
-```swift
-CLI.run("ps aux | grep php | awk '{print $2}' | xargs kill")
-let encode = CLI.run("echo", "-n", password.quoted).pipe(to: "base64").stdout
-let decode = CLI.echo("YmFuYW5h") | "base64 -D"
-```
-
-Commands are executed within context of some shell. If you want change the default `zsh` shell for command execution, see the documentation of `CLI.processBuilder` variable for more informations.
+Commands are executed within context of some shell. If you want change the default `zsh` shell for command execution, see the documentation of variable `CLI.processBuilder` for more informations.
 
 ## Env
 
