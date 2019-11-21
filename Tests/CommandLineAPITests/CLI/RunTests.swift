@@ -55,8 +55,8 @@ final class RunTests: XCTestCase {
             try dir.appending("a").touch()
             try dir.appending("b").touch()
 
-            let r1 = try CLI.Command(["ls"], workingDirectory: dir).execute()
-            let r2 = try CLI.Command(["ls", "-a"], workingDirectory: dir).execute()
+            let r1 = try CLI.Command(["ls"], workingDirectory: dir.path).execute()
+            let r2 = try CLI.Command(["ls", "-a"], workingDirectory: dir.path).execute()
 
             expect(r1) == "a\nb\n"
             expect(r2) == ".\n..\na\nb\n"
@@ -97,7 +97,7 @@ final class RunTests: XCTestCase {
     func testProcess_env() throws {
         CLI.processBuilder = CLI.Shell.env
         do {
-            _ = try CLI.run("swift", "--version")
+            try CLI.run("swift", "--version")
         } catch let error as CLI.CommandExecutionError {
             expect(error.terminationStatus) == 127
             expect(error.stderr) == "env: swift --version: No such file or directory\n"
@@ -117,7 +117,7 @@ final class RunTests: XCTestCase {
             try tmp.touch("b")
             try tmp.touch("_a")
 
-            let result = try CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp).execute()
+            let result = try CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp.path).execute()
             expect(result) == "a\n_a\n"
         }
     }

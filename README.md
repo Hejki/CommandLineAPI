@@ -2,7 +2,7 @@
 # CommandLineAPI
 ![badge-swift][] ![badge-platforms][] [![badge-spm][]][spm-link] [![badge-ci][]][ci] [![badge-docs][]][docs] [![badge-licence][]][licence]
 
-The library that can help you create a command line applications. This library is inspired by [Swiftline](https://github.com/nsomar/Swiftline) and [Path.swift](https://github.com/mxcl/Path.swift).
+The library that can help you create a command line applications. This library is inspired by [Swiftline][swiftline], [Path.swift][pathswift] and [ShellOut][shellout].
 
 ## Features
 
@@ -294,7 +294,7 @@ To install CommandLineAPI for use in a Swift Package Manager powered tool, add C
 ## Alternatives
 
 #### for path handling
-* [Path.swift](https://github.com/mxcl/Path.swift) by Max Howell
+* [Path.swift][pathswift] by Max Howell
 * [Pathos](https://github.com/dduan/Pathos) by Daniel Duan
 * [PathKit](https://github.com/kylef/PathKit) by Kyle Fuller
 * [Files](https://github.com/JohnSundell/Files) by John Sundell
@@ -302,7 +302,8 @@ To install CommandLineAPI for use in a Swift Package Manager powered tool, add C
 
 #### for command line tools
 
-* [Swiftline](https://github.com/nsomar/Swiftline) by Omar Abdelhafith
+* [Swiftline][swiftline] by Omar Abdelhafith
+* [ShellOut][shellout] by John Sundell
 * [Commander](https://github.com/kylef/Commander) by Kyle Fuller 
 
 ## Questions or feedback?
@@ -320,3 +321,6 @@ Feel free to [open an issue][new-issue], or find me [@hejki on Twitter](https://
 [docs]: https://hejki.github.io/CommandLineAPI
 [badge-docs]: https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true
 [new-issue]: https://github.com/Hejki/CommandLineAPI/issues/new
+[swiftline]: https://github.com/nsomar/Swiftline
+[shellout]: https://github.com/JohnSundell/ShellOut
+[pathswift]: https://github.com/mxcl/Path.swift

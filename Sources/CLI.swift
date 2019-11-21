@@ -727,9 +727,9 @@ public extension CLI {
      - Precondition: The command arguments is not empty.
      - SeeAlso: `Command.execute()`
      */
-    @inlinable
+    @inlinable @discardableResult
     static func run(_ args: String..., executor: CommandExecutor = .default) throws -> String {
-            return try Command(args, executor: executor).execute()
+        return try Command(args, executor: executor).execute()
     }
 
     /**
@@ -754,7 +754,7 @@ public extension CLI {
         public let executor: CommandExecutor
 
         /// The path to working diretory for current command.
-        public let workingDirectory: Path
+        public let workingDirectory: String
 
         /// The environment for the command. If this is `nil`, the environment is inherited from the current process.
         public let environment: [String: String]?
@@ -775,7 +775,7 @@ public extension CLI {
         public init(
             _ arguments: [String],
             executor: CommandExecutor = .default,
-            workingDirectory: Path = .current,
+            workingDirectory: String = FileManager.default.currentDirectoryPath,
             environment: [String: String]? = nil
         ) {
             self.commandString = arguments.joined(separator: " ")
@@ -789,6 +789,7 @@ public extension CLI {
 
          - Returns: The command execution result.
          */
+        @discardableResult
         public func execute() throws -> String {
             return try executor.execute(self)
         }
@@ -882,9 +883,9 @@ public extension CLI {
             }
 
             if #available(OSX 10.13, *) {
-                process.currentDirectoryURL = command.workingDirectory.url
+                process.currentDirectoryURL = URL(fileURLWithPath: command.workingDirectory)
             } else {
-                process.currentDirectoryPath = command.workingDirectory.path
+                process.currentDirectoryPath = command.workingDirectory
             }
             return process
         }

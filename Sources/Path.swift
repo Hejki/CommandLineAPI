@@ -678,7 +678,8 @@ extension Path: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)`
+     and `CLI.choose(_:chices:)` functions.
      */
     @inlinable
     public init?(stringArgument: String) {

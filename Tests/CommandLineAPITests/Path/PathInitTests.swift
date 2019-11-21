@@ -30,7 +30,7 @@ final class PathInitTests: XCTestCase {
 
     func testCommonPaths() throws {
         expect(Path.root.path) == "/"
-        try expect(Path.current.path) ==  Path(FileManager.default.currentDirectoryPath).path
+        try expect(Path.current.path) == Path(FileManager.default.currentDirectoryPath).path
         expect(Path.home.path) == NSHomeDirectory()
         expect(Path.temporary.path.hasPrefix("/var/folders/")) == true
     }
