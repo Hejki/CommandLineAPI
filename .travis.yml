@@ -27,7 +27,7 @@ jobs:
     - &macos_test
       stage: test
       name: macOS / Swift 5.1.2
-      before_script: swift build #-Xswiftc -warnings-as-errors
+      before_script: swift build
       script: swift test --parallel
     - <<: *macos_test
       name: macOS / Swift 5.1

@@ -202,6 +202,24 @@ public extension Path {
         }
         return try! .init(NSTemporaryDirectory())
     }
+
+    /**
+     Creates a new temporary directory, runs *work* closure and delete it at end.
+
+     - Parameter work: The closure with some logic related to the new tmp directory.
+        The temporary directory is passed as an agument to this closure.
+        Returned value from closure will be returned to the caller.
+     - Returns: The value returned from the *work* closure.
+     */
+    static func temporary<T>(_ work: (Path) throws -> T) throws -> T {
+        let url = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporary.url, create: true)
+        let path = try Path(url: url)
+        defer {
+            try? path.delete()
+        }
+
+        return try work(path)
+    }
 }
 
 // MARK: - Filesystem Representation

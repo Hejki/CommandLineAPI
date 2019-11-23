@@ -29,7 +29,7 @@ import XCTest
 final class IOTests: XCTestCase {
 
     func testText() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = dir.appending("data.txt")
 
             try file.write(text: "test\ntext")
@@ -44,7 +44,7 @@ final class IOTests: XCTestCase {
     }
 
     func testData() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = dir.appending("data")
             let file2 = dir.appending("data2")
             let data = Data(base64Encoded: "YQ==")!

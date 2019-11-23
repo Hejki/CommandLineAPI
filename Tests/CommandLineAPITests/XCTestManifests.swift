@@ -137,6 +137,8 @@ extension PathOtherTests {
         ("testBundle", testBundle),
         ("testCodable", testCodable),
         ("testComparable", testComparable),
+        ("testDecodable", testDecodable),
+        ("testEncodable", testEncodable),
         ("testEqualAndHash", testEqualAndHash),
         ("testErrorDecriptions", testErrorDecriptions),
     ]

@@ -31,7 +31,7 @@ final class AttributesTests: XCTestCase {
     func testType() throws {
         expect(Path.root.appending("/tmp").type) == .symlink
 
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             expect(dir.type) == .directory
             expect(dir.appending("nonexist").type) == .unknown
 
@@ -45,7 +45,7 @@ final class AttributesTests: XCTestCase {
     }
 
     func testDates() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             let attributes = file.attributes!
 
@@ -59,7 +59,7 @@ final class AttributesTests: XCTestCase {
     func testAttributes() throws {
         expect(try Path("/nonexist").attributes).to(beNil())
 
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             let attributes = file.attributes!
 
@@ -75,7 +75,7 @@ final class AttributesTests: XCTestCase {
     }
 
     func testModifyAttributes() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             var attributes = file.attributes!
 
@@ -100,7 +100,7 @@ final class AttributesTests: XCTestCase {
     }
 
     func testModifyAttributes_macOS() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             var attributes = file.attributes!
 

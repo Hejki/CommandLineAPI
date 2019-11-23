@@ -26,34 +26,6 @@
 import Foundation
 import Nimble
 
-class TemporaryDirectory {
-    let url: URL
-    var path: Path { try! Path(url: url) }
-
-    init() throws {
-        let appropriate: URL
-        if #available(OSX 10.12, *) {
-            appropriate = FileManager.default.temporaryDirectory
-        } else {
-            appropriate = URL(fileURLWithPath: NSTemporaryDirectory())
-        }
-
-        url = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: appropriate, create: true)
-    }
-
-    deinit {
-        try? path.delete()
-    }
-}
-
-extension Path {
-
-    static func createTemporaryDirectory<T>(_ body: (Path) throws -> T) throws -> T {
-        let tmp = try TemporaryDirectory()
-        return try body(tmp.path)
-    }
-}
-
 class TestPromptHandler: PromptHandler {
     var prints: [String] = []
     var stringsForRead: [String] = []

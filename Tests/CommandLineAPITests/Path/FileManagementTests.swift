@@ -42,7 +42,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func file(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let destFile = try dir.createDirectory("sub").appending("new.txt")
             let file = try dir.touch("file")
 
@@ -63,7 +63,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func fileToDirectory(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let subdir = try dir.createDirectory("sub")
             let file = try dir.touch("file")
 
@@ -84,7 +84,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func fileToFileExist(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let dst = try dir.createDirectory("sub").touch("new.txt")
             let file = try dir.touch("file")
 
@@ -111,7 +111,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func directory(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let origin = try dir.createDirectory("a/b").touch("file")
                 .parent.parent
             let dst = try dir.createDirectory("sub").appending("newdir")
@@ -134,7 +134,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func directoryToDirectory(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let origin = try dir.createDirectory("a/b").touch("file")
                 .parent.parent
             let subdir = try dir.createDirectory("sub")
@@ -157,7 +157,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     private func directoryToFileExist(move: Bool) throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let dst = try dir.createDirectory("sub").touch("exist")
             let origin = try dir.createDirectory("a/b").touch("file")
                 .parent.parent
@@ -178,7 +178,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     func testTouch_name() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             expect(try dir.touch("file").type) == .file
             expect(try dir.appending("a").touch().type) == .file
             expect { try dir.touch("b/c") }.to(throwError())
@@ -190,7 +190,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     func testCreateDirectory() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             var d = try dir.createDirectory("a")
 
             expect(d.type) == .directory
@@ -211,7 +211,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     func testDelete() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             var p = try dir.touch("a")
             try p.delete()
             expect(p.exist) == false
@@ -233,7 +233,7 @@ final class FileManagementTests: XCTestCase {
     }
 
     func testRename() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("old.txt")
             let renamed = try file.rename(to: "new")
 

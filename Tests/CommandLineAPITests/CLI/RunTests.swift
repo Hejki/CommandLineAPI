@@ -51,7 +51,7 @@ final class RunTests: XCTestCase {
     }
 
     func testCWD() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             try dir.appending("a").touch()
             try dir.appending("b").touch()
 
@@ -112,7 +112,7 @@ final class RunTests: XCTestCase {
     }
 
     func testRun_pipeInString() throws {
-        try Path.createTemporaryDirectory { tmp in
+        try Path.temporary { tmp in
             try tmp.touch("a")
             try tmp.touch("b")
             try tmp.touch("_a")

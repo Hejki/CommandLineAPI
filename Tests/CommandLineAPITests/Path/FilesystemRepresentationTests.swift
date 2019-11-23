@@ -39,7 +39,7 @@ final class FilesystemRepresentationTests: XCTestCase {
     }
 
     func testChildren() throws {
-        try Path.createTemporaryDirectory { tmp in
+        try Path.temporary { tmp in
             let file1 = try tmp.touch("a")
             let file2 = try tmp.touch("b")
             let dir1 = try tmp.createDirectory("c")
@@ -92,7 +92,7 @@ final class FilesystemRepresentationTests: XCTestCase {
     }
 
     func testRelativePath() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let a = try dir.createDirectory("a")
             let ab = try a.createDirectory("b")
             let acd = try a.createDirectory("c/d")

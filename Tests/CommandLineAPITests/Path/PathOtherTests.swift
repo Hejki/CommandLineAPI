@@ -29,7 +29,7 @@ import XCTest
 final class PathOtherTests: XCTestCase {
 
     func testEqualAndHash() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let a = try dir.createDirectory("a")
             let b = try Path(url: a.url)
 
@@ -46,7 +46,7 @@ final class PathOtherTests: XCTestCase {
     }
 
     func testBundle() throws {
-        try Path.createTemporaryDirectory { dir -> Void in
+        try Path.temporary { dir -> Void in
             guard let bundle = Bundle(path: dir.path) else {
                 return fail("Couldn't make bundle for \(dir.path)")
             }
@@ -78,18 +78,29 @@ final class PathOtherTests: XCTestCase {
         }
     }
 
+    func testEncodable() throws {
+        let encoder = JSONEncoder()
+        let fullPath = "/mypath/file.txt"
+
+        let encoded = try encoder.encode(Path.root.appending(fullPath))
+        expect(String(data: encoded, encoding: .utf8)) == "\"\\/mypath\\/file.txt\""
+    }
+
     func testCodable() throws {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
         let fullPath = "/mypath/file.txt"
 
         let encoded = try encoder.encode(Path.root.appending(fullPath))
-        expect(String(data: encoded, encoding: .utf8)) == "\"\\/mypath\\/file.txt\""
-
-        var decoded = try decoder.decode(Path.self, from: encoded)
+        let decoded = try decoder.decode(Path.self, from: encoded)
         expect(decoded.path) == fullPath
+    }
 
-        decoded = try decoder.decode(Path.self, from: "\"/mypath/file.txt\"".data(using: .utf8)!)
+    func testDecodable() throws {
+        let decoder = JSONDecoder()
+        let fullPath = "/mypath/file.txt"
+
+        let decoded = try decoder.decode(Path.self, from: "\"/mypath/file.txt\"".data(using: .utf8)!)
         expect(decoded.path) == fullPath
     }
 }
