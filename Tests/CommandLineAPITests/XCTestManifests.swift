@@ -87,6 +87,7 @@ extension FileManagementTests {
         ("testMove_fileToFileExist", testMove_fileToFileExist),
         ("testRename", testRename),
         ("testTouch_name", testTouch_name),
+        ("testTrash", testTrash),
     ]
 }
 
@@ -163,6 +164,7 @@ extension RunTests {
         ("testDummyExecutor", testDummyExecutor),
         ("testEnv", testEnv),
         ("testProcess_env", testProcess_env),
+        ("testRun_pipe2", testRun_pipe2),
         ("testRun_pipe", testRun_pipe),
         ("testRun_pipeFail", testRun_pipeFail),
         ("testRun_pipeInString", testRun_pipeInString),

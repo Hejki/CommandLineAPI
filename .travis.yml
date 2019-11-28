@@ -33,6 +33,13 @@ jobs:
       name: macOS / Swift 5.1
       osx_image: xcode11
     
+    - name: Linux / Swift 5.1
+      os: linux
+      env: SWIFT_VERSION=5.1
+      language: generic
+      install: eval "$(curl -sL https://swiftenv.fuller.li/install.sh)"
+      script: swift test --parallel
+    
     - stage: deploy
       name: Create documentation
       install: gem install jazzy

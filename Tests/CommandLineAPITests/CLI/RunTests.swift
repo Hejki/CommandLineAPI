@@ -79,13 +79,12 @@ final class RunTests: XCTestCase {
     }
 
     func testRun_pipe() throws {
-        var result = try CLI.run("echo -n", "Hi! | base64")
+        let result = try CLI.run("echo -n", "Hi! | base64")
         expect(result) == "SGkh\n"
+    }
 
-        result = try CLI.run("echo -n", "Hi! | base64 | base64 -D")
-        expect(result) == "Hi!"
-
-        result = try CLI.run("echo", "Hi!\nHello\ntest".quoted, "|", "grep H")
+    func testRun_pipe2() throws {
+        let result = try CLI.run("echo", "Hi!\nHello\ntest".quoted, "|", "grep H")
         expect(result) == "Hi!\nHello\n"
     }
 
@@ -100,25 +99,27 @@ final class RunTests: XCTestCase {
             try CLI.run("swift", "--version")
         } catch let error as CLI.CommandExecutionError {
             expect(error.terminationStatus) == 127
-            expect(error.stderr) == "env: swift --version: No such file or directory\n"
+            expect(error.stderr).to(contain("env", "swift --version", "No such file or directory"))
             expect(error.stdout) == ""
         }
 
         CLI.processBuilder = CLI.Shell.bash
         expect(try CLI.run("swift --version")).to(contain("Swift"))
 
+        #if os(macOS)
         CLI.processBuilder = CLI.Shell.zsh
         expect(try CLI.run("swift --version")).to(contain("Swift"))
+        #endif
     }
 
     func testRun_pipeInString() throws {
         try Path.temporary { tmp in
-            try tmp.touch("a")
+            try tmp.touch("ab")
             try tmp.touch("b")
-            try tmp.touch("_a")
+            try tmp.touch("ba")
 
             let result = try CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp.path).execute()
-            expect(result) == "a\n_a\n"
+            expect(result) == "ba\nab\n"
         }
     }
 }

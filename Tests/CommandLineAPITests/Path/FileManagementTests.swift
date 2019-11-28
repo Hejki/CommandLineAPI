@@ -220,9 +220,14 @@ final class FileManagementTests: XCTestCase {
             try p.parent.delete()
             expect(p.exist) == false
             expect(p.parent.exist) == false
+        }
+    }
 
+    func testTrash() throws {
+        #if os(macOS)
+        try Path.temporary { dir in
             let trash = try Path(url: FileManager.default.url(for: .trashDirectory, in: .userDomainMask, appropriateFor: nil, create: false)).appending("a")
-            p = try dir.touch("a")
+            let p = try dir.touch("a")
 
             if trash.exist { try trash.delete() }
             expect(trash.exist) == false
@@ -230,6 +235,7 @@ final class FileManagementTests: XCTestCase {
             expect(p.exist) == false
             expect(trash.exist) == true
         }
+        #endif
     }
 
     func testRename() throws {

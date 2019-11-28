@@ -313,7 +313,7 @@ Feel free to [open an issue][new-issue], or find me [@hejki on Twitter](https://
 [badge-swift]: https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat
 [badge-spm]: https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat
 [spm-link]: https://swift.org/package-manager
-[badge-platforms]: https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat
+[badge-platforms]: https://img.shields.io/badge/platform-mac+linux-lightgray.svg?style=flat
 [badge-ci]: https://travis-ci.com/Hejki/CommandLineAPI.svg
 [ci]: https://travis-ci.com/Hejki/CommandLineAPI
 [badge-licence]: https://img.shields.io/badge/license-MIT-black.svg?style=flat

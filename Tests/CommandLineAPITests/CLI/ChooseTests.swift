@@ -63,7 +63,9 @@ final class ChooseTests: XCTestCase {
     }
 
     func testChoose_noChoices() {
+        #if canImport(Darwin)
         expect { _ = CLI.choose("", choices: []) }.to(throwAssertion())
         expect { _ = CLI.choose("", choices: [:]) }.to(throwAssertion())
+        #endif
     }
 }

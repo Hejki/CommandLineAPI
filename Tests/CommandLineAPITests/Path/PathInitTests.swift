@@ -32,13 +32,17 @@ final class PathInitTests: XCTestCase {
         expect(Path.root.path) == "/"
         try expect(Path.current.path) == Path(FileManager.default.currentDirectoryPath).path
         expect(Path.home.path) == NSHomeDirectory()
+
+        #if os(macOS)
         expect(Path.temporary.path.hasPrefix("/var/folders/")) == true
+        #else
+        expect(Path.temporary.path.hasPrefix("/tmp")) == true
+        #endif
     }
 
-    @available(OSX 10.12, *)
     func testInit() throws {
         let currentHome = NSHomeDirectory()
-        let userName = ProcessInfo.processInfo.userName
+        let userName = try CLI.run("whoami | tr -d $'\n'")
 
         expectInit(path: "/", toBe: "/")
         expectInit(path: "/tmp", toBe: "/tmp")

@@ -51,11 +51,18 @@ public enum CLI {
 
     /**
      Holds global instance of `ProcessBuilder` that is used for create
-     `Process` instances for `Command` execution. Default is `CLI.Shell.zsh`.
+     `Process` instances for `Command` execution. Default is `CLI.Shell.zsh` on macOS
+     and `CLI.Shell.bash` on Linux.
 
      - SeeAlso: `CLI.Shell`
      */
-    public static var processBuilder: ProcessBuilder = CLI.Shell.zsh
+    public static var processBuilder: ProcessBuilder = {
+        #if os(macOS)
+        return CLI.Shell.zsh
+        #else
+        return CLI.Shell.bash
+        #endif
+    }()
 }
 
 // MARK: - String Style

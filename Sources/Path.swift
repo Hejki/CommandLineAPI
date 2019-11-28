@@ -589,8 +589,12 @@ public extension Path {
             target = destination
         }
 
-        if target.exist && overwrite && target.type != .directory {
-            try target.delete()
+        if target.exist && target.type != .directory {
+            if overwrite {
+                try target.delete()
+            } else {
+                throw Error.targetFileExist(target.path)
+            }
         }
         return target
     }
@@ -613,7 +617,7 @@ public extension Path {
                 throw CocoaError.error(.fileWriteUnknown)
             }
         } else {
-            try FileManager.default.setAttributes([.modificationDate: Date()], ofItemAtPath: destinationPath.path)
+            try? FileManager.default.setAttributes([.modificationDate: Date()], ofItemAtPath: destinationPath.path)
         }
         return destinationPath
     }
@@ -729,7 +733,8 @@ extension Path: Codable {
      - Parameter decoder: The decoder to read data from.
      */
     public init(from decoder: Decoder) throws {
-        try self.init(decoder.singleValueContainer().decode(String.self))
+        let container = try decoder.singleValueContainer()
+        try self.init(container.decode(String.self))
     }
 
     /**
@@ -781,9 +786,13 @@ public extension Path {
         /**
          The filesystem item's creation date.
          */
-        public var creationDate: Date {
-            get { fileAttributes[.creationDate] as! Date }
-            set { setAttribute(.creationDate, to: newValue) }
+        public var creationDate: Date? {
+            get { fileAttributes[.creationDate] as? Date }
+            set {
+                if let val = newValue {
+                    setAttribute(.creationDate, to: val)
+                }
+            }
         }
 
         #if os(macOS)
@@ -994,6 +1003,14 @@ public extension Path {
          */
         case invalidArgumentValue(arg: String, _ description: String)
 
+        /**
+         An indication that destination *path* represents existing file.
+         Tihs is used when you copy or move something to that location.
+
+         - Parameter path: The path of existing file.
+         */
+        case targetFileExist(_ path: String)
+
         /// Retrieve the localized description for this error.
         public var localizedDescription: String {
             switch self {
@@ -1003,6 +1020,8 @@ public extension Path {
                 return "URL scheme: '\(scheme)' is not supported. Only 'file' can be used."
             case let .invalidArgumentValue(arg, description):
                 return "Invalid argument: '\(arg)' value. \(description)"
+            case let .targetFileExist(path):
+                return "Cannot move/copy to destination path '\(path)\' because this path represents existing file. Use overwrite parameter or delete it."
             }
         }
     }

@@ -80,27 +80,37 @@ final class PathOtherTests: XCTestCase {
 
     func testEncodable() throws {
         let encoder = JSONEncoder()
-        let fullPath = "/mypath/file.txt"
+        let obj = CodableStruct(path: Path.root.appending("/mypath/file.txt"))
 
-        let encoded = try encoder.encode(Path.root.appending(fullPath))
-        expect(String(data: encoded, encoding: .utf8)) == "\"\\/mypath\\/file.txt\""
+        encoder.outputFormatting = [.prettyPrinted]
+
+        let encoded = try encoder.encode(obj)
+        expect(String(data: encoded, encoding: .utf8)) == """
+        {
+          "path" : "\\/mypath\\/file.txt"
+        }
+        """
     }
 
     func testCodable() throws {
         let encoder = JSONEncoder()
         let decoder = JSONDecoder()
-        let fullPath = "/mypath/file.txt"
+        let obj = CodableStruct(path: Path.root.appending("/mypath/file.txt"))
 
-        let encoded = try encoder.encode(Path.root.appending(fullPath))
-        let decoded = try decoder.decode(Path.self, from: encoded)
-        expect(decoded.path) == fullPath
+        let encoded = try encoder.encode(obj)
+        let decoded = try decoder.decode(CodableStruct.self, from: encoded)
+        expect(decoded) == obj
     }
 
     func testDecodable() throws {
         let decoder = JSONDecoder()
-        let fullPath = "/mypath/file.txt"
+        let json = "{\"path\":\"/mypath/file.txt\"}".data(using: .utf8)!
 
-        let decoded = try decoder.decode(Path.self, from: "\"/mypath/file.txt\"".data(using: .utf8)!)
-        expect(decoded.path) == fullPath
+        let decoded = try decoder.decode(CodableStruct.self, from: json)
+        expect(decoded.path) == Path.root.appending("mypath/file.txt")
+    }
+
+    struct CodableStruct: Codable, Equatable {
+        let path: Path
     }
 }
