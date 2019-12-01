@@ -14,7 +14,7 @@
     <a title="Command Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
+        <p><a href="../../index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -41,13 +41,16 @@
                 <a href="../../Enums/CLI/AskOption.html">– AskOption</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../../Enums/CLI/Command.html">– Command</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Shell.html">– Shell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandExecutionError.html">– CommandExecutionError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/CLI/Environment.html">– Environment</a>
@@ -63,6 +66,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/ChildSequenceIterator.html">– ChildSequenceIterator</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Path/EntryType.html">– EntryType</a>
@@ -83,6 +89,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Extensions/Data.html">Data</a>
@@ -122,6 +131,9 @@
                 <a href="../../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Protocols/ProcessBuilder.html">ProcessBuilder</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Protocols/PromptHandler.html">PromptHandler</a>
               </li>
             </ul>
@@ -141,7 +153,7 @@
             <p>The command which to be executed.</p>
 
 <p>This struct holds all settings for command execution and can be created througt
-<code><a href="../../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> functions or directly.</p>
+<code>CLI.run(_:_:executor:)</code> functions or directly.</p>
 <pre class="highlight swift"><code><span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo -n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">)</span>
 <span class="c1">// is equivalent to</span>
 <span class="kt">Command</span><span class="p">([</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">])</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
@@ -157,33 +169,6 @@ You can specify command working directory or environment variables.
           <section class="section task-group-section">
             <div class="task-group">
               <ul>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI3CLIO0A0V9argumentsSaySSGvp"></a>
-                    <a name="//apple_ref/swift/Property/arguments" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V9argumentsSaySSGvp">arguments</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The command arguments that should be used to launch the executable.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -214,9 +199,9 @@ You can specify command working directory or environment variables.
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO0A0V16workingDirectoryAA4PathVvp"></a>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V16workingDirectorySSvp"></a>
                     <a name="//apple_ref/swift/Property/workingDirectory" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V16workingDirectoryAA4PathVvp">workingDirectory</a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V16workingDirectorySSvp">workingDirectory</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -231,7 +216,7 @@ You can specify command working directory or environment variables.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -295,9 +280,9 @@ You can specify command working directory or environment variables.
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOAA4PathVSDyS2SGSgtcfc"></a>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOSSSDyS2SGSgtcfc"></a>
                     <a name="//apple_ref/swift/Method/init(_:executor:workingDirectory:environment:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOAA4PathVSDyS2SGSgtcfc">init(_:executor:workingDirectory:environment:)</a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V_8executor16workingDirectory11environmentAESaySSG_AC0A8ExecutorOSSSDyS2SGSgtcfc">init(_:executor:workingDirectory:environment:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -320,7 +305,7 @@ You can specify command working directory or environment variables.
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span>
     <span class="n">_</span> <span class="nv">arguments</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span>
     <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">,</span>
-    <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt"><a href="../../Structs/Path.html">Path</a></span> <span class="o">=</span> <span class="o">.</span><span class="n">current</span><span class="p">,</span>
+    <span class="nv">workingDirectory</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="kt">FileManager</span><span class="o">.</span><span class="k">default</span><span class="o">.</span><span class="n">currentDirectoryPath</span><span class="p">,</span>
     <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]?</span> <span class="o">=</span> <span class="kc">nil</span>
 <span class="p">)</span></code></pre>
 
@@ -338,7 +323,7 @@ You can specify command working directory or environment variables.
                               </td>
                               <td>
                                 <div>
-                                  <p>The array with all arguments of command.</p>
+                                  <p>The array with all command parts.</p>
                                 </div>
                               </td>
                             </tr>
@@ -387,9 +372,9 @@ You can specify command working directory or environment variables.
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF"></a>
+                    <a name="/s:14CommandLineAPI3CLIO0A0V7executeSSyKF"></a>
                     <a name="//apple_ref/swift/Method/execute()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">execute()</a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V7executeSSyKF">execute()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -404,7 +389,8 @@ You can specify command working directory or environment variables.
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">execute</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -420,7 +406,7 @@ You can specify command working directory or environment variables.
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-12-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

@@ -14,7 +14,7 @@
     <a title="CommandExecutor Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
+        <p><a href="../../index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -41,13 +41,16 @@
                 <a href="../../Enums/CLI/AskOption.html">– AskOption</a>
               </li>
               <li class="nav-group-task">
-                <a href="../../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../../Enums/CLI/Command.html">– Command</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/Shell.html">– Shell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Enums/CLI/CommandExecutionError.html">– CommandExecutionError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Enums/CLI/Environment.html">– Environment</a>
@@ -63,6 +66,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Structs/Path/ChildSequenceIterator.html">– ChildSequenceIterator</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Structs/Path/EntryType.html">– EntryType</a>
@@ -83,6 +89,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../../Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../../Extensions/Data.html">Data</a>
@@ -122,6 +131,9 @@
                 <a href="../../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
+                <a href="../../Protocols/ProcessBuilder.html">ProcessBuilder</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../../Protocols/PromptHandler.html">PromptHandler</a>
               </li>
             </ul>
@@ -158,7 +170,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Not execute the command, only prints string: <q>Executed: <<command.description>></q> to standard output.
-Returned <code><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></code> contains defined parameters with this enum.</p>
+Returned <code>CommandRunResult</code> contains defined parameters with this enum.</p>
 
                       </div>
                       <div class="declaration">
@@ -229,7 +241,7 @@ Returned <code><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult<
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Execute command and consume all outputs. This outputs can be later read from
-<code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV6stdoutSSvp">CommandRunResult.stdout</a></code> and <code><a href="../../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV6stderrSSvp">CommandRunResult.stderr</a></code>. This executor is suitable for
+<code>CommandRunResult.stdout</code> and <code>CommandRunResult.stderr</code>. This executor is suitable for
 non-interactive, short running commands, like <code>ls</code>, <code>echo</code> etc.</p>
 
                       </div>
@@ -259,7 +271,7 @@ non-interactive, short running commands, like <code>ls</code>, <code>echo</code>
                       <div class="abstract">
                         <p>Execute command with redirected standard/error outputs to system standard outputs.
 This executor can handle user&rsquo;s inputs from system standard input. The executor returns actual exit status
-of executed command but <code>stdout</code> and <code>stderr</code> of <code><a href="../../Enums/CLI/CommandRunResult.html">CommandRunResult</a></code> will be always empty strings.</p>
+of executed command but <code>stdout</code> and <code>stderr</code> of <code>CommandRunResult</code> will be always empty strings.</p>
 
                       </div>
                       <div class="declaration">
@@ -278,7 +290,7 @@ of executed command but <code>stdout</code> and <code>stderr</code> of <code><a 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-12-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

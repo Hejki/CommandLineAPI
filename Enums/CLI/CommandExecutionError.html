@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>EntryType Enumeration Reference</title>
+    <title>CommandExecutionError Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/EntryType" class="dashAnchor"></a>
-    <a title="EntryType Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Struct/CommandExecutionError" class="dashAnchor"></a>
+    <a title="CommandExecutionError Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">CommandLineAPI Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        EntryType Enumeration Reference
+        CommandExecutionError Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -143,14 +143,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>EntryType</h1>
+            <h1>CommandExecutionError</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">EntryType</span> <span class="p">:</span> <span class="kt">CaseIterable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CommandExecutionError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                 </div>
               </div>
-            <p>A type of filesystem entry.</p>
+            <p>The error type that are used if command not executed correctly.</p>
 
           </section>
           <section class="section task-group-section">
@@ -159,9 +159,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV9EntryTypeO7unknownyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/unknown" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV9EntryTypeO7unknownyA2EmF">unknown</a>
+                    <a name="/s:14CommandLineAPI3CLIO0A14ExecutionErrorV17terminationStatusSivp"></a>
+                    <a name="//apple_ref/swift/Property/terminationStatus" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A14ExecutionErrorV17terminationStatusSivp">terminationStatus</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -169,14 +169,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The type is unknown which means that entry not exist or cannot be resolved.</p>
+                        <p>The termination status of the command that was run.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">unknown</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">terminationStatus</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
 
                         </div>
                       </div>
@@ -186,9 +186,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV9EntryTypeO4fileyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/file" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV9EntryTypeO4fileyA2EmF">file</a>
+                    <a name="/s:14CommandLineAPI3CLIO0A14ExecutionErrorV6stderrSSvp"></a>
+                    <a name="//apple_ref/swift/Property/stderr" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A14ExecutionErrorV6stderrSSvp">stderr</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -196,14 +196,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The path represents a file.</p>
+                        <p>The error message as returned through <code>stderr</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">file</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">stderr</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -213,9 +213,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV9EntryTypeO4pipeyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/pipe" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV9EntryTypeO4pipeyA2EmF">pipe</a>
+                    <a name="/s:14CommandLineAPI3CLIO0A14ExecutionErrorV6stdoutSSvp"></a>
+                    <a name="//apple_ref/swift/Property/stdout" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A14ExecutionErrorV6stdoutSSvp">stdout</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -223,68 +223,14 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The path represents a pipe.</p>
+                        <p>The output of the command as returned through <code>stdout</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">pipe</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI4PathV9EntryTypeO9directoryyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/directory" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV9EntryTypeO9directoryyA2EmF">directory</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The path represents a directory.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">directory</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI4PathV9EntryTypeO7symlinkyA2EmF"></a>
-                    <a name="//apple_ref/swift/Element/symlink" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV9EntryTypeO7symlinkyA2EmF">symlink</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>The path represents a symbolic link.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">symlink</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">stdout</span><span class="p">:</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>

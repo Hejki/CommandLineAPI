@@ -14,7 +14,7 @@
     <a title="Other Protocols  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
+        <p><a href="index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -41,13 +41,16 @@
                 <a href="Enums/CLI/AskOption.html">– AskOption</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Enums/CLI/Command.html">– Command</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Shell.html">– Shell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandExecutionError.html">– CommandExecutionError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/CLI/Environment.html">– Environment</a>
@@ -63,6 +66,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/ChildSequenceIterator.html">– ChildSequenceIterator</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/EntryType.html">– EntryType</a>
@@ -83,6 +89,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Data.html">Data</a>
@@ -120,6 +129,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Protocols/ProcessBuilder.html">ProcessBuilder</a>
               </li>
               <li class="nav-group-task">
                 <a href="Protocols/PromptHandler.html">PromptHandler</a>
@@ -198,7 +210,7 @@
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>A type that can be initialized with a string argument.
-Any type that extends this can be used in <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> and <code>CLI.choose</code> functions.</p>
+Any type that extends this can be used in <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO3ask_7optionsS2S_AC9AskOptionOy_SSGdtFZ">CLI.ask(_:options:)</a></code> and <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO6choose_7choicesS2S_SaySSGtFZ">CLI.choose(_:choices:)</a></code> functions.</p>
 
                         <a href="Protocols/ExpressibleByStringArgument.html" class="slightly-smaller">See more</a>
                       </div>
@@ -215,10 +227,49 @@ Any type that extends this can be used in <code><a href="Enums/CLI.html#/s:14Com
                 </li>
               </ul>
             </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Run%20Commands"></a>
+                <a name="//apple_ref/swift/Section/Run Commands" class="dashAnchor"></a>
+                <a href="#/Run%20Commands">
+                  <h3 class="section-name">Run Commands</h3>
+                </a>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI14ProcessBuilderP"></a>
+                    <a name="//apple_ref/swift/Protocol/ProcessBuilder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI14ProcessBuilderP">ProcessBuilder</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Type for builders that creates instances of <code>Process</code> for command execution.</p>
+
+                        <a href="Protocols/ProcessBuilder.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">ProcessBuilder</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-12-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

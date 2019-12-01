@@ -14,7 +14,7 @@
     <a title="CLI Enumeration Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
+        <p><a href="../index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -41,13 +41,16 @@
                 <a href="../Enums/CLI/AskOption.html">– AskOption</a>
               </li>
               <li class="nav-group-task">
-                <a href="../Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="../Enums/CLI/Command.html">– Command</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/Shell.html">– Shell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/CLI/CommandExecutionError.html">– CommandExecutionError</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Enums/CLI/Environment.html">– Environment</a>
@@ -63,6 +66,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/Path/ChildSequenceIterator.html">– ChildSequenceIterator</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Structs/Path/EntryType.html">– EntryType</a>
@@ -83,6 +89,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Extensions/Data.html">Data</a>
@@ -120,6 +129,9 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a href="../Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/ProcessBuilder.html">ProcessBuilder</a>
               </li>
               <li class="nav-group-task">
                 <a href="../Protocols/PromptHandler.html">PromptHandler</a>
@@ -180,6 +192,35 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:14CommandLineAPI3CLIO18enableStringStylesSbvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/enableStringStyles" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO18enableStringStylesSbvpZ">enableStringStyles</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Flag for globally enable or disable the <code><a href="../Enums/CLI/StringStyle.html">StringStyle</a></code> formatting.
+If set to <code>false</code>, string styles not be evaluated inside strings.
+Default is <code>true</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">enableStringStyles</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:14CommandLineAPI3CLIO3envAC11EnvironmentVvpZ"></a>
                     <a name="//apple_ref/swift/Variable/env" class="dashAnchor"></a>
                     <a class="token" href="#/s:14CommandLineAPI3CLIO3envAC11EnvironmentVvpZ">env</a>
@@ -231,6 +272,40 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO14processBuilderAA07ProcessF0_pvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/processBuilder" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO14processBuilderAA07ProcessF0_pvpZ">processBuilder</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Holds global instance of <code><a href="../Protocols/ProcessBuilder.html">ProcessBuilder</a></code> that is used for create
+<code>Process</code> instances for <code><a href="../Enums/CLI/Command.html">Command</a></code> execution. Default is <code><a href="../Enums/CLI/Shell.html#/s:14CommandLineAPI3CLIO5ShellV3zshAEvpZ">CLI.Shell.zsh</a></code> on macOS
+and <code><a href="../Enums/CLI/Shell.html#/s:14CommandLineAPI3CLIO5ShellV4bashAEvpZ">CLI.Shell.bash</a></code> on Linux.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Enums/CLI/Shell.html">CLI.Shell</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">processBuilder</span><span class="p">:</span> <span class="kt"><a href="../Protocols/ProcessBuilder.html">ProcessBuilder</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -258,7 +333,7 @@ Initial <code>CLI.prompt</code> value is set to print to stdout and stderr, and 
                         <p>Available string styles.</p>
 
 <p>This styles can be used in string iterpolation:</p>
-<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitCode</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
 </code></pre>
 
 <p>or can be used with any instances of <code>StringProtocol</code>:</p>
@@ -850,9 +925,9 @@ and dictionary value for that key will be returned from this function.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ"></a>
-                    <a name="//apple_ref/swift/Method/run(_:_:executor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">run(_:_:executor:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO3run_8executorS2Sd_AC0A8ExecutorOtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/run(_:executor:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO3run_8executorS2Sd_AC0A8ExecutorOtKFZ">run(_:executor:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -861,9 +936,14 @@ and dictionary value for that key will be returned from this function.</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Run external command with defined executor.</p>
+<div class="aside aside-precondition">
+    <p class="aside-title">Precondition</p>
+    The command arguments is not empty.
+
+</div>
 <div class="aside aside-see-also">
     <p class="aside-title">See also</p>
-    <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>
+    <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeSSyKF">Command.execute()</a></code>
 
 </div>
 
@@ -872,8 +952,9 @@ and dictionary value for that key will be returned from this function.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">run</span><span class="p">(</span><span class="n">_</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">String</span><span class="o">...</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">@inlinable</span>
+<span class="kd">static</span> <span class="kd">func</span> <span class="nf">run</span><span class="p">(</span><span class="n">_</span> <span class="nv">args</span><span class="p">:</span> <span class="kt">String</span><span class="o">...</span><span class="p">,</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
 
                         </div>
                       </div>
@@ -884,24 +965,12 @@ and dictionary value for that key will be returned from this function.</p>
                             <tr>
                               <td>
                                 <code>
-                                <em>command</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The command to execute.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
                                 <em>args</em>
                                 </code>
                               </td>
                               <td>
                                 <div>
-                                  <p>The command arguments.</p>
+                                  <p>The command with arguments to be executed.</p>
                                 </div>
                               </td>
                             </tr>
@@ -930,169 +999,6 @@ and dictionary value for that key will be returned from this function.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI3CLIO3run_4args8executorAC0A9RunResultVSS_SaySSGAC0A8ExecutorOtFZ"></a>
-                    <a name="//apple_ref/swift/Method/run(_:args:executor:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO3run_4args8executorAC0A9RunResultVSS_SaySSGAC0A8ExecutorOtFZ">run(_:args:executor:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Run external command with defined executor.</p>
-<div class="aside aside-see-also">
-    <p class="aside-title">See also</p>
-    <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>
-
-</div>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">run</span><span class="p">(</span><span class="n">_</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">args</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">executor</span><span class="p">:</span> <span class="kt"><a href="../Enums/CLI/CommandExecutor.html">CommandExecutor</a></span> <span class="o">=</span> <span class="o">.</span><span class="k">default</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>command</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The command to execute.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>args</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The array with command arguments.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>executor</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The command executor for execute defined command.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A command result with exit status code and stdout and stderr outputs.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI3CLIO4echoyAC0A9RunResultVSSFZ"></a>
-                    <a name="//apple_ref/swift/Method/echo(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO4echoyAC0A9RunResultVSSFZ">echo(_:)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Run <code>echo -n</code> command with specified <em>text</em>. This command can be used to chain <em>text</em> output with
-other commands using <code><a href="../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">CommandRunResult.pipe(to:_:)</a></code>. The executor is <code>.default</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@inlinable</span>
-<span class="kd">static</span> <span class="kd">func</span> <span class="nf">echo</span><span class="p">(</span><span class="n">_</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/CLI/CommandRunResult.html">CommandRunResult</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>text</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The text to be printed.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <h4>Return Value</h4>
-                        <p>A command result.</p>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI3CLIO0A9RunResultV"></a>
-                    <a name="//apple_ref/swift/Struct/CommandRunResult" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A9RunResultV">CommandRunResult</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Object to hold results from <code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> or <code><a href="../Enums/CLI/Command.html#/s:14CommandLineAPI3CLIO0A0V7executeAC0A9RunResultVyF">Command.execute()</a></code>. The results can be chained to
-another command by using <code><a href="../Enums/CLI/CommandRunResult.html#/s:14CommandLineAPI3CLIO0A9RunResultV4pipe2to_AESS_SSdtF">CommandRunResult.pipe(to:_:)</a></code> function or <code>|</code> operator.</p>
-
-<p>This object contains command exist status code and stdout and stderr outputs if available.</p>
-
-                        <a href="../Enums/CLI/CommandRunResult.html" class="slightly-smaller">See more</a>
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CommandRunResult</span></code></pre>
-
-                        </div>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
                     <a name="/s:14CommandLineAPI3CLIO0A0V"></a>
                     <a name="//apple_ref/swift/Struct/Command" class="dashAnchor"></a>
                     <a class="token" href="#/s:14CommandLineAPI3CLIO0A0V">Command</a>
@@ -1106,7 +1012,7 @@ another command by using <code><a href="../Enums/CLI/CommandRunResult.html#/s:14
                         <p>The command which to be executed.</p>
 
 <p>This struct holds all settings for command execution and can be created througt
-<code><a href="../Enums/CLI.html#/s:14CommandLineAPI3CLIO3run__8executorAC0A9RunResultVSS_SSdAC0A8ExecutorOtFZ">CLI.run(_:_:executor:)</a></code> functions or directly.</p>
+<code>CLI.run(_:_:executor:)</code> functions or directly.</p>
 <pre class="highlight swift"><code><span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo -n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">)</span>
 <span class="c1">// is equivalent to</span>
 <span class="kt">Command</span><span class="p">([</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="s">"Hi!"</span><span class="p">])</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
@@ -1153,6 +1059,62 @@ You can specify command working directory or environment variables.
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">CommandExecutor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO5ShellV"></a>
+                    <a name="//apple_ref/swift/Struct/Shell" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5ShellV">Shell</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Basic implementation of <code><a href="../Protocols/ProcessBuilder.html">ProcessBuilder</a></code>, used to execute common shells.</p>
+
+                        <a href="../Enums/CLI/Shell.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Shell</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/ProcessBuilder.html">ProcessBuilder</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14CommandLineAPI3CLIO0A14ExecutionErrorV"></a>
+                    <a name="//apple_ref/swift/Struct/CommandExecutionError" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO0A14ExecutionErrorV">CommandExecutionError</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>The error type that are used if command not executed correctly.</p>
+
+                        <a href="../Enums/CLI/CommandExecutionError.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">CommandExecutionError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
 
                         </div>
                       </div>
@@ -1249,7 +1211,7 @@ The arguments are parsed only once.
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-12-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

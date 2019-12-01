@@ -13,7 +13,7 @@
     <a title="CommandLineAPI  Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="index.html">CommandLineAPI 0.2.0 Docs</a> (100% documented)</p>
+        <p><a href="index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
         <p class="header-right"><a href="https://github.com/Hejki/CommandLineAPI"><img src="img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -40,13 +40,16 @@
                 <a href="Enums/CLI/AskOption.html">– AskOption</a>
               </li>
               <li class="nav-group-task">
-                <a href="Enums/CLI/CommandRunResult.html">– CommandRunResult</a>
-              </li>
-              <li class="nav-group-task">
                 <a href="Enums/CLI/Command.html">– Command</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/CLI/CommandExecutor.html">– CommandExecutor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/Shell.html">– Shell</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Enums/CLI/CommandExecutionError.html">– CommandExecutionError</a>
               </li>
               <li class="nav-group-task">
                 <a href="Enums/CLI/Environment.html">– Environment</a>
@@ -62,6 +65,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/ChildSequence.html">– ChildSequence</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/Path/ChildSequenceIterator.html">– ChildSequenceIterator</a>
               </li>
               <li class="nav-group-task">
                 <a href="Structs/Path/EntryType.html">– EntryType</a>
@@ -82,6 +88,9 @@
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Bundle.html">Bundle</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Extensions/CustomStringConvertible.html">CustomStringConvertible</a>
               </li>
               <li class="nav-group-task">
                 <a href="Extensions/Data.html">Data</a>
@@ -121,6 +130,9 @@
                 <a href="Protocols/ExpressibleByStringArgument.html">ExpressibleByStringArgument</a>
               </li>
               <li class="nav-group-task">
+                <a href="Protocols/ProcessBuilder.html">ProcessBuilder</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Protocols/PromptHandler.html">PromptHandler</a>
               </li>
             </ul>
@@ -133,9 +145,9 @@
             
             <h1 id='commandlineapi' class='heading'>CommandLineAPI</h1>
 
-<p><img src="https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat" alt="badge-swift"> <img src="https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://hejki.github.io/CommandLineAPI"><img src="https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true" alt="badge-docs"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
+<p><img src="https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat" alt="badge-swift"> <img src="https://img.shields.io/badge/platform-mac+linux-lightgray.svg?style=flat" alt="badge-platforms"> <a href="https://swift.org/package-manager"><img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="badge-spm"></a> <a href="https://travis-ci.com/Hejki/CommandLineAPI"><img src="https://travis-ci.com/Hejki/CommandLineAPI.svg" alt="badge-ci"></a> <a href="https://hejki.github.io/CommandLineAPI"><img src="https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true" alt="badge-docs"></a> <a href="https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black.svg?style=flat" alt="badge-licence"></a></p>
 
-<p>The library that can help you create a command line applications. This library is inspired by <a href="https://github.com/nsomar/Swiftline">Swiftline</a> and <a href="https://github.com/mxcl/Path.swift">Path.swift</a>.</p>
+<p>The library that can help you create a command line applications. This library is inspired by <a href="https://github.com/nsomar/Swiftline">Swiftline</a>, <a href="https://github.com/mxcl/Path.swift">Path.swift</a> and <a href="https://github.com/JohnSundell/ShellOut">ShellOut</a>.</p>
 <h2 id='features' class='heading'>Features</h2>
 
 <ul>
@@ -235,13 +247,15 @@
 <p>String styles helps styling the strings before printing them to the terminal. You can change the text color, the text background color and the text style. String styles works in string interpolation and for implementations of <code>StringProtocol</code>.</p>
 
 <p>Change style of string part using string interpolation extension:</p>
-<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="c1">// multiple styles at once</span>
+<pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitCode</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="se">)</span><span class="s">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="s">"Result is </span><span class="se">\(</span><span class="n">result</span><span class="o">.</span><span class="n">exitCode</span><span class="p">,</span> <span class="nv">styled</span><span class="p">:</span> <span class="o">.</span><span class="n">fgRed</span><span class="p">,</span> <span class="o">.</span><span class="n">italic</span><span class="se">)</span><span class="s">"</span><span class="p">)</span> <span class="c1">// multiple styles at once</span>
 </code></pre>
 
 <p>The types that conforming <code>StringProtocol</code> can use styles directly:</p>
 <pre class="highlight swift"><code><span class="nf">print</span><span class="p">(</span><span class="s">"Init..."</span><span class="o">.</span><span class="nf">styled</span><span class="p">(</span><span class="o">.</span><span class="n">bgMagenta</span><span class="p">,</span> <span class="o">.</span><span class="n">bold</span><span class="p">,</span> <span class="o">.</span><span class="nf">fg</span><span class="p">(</span><span class="nv">r</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nv">g</span><span class="p">:</span> <span class="mi">42</span><span class="p">,</span> <span class="nv">b</span><span class="p">:</span> <span class="mi">0</span><span class="p">)))</span>
 </code></pre>
+
+<p>The string style interpolation can be globaly disabled by setting <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO18enableStringStylesSbvpZ">CLI.enableStringStyles</a></code> to <code>false</code>, the interpolation is enabled by default.</p>
 <h2 id='prompt-functions' class='heading'>Prompt Functions</h2>
 <h3 id='print' class='heading'>Print</h3>
 
@@ -278,9 +292,9 @@
 <span class="c1">// this prompt will keep displaying until the user enters an Int:</span>
 <span class="c1">// $ Enter timeout: No</span>
 <span class="c1">// $ Please enter a valid Int.</span>
-<span class="c1">// $ 2.3</span>
+<span class="c1">// &gt; 2.3</span>
 <span class="c1">// $ Please enter a valid Int.</span>
-<span class="c1">// $ 2</span>
+<span class="c1">// &gt; 2</span>
 </code></pre>
 
 <p>Prompt can be customized througt ask options.</p>
@@ -325,17 +339,29 @@
 </code></pre>
 <h2 id='run' class='heading'>Run</h2>
 
-<p>Run provides a quick way to run an external command and read its standard/error output and exit status.</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"ls -al"</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">exitStatus</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span>
+<p>Run provides a quick way to run an external command and read its standard output.</p>
+<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">files</span> <span class="o">=</span> <span class="k">try</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"ls -al"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
+
+<span class="c1">// Complex example with pipes different commands together</span>
+<span class="k">try</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"ps aux | grep php | awk '{print $2}' | xargs kill"</span><span class="p">)</span>
+</code></pre>
+
+<p>In case of error, <code>run</code> will automatically read <code>stderr</code> and format it into a typed Swift error:</p>
+<pre class="highlight swift"><code><span class="k">do</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"swift"</span><span class="p">,</span> <span class="s">"build"</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">catch</span> <span class="k">let</span> <span class="nv">error</span> <span class="k">as</span> <span class="kt">CLI</span><span class="o">.</span><span class="kt">CommandExecutionError</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">terminationStatus</span><span class="p">)</span> <span class="c1">// Prints termination status code</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">stderr</span><span class="p">)</span> <span class="c1">// Prints error output</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">error</span><span class="o">.</span><span class="n">stdout</span><span class="p">)</span> <span class="c1">// Prints standard output</span>
+<span class="p">}</span>
 </code></pre>
 
 <p>Each command can be run with one of available executors. The executor defines how to run command.</p>
 
 <ul>
-<li><code>.default</code> executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for <code>CLI.run</code> functions.</li>
-<li><code>.dummy</code> executor that only prints command to <code>CLI.println</code>. You can specify returned stdout, stderr strings and exitStatus.</li>
+<li><code>.default</code> executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command standard output will be returned after task execution. This executor is default for <code>CLI.run</code> functions.</li>
+<li><code>.dummy</code> executor that only prints command to <code>CLI.println</code>. You can specify returned stdout string, stderr and exitCode.</li>
 <li><code>.interactive</code> executor runs command with redirected standard/error outputs to system outputs. This executor can handle user&rsquo;s inputs from system standard input. The command output will not be recorded.</li>
 </ul>
 
@@ -347,13 +373,10 @@
     <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="s">"PATH"</span><span class="p">:</span> <span class="s">"/usr/bin/"</span><span class="p">]</span>
 <span class="p">)</span>
 
-<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">command</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
+<span class="k">let</span> <span class="nv">result</span> <span class="o">=</span> <span class="k">try</span> <span class="n">command</span><span class="o">.</span><span class="nf">execute</span><span class="p">()</span>
 </code></pre>
 
-<p>Command results can be chained together by using pipes:</p>
-<pre class="highlight swift"><code><span class="k">let</span> <span class="nv">encode</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">run</span><span class="p">(</span><span class="s">"echo"</span><span class="p">,</span> <span class="s">"-n"</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span><span class="o">.</span><span class="nf">pipe</span><span class="p">(</span><span class="nv">to</span><span class="p">:</span> <span class="s">"base64"</span><span class="p">)</span><span class="o">.</span><span class="n">stdout</span>
-<span class="k">let</span> <span class="nv">decode</span> <span class="o">=</span> <span class="kt">CLI</span><span class="o">.</span><span class="nf">echo</span><span class="p">(</span><span class="s">"YmFuYW5h"</span><span class="p">)</span> <span class="o">|</span> <span class="s">"base64 -D"</span>
-</code></pre>
+<p>Commands are executed within context of some shell. If you want change the default <code>zsh</code> shell for command execution, see the documentation of variable <code><a href="Enums/CLI.html#/s:14CommandLineAPI3CLIO14processBuilderAA07ProcessF0_pvpZ">CLI.processBuilder</a></code> for more informations.</p>
 <h2 id='env' class='heading'>Env</h2>
 
 <p>Read and write the environment variables passed to the script:</p>
@@ -380,7 +403,7 @@
 <h2 id='instalation' class='heading'>Instalation</h2>
 
 <p>To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your <code>Package.swift</code> file. For more information, please see the <a href="https://github.com/apple/swift-package-manager/tree/master/Documentation">Swift Package Manager documentation</a>.</p>
-<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"0.2.0"</span><span class="p">)</span>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/Hejki/CommandLineAPI"</span><span class="p">,</span> <span class="nv">from</span><span class="p">:</span> <span class="s">"0.3.0"</span><span class="p">)</span>
 </code></pre>
 <h2 id='alternatives' class='heading'>Alternatives</h2>
 <h4 id='for-path-handling' class='heading'>for path handling</h4>
@@ -396,13 +419,17 @@
 
 <ul>
 <li><a href="https://github.com/nsomar/Swiftline">Swiftline</a> by Omar Abdelhafith</li>
+<li><a href="https://github.com/JohnSundell/ShellOut">ShellOut</a> by John Sundell</li>
 <li><a href="https://github.com/kylef/Commander">Commander</a> by Kyle Fuller</li>
 </ul>
+<h2 id='questions-or-feedback' class='heading'>Questions or feedback?</h2>
+
+<p>Feel free to <a href="https://github.com/Hejki/CommandLineAPI/issues/new">open an issue</a>, or find me <a href="https://twitter.com/hejki">@hejki on Twitter</a>.</p>
 
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-11-18)</p>
+          <p>&copy; 2019 <a class="link" href="https://github.com/Hejki" target="_blank" rel="external">Hejki</a>. All rights reserved. (Last updated: 2019-12-01)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.12.0</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

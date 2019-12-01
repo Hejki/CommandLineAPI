@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Error Enumeration Reference</title>
+    <title>Shell Structure Reference</title>
     <link rel="stylesheet" type="text/css" href="../../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Enum/Error" class="dashAnchor"></a>
-    <a title="Error Enumeration Reference"></a>
+    <a name="//apple_ref/swift/Struct/Shell" class="dashAnchor"></a>
+    <a title="Shell Structure Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../../index.html">CommandLineAPI 0.3.0 Docs</a> (100% documented)</p>
@@ -22,7 +22,7 @@
       <p id="breadcrumbs">
         <a href="../../index.html">CommandLineAPI Reference</a>
         <img id="carat" src="../../img/carat.png" />
-        Error Enumeration Reference
+        Shell Structure Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -143,14 +143,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>Error</h1>
+            <h1>Shell</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">Error</span> <span class="p">:</span> <span class="kt">Swift</span><span class="o">.</span><span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Shell</span> <span class="p">:</span> <span class="kt"><a href="../../Protocols/ProcessBuilder.html">ProcessBuilder</a></span></code></pre>
 
                 </div>
               </div>
-            <p>An error that occurs during initialize and operations with <code><a href="../../Structs/Path.html">Path</a></code> instances.</p>
+            <p>Basic implementation of <code><a href="../../Protocols/ProcessBuilder.html">ProcessBuilder</a></code>, used to execute common shells.</p>
 
           </section>
           <section class="section task-group-section">
@@ -159,9 +159,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV5ErrorO013cannotResolveD0yAESScAEmF"></a>
-                    <a name="//apple_ref/swift/Element/cannotResolvePath(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV5ErrorO013cannotResolveD0yAESScAEmF">cannotResolvePath(_:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO5ShellV3envAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/env" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5ShellV3envAEvpZ">env</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -169,35 +169,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An indication that <em>path</em> cannot be resolved.</p>
+                        <p>Process builder that uses <code>/usr/bin/env</code>.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">cannotResolvePath</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">env</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">Shell</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>path</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The supplied path which is cannot be resolved.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -205,9 +186,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV5ErrorO16invalidURLSchemeyAESScAEmF"></a>
-                    <a name="//apple_ref/swift/Element/invalidURLScheme(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV5ErrorO16invalidURLSchemeyAESScAEmF">invalidURLScheme(_:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO5ShellV4bashAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/bash" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5ShellV4bashAEvpZ">bash</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -215,35 +196,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An indication that a URL has unsupported scheme.</p>
+                        <p>Process builder that uses <code>bash</code> shell.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">invalidURLScheme</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">bash</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">Shell</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>scheme</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The unsupported scheme.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -251,9 +213,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV5ErrorO20invalidArgumentValueyAESS_SStcAEmF"></a>
-                    <a name="//apple_ref/swift/Element/invalidArgumentValue(arg:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV5ErrorO20invalidArgumentValueyAESS_SStcAEmF">invalidArgumentValue(arg:_:)</a>
+                    <a name="/s:14CommandLineAPI3CLIO5ShellV3zshAEvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/zsh" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI3CLIO5ShellV3zshAEvpZ">zsh</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -261,47 +223,16 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An indication that user provided invalid <em>argument</em> value.</p>
+                        <p>Process builder that uses <code>zsh</code> shell.</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">invalidArgumentValue</span><span class="p">(</span><span class="nv">arg</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">var</span> <span class="nv">zsh</span><span class="p">:</span> <span class="kt"><a href="../../Enums/CLI.html">CLI</a></span><span class="o">.</span><span class="kt">Shell</span></code></pre>
 
                         </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>arg</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The name of invalid argument.</p>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>description</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The error description.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
                       </div>
                     </section>
                   </div>
@@ -309,9 +240,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:14CommandLineAPI4PathV5ErrorO15targetFileExistyAESScAEmF"></a>
-                    <a name="//apple_ref/swift/Element/targetFileExist(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV5ErrorO15targetFileExistyAESScAEmF">targetFileExist(_:)</a>
+                    <a name="/s:14CommandLineAPI14ProcessBuilderP6createySo6NSTaskCSSF"></a>
+                    <a name="//apple_ref/swift/Method/create(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14CommandLineAPI14ProcessBuilderP6createySo6NSTaskCSSF">create(_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -319,61 +250,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>An indication that destination <em>path</em> represents existing file.
-Tihs is used when you copy or move something to that location.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="nf">targetFileExist</span><span class="p">(</span><span class="nv">_</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div>
-                        <h4>Parameters</h4>
-                        <table class="graybox">
-                          <tbody>
-                            <tr>
-                              <td>
-                                <code>
-                                <em>path</em>
-                                </code>
-                              </td>
-                              <td>
-                                <div>
-                                  <p>The path of existing file.</p>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:14CommandLineAPI4PathV5ErrorO20localizedDescriptionSSvp"></a>
-                    <a name="//apple_ref/swift/Property/localizedDescription" class="dashAnchor"></a>
-                    <a class="token" href="#/s:14CommandLineAPI4PathV5ErrorO20localizedDescriptionSSvp">localizedDescription</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Retrieve the localized description for this error.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">localizedDescription</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">create</span><span class="p">(</span><span class="n">_</span> <span class="nv">command</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Process</span></code></pre>
 
                         </div>
                       </div>
