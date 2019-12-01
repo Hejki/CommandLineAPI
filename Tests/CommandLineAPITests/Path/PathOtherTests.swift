@@ -29,7 +29,7 @@ import XCTest
 final class PathOtherTests: XCTestCase {
 
     func testEqualAndHash() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let a = try dir.createDirectory("a")
             let b = try Path(url: a.url)
 
@@ -40,8 +40,13 @@ final class PathOtherTests: XCTestCase {
         }
     }
 
+    func testComparable() {
+        expect(Path.current.appending("a")) < Path.current.appending("b")
+        expect(Path.current.appending("a/b")) > Path.current.appending("a/a")
+    }
+
     func testBundle() throws {
-        try Path.createTemporaryDirectory { dir -> Void in
+        try Path.temporary { dir -> Void in
             guard let bundle = Bundle(path: dir.path) else {
                 return fail("Couldn't make bundle for \(dir.path)")
             }
@@ -71,5 +76,41 @@ final class PathOtherTests: XCTestCase {
         for (e, msg) in zip(e, msg) {
             expect(e.localizedDescription) == msg
         }
+    }
+
+    func testEncodable() throws {
+        let encoder = JSONEncoder()
+        let obj = CodableStruct(path: Path.root.appending("/mypath/file.txt"))
+
+        encoder.outputFormatting = [.prettyPrinted]
+
+        let encoded = try encoder.encode(obj)
+        expect(String(data: encoded, encoding: .utf8)) == """
+        {
+          "path" : "\\/mypath\\/file.txt"
+        }
+        """
+    }
+
+    func testCodable() throws {
+        let encoder = JSONEncoder()
+        let decoder = JSONDecoder()
+        let obj = CodableStruct(path: Path.root.appending("/mypath/file.txt"))
+
+        let encoded = try encoder.encode(obj)
+        let decoded = try decoder.decode(CodableStruct.self, from: encoded)
+        expect(decoded) == obj
+    }
+
+    func testDecodable() throws {
+        let decoder = JSONDecoder()
+        let json = "{\"path\":\"/mypath/file.txt\"}".data(using: .utf8)!
+
+        let decoded = try decoder.decode(CodableStruct.self, from: json)
+        expect(decoded.path) == Path.root.appending("mypath/file.txt")
+    }
+
+    struct CodableStruct: Codable, Equatable {
+        let path: Path
     }
 }

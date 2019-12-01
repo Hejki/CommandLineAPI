@@ -36,11 +36,33 @@ public enum CLI {
      */
     public static var prompt: PromptHandler = ConsolePromptHandler()
 
+    /**
+     Flag for globally enable or disable the `StringStyle` formatting.
+     If set to `false`, string styles not be evaluated inside strings.
+     Default is `true`.
+     */
+    public static var enableStringStyles: Bool = true
+
     /// Access to environment variables of current process.
     public static var env = Environment()
 
     /// Access to parsed command line arguments for current process.
     public static let args = Arguments()
+
+    /**
+     Holds global instance of `ProcessBuilder` that is used for create
+     `Process` instances for `Command` execution. Default is `CLI.Shell.zsh` on macOS
+     and `CLI.Shell.bash` on Linux.
+
+     - SeeAlso: `CLI.Shell`
+     */
+    public static var processBuilder: ProcessBuilder = {
+        #if os(macOS)
+        return CLI.Shell.zsh
+        #else
+        return CLI.Shell.bash
+        #endif
+    }()
 }
 
 // MARK: - String Style
@@ -54,7 +76,7 @@ public extension CLI {
 
      This styles can be used in string iterpolation:
      ```swift
-     print("Result is \(result.exitStatus, styled: .fgRed, .italic)")
+     print("Result is \(result.exitCode, styled: .fgRed, .italic)")
      ```
 
      or can be used with any instances of `StringProtocol`:
@@ -71,6 +93,9 @@ public extension CLI {
         }
 
         func enrich<S: StringProtocol>(_ string: S) -> String {
+            guard CLI.enableStringStyles else {
+                return string.description
+            }
             return "\(escapeCode)\(string)\(resetCode)"
         }
 
@@ -219,7 +244,7 @@ extension Array where Element == CLI.StringStyle {
 
     /// Add all `StringStyle`s in array to specified string.
     func enrich<S: CustomStringConvertible>(_ string: S) -> String {
-        if isEmpty {
+        if isEmpty || !CLI.enableStringStyles {
             return string.description
         }
 
@@ -518,7 +543,7 @@ public extension CLI {
 
 /**
  A type that can be initialized with a string argument.
- Any type that extends this can be used in `CLI.ask(_:options:)` and `CLI.choose` functions.
+ Any type that extends this can be used in `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
  */
 public protocol ExpressibleByStringArgument {
 
@@ -535,7 +560,7 @@ extension String: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -548,7 +573,7 @@ extension Int: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -564,7 +589,7 @@ extension Bool: ExpressibleByStringArgument {
      values `n`, `no` and `false` are represents the boolean value `false`,
      other values are returned as uninitialized object.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     public init?(stringArgument arg: String) {
         let str = arg.lowercased()
@@ -583,7 +608,7 @@ extension Double: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -596,7 +621,7 @@ extension Float: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose(_:choices:)` functions.
      */
     @inlinable
     public init?(stringArgument arg: String) {
@@ -703,122 +728,15 @@ public extension CLI {
      Run external command with defined executor.
 
      - Parameters:
-        - command: The command to execute.
-        - args: The command arguments.
+        - args: The command with arguments to be executed.
         - executor: The command executor for execute defined command.
      - Returns: A command result with exit status code and parsed stdout and stderr outputs.
+     - Precondition: The command arguments is not empty.
      - SeeAlso: `Command.execute()`
      */
-    @inlinable
-    static func run(_ command: String, _ args: String..., executor: CommandExecutor = .default) -> CommandRunResult {
-        return run(command, args: args, executor: executor)
-    }
-
-    /**
-     Run external command with defined executor.
-
-     - Parameters:
-       - command: The command to execute.
-       - args: The array with command arguments.
-       - executor: The command executor for execute defined command.
-     - Returns: A command result with exit status code and stdout and stderr outputs.
-     - SeeAlso: `Command.execute()`
-     */
-    @inlinable
-    static func run(_ command: String, args: [String], executor: CommandExecutor = .default) -> CommandRunResult {
-        let arguments = command.split(separator: " ").map(String.init) + args
-        return Command(arguments, executor: executor).execute()
-    }
-
-    /**
-     Run `echo -n` command with specified *text*. This command can be used to chain *text* output with
-     other commands using `CommandRunResult.pipe(to:_:)`. The executor is `.default`.
-
-     - Parameter text: The text to be printed.
-     - Returns: A command result.
-     */
-    @inlinable
-    static func echo(_ text: String) -> CommandRunResult {
-        return Command(["echo", "-n", text], executor: .default).execute()
-    }
-
-    /**
-     Object to hold results from `CLI.run(_:_:executor:)` or `Command.execute()`. The results can be chained to
-     another command by using `CommandRunResult.pipe(to:_:)` function or `|` operator.
-
-     This object contains command exist status code and stdout and stderr outputs if available.
-     */
-    struct CommandRunResult {
-        /// The command for this result.
-        public let command: Command
-
-        /// The exit status code of executed command.
-        public let exitStatus: Int
-
-        /// The string printed to the standard output by executed command.
-        public var stdout: String {
-            if let fileHandle = pipe?.fileHandleForReading {
-                return String(data: fileHandle.availableData, encoding: .utf8) ?? ""
-            }
-            return cachedStdout
-        }
-
-        /// The string printed to the error output by executed command.
-        public let stderr: String
-
-        fileprivate let pipe: Pipe?
-        private let cachedStdout: String
-
-        fileprivate init(_ command: Command, _ status: Int, out: String = "", err: String = "", pipe: Pipe? = nil) {
-            self.command = command
-            self.exitStatus = status
-            self.cachedStdout = out
-            self.stderr = err
-            self.pipe = pipe
-        }
-
-        /**
-         Chain output of this result to the another command. The executor of the new command
-         will be same as executor which provide this result.
-
-         - Parameters:
-            - command: The command to be executed.
-            - args: The command arguments.
-         - Returns: A new result of the new command.
-         */
-        public func pipe(to command: String, _ args: String...) -> CommandRunResult {
-            return pipe(to: command, args: args)
-        }
-
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public func pipe(to command: String, args: [String]) -> CommandRunResult {
-            let arguments = command.split(separator: " ").map(String.init) + args
-            return self | arguments
-        }
-
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public static func | (left: CommandRunResult, right: String) -> CommandRunResult {
-            return left.pipe(to: right)
-        }
-
-        /**
-         Chain the result to a new command. See `pipe(to:_:)` for more info.
-         */
-        public static func | (left: CommandRunResult, right: [String]) -> CommandRunResult {
-            if case .interactive = left.command.executor {
-                precondition(false, "The result from interactive executor cannot be used for chaining.")
-            }
-
-            guard left.exitStatus == 0 else {
-                CLI.println(error: "Cannot pipe to command '\(left.command)' because previous command ends with status \(left.exitStatus).")
-                return left
-            }
-            return Command(right, fromPipe: left).execute()
-        }
+    @inlinable @discardableResult
+    static func run(_ args: String..., executor: CommandExecutor = .default) throws -> String {
+        return try Command(args, executor: executor).execute()
     }
 
     /**
@@ -836,30 +754,26 @@ public extension CLI {
         You can specify command working directory or environment variables.
      */
     struct Command: CustomStringConvertible {
-        /// The command arguments that should be used to launch the executable.
-        public let arguments: [String]
+        /// The command to execute.
+        fileprivate let commandString: String
 
         /// The command executor.
         public let executor: CommandExecutor
 
         /// The path to working diretory for current command.
-        public let workingDirectory: Path
+        public let workingDirectory: String
 
         /// The environment for the command. If this is `nil`, the environment is inherited from the current process.
         public let environment: [String: String]?
 
-        fileprivate let pipe: Pipe?
-
         /// A textual representation of command wit all arguments.
-        public var description: String {
-            arguments.joined(separator: " ")
-        }
+        public var description: String { commandString }
 
         /**
          Creates an instance of command.
 
          - Parameters:
-            - arguments: The array with all arguments of command.
+            - arguments: The array with all command parts.
             - executor: The command executor which will be used to execute command.
             - workingDirectory: The current working directory for executed command.
             - environment: The environment variables for executed command.
@@ -868,22 +782,13 @@ public extension CLI {
         public init(
             _ arguments: [String],
             executor: CommandExecutor = .default,
-            workingDirectory: Path = .current,
+            workingDirectory: String = FileManager.default.currentDirectoryPath,
             environment: [String: String]? = nil
         ) {
-            self.arguments = arguments
+            self.commandString = arguments.joined(separator: " ")
             self.executor = executor
             self.workingDirectory = workingDirectory
             self.environment = environment
-            self.pipe = nil
-        }
-
-        fileprivate init(_ arguments: [String], fromPipe previousResult: CommandRunResult) {
-            self.arguments = arguments
-            self.executor = previousResult.command.executor
-            self.workingDirectory = previousResult.command.workingDirectory
-            self.environment = previousResult.command.environment
-            self.pipe = previousResult.pipe
         }
 
         /**
@@ -891,8 +796,9 @@ public extension CLI {
 
          - Returns: The command execution result.
          */
-        public func execute() -> CommandRunResult {
-            return executor.execute(self)
+        @discardableResult
+        public func execute() throws -> String {
+            return try executor.execute(self)
         }
     }
 
@@ -925,86 +831,141 @@ public extension CLI {
          */
         case interactive
 
-        fileprivate func execute(_ command: Command) -> CommandRunResult {
+        fileprivate func execute(_ command: Command) throws -> String {
             switch self {
             case .default:
-                return currentTaskExecute(command)
+                return try currentTaskExecute(command)
             case .interactive:
-                return interactiveExecute(command)
+                return try interactiveExecute(command)
             case let .dummy(status, stdout, stderr):
-                return dummyExecute(command, status, stdout, stderr)
+                return try dummyExecute(command, status, stdout, stderr)
             }
         }
 
-        private func currentTaskExecute(_ command: Command) -> CommandRunResult {
+        private func currentTaskExecute(_ command: Command) throws -> String {
             let process = createProcess(command)
             let (stdout, stderr) = (Pipe(), Pipe())
 
             process.standardOutput = stdout
             process.standardError = stderr
-            if let stdin = command.pipe {
-                process.standardInput = stdin
-            }
-
             process.launch()
             process.waitUntilExit()
 
-            return CommandRunResult(
-                command,
+            return try createResult(
                 Int(process.terminationStatus),
-                err: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? "",
-                pipe: stdout
+                out: String(data: stdout.fileHandleForReading.availableData, encoding: .utf8) ?? "",
+                err: String(data: stderr.fileHandleForReading.availableData, encoding: .utf8) ?? ""
             )
         }
 
-        private func interactiveExecute(_ command: Command) -> CommandRunResult {
+        private func interactiveExecute(_ command: Command) throws -> String {
             let process = createProcess(command)
 
             process.standardOutput = FileHandle.standardOutput
             process.standardError = FileHandle.standardError
             process.standardOutput = FileHandle.standardOutput
-
             process.launch()
             process.waitUntilExit()
 
-            return CommandRunResult(
-                command,
-                Int(process.terminationStatus),
-                out: "",
-                err: ""
-            )
+            return try createResult(Int(process.terminationStatus))
+        }
+
+        private func dummyExecute(_ command: Command, _ status: Int, _ stdout: String, _ stderr: String) throws -> String {
+            CLI.println("Executed: \(command)")
+            return try createResult(status, out: stdout, err: stderr)
+        }
+
+        private func createResult(_ terminationStatus: Int, out: String = "", err: String = "") throws -> String {
+            if terminationStatus != 0 {
+                throw CommandExecutionError(terminationStatus: terminationStatus, stderr: err, stdout: out)
+            }
+            return out
         }
 
         private func createProcess(_ command: Command) -> Process {
-            let process = Process()
-
-            process.launchPath = "/usr/bin/env"
-            process.arguments = command.arguments
+            let process = CLI.processBuilder.create(command.commandString)
 
             if let env = command.environment {
                 process.environment = env
             }
 
             if #available(OSX 10.13, *) {
-                process.currentDirectoryURL = command.workingDirectory.url
+                process.currentDirectoryURL = URL(fileURLWithPath: command.workingDirectory)
             } else {
-                process.currentDirectoryPath = command.workingDirectory.path
+                process.currentDirectoryPath = command.workingDirectory
             }
             return process
         }
+    }
 
-        private func dummyExecute(_ command: Command, _ status: Int, _ stdout: String, _ stderr: String) -> CommandRunResult {
-            let pipe = Pipe()
+    /// Basic implementation of `ProcessBuilder`, used to execute common shells.
+    struct Shell: ProcessBuilder {
+        private let launchPath: String
+        private let argumentsPrefix: [String]
 
-            CLI.println("Executed: \(command)")
-            if let data = stdout.data(using: .utf8) {
-                pipe.fileHandleForWriting.write(data)
-            } else {
-                pipe.fileHandleForWriting.write("".data(using: .utf8)!)
-            }
-            pipe.fileHandleForWriting.closeFile()
-            return CommandRunResult(command, status, out: stdout, err: stderr, pipe: pipe)
+        /// Process builder that uses `/usr/bin/env`.
+        public static var env = Shell("/usr/bin/env")
+
+        /// Process builder that uses `bash` shell.
+        public static var bash = Shell("/bin/bash", "-c")
+
+        /// Process builder that uses `zsh` shell.
+        public static var zsh = Shell("/bin/zsh", "-c")
+
+        private init(_ launchPath: String, _ prefix: String...) {
+            self.launchPath = launchPath
+            self.argumentsPrefix = prefix
         }
+
+        public func create(_ command: String) -> Process {
+            let process = Process()
+
+            process.launchPath = launchPath
+            process.arguments = argumentsPrefix + [command]
+            return process
+        }
+    }
+
+    /// The error type that are used if command not executed correctly.
+    struct CommandExecutionError: Error {
+        /// The termination status of the command that was run.
+        public let terminationStatus: Int
+
+        /// The error message as returned through `stderr`.
+        public let stderr: String
+
+        /// The output of the command as returned through `stdout`.
+        public var stdout: String
+    }
+}
+
+/**
+ Type for builders that creates instances of `Process` for command execution.
+ */
+public protocol ProcessBuilder {
+
+    /**
+     Creates a new `Process` instance to execute specified command.
+
+     - Parameter command: The command to execute.
+     - Returns: A new process instance.
+     */
+    func create(_ command: String) -> Process
+}
+
+public extension CustomStringConvertible {
+
+    /**
+     Quoted version of this textual representation. Adds a double quotes `"`
+     at the begin and end of the *description* to create a string.
+     If this contains some double quotes they will be escaped.
+     */
+    var quoted: String {
+        var str = description
+        if str.contains("\"") {
+            str = str.replacingOccurrences(of: "\"", with: "\\\"")
+        }
+        return "\"\(str)\""
     }
 }
 

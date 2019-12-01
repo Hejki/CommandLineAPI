@@ -68,20 +68,24 @@ final class StringStyleTests: XCTestCase {
     func testBright() {
         expect("t".styled(.bright(.bgBlack))) == "\u{001B}[40;1mt\u{001B}[0m"
         expect("t".styled(.bright(.fgBlack))) == "\u{001B}[30;1mt\u{001B}[0m"
+        #if canImport(Darwin)
         expect { _ = Style.bright(.strikethrough) }.to(throwAssertion())
         expect { _ = Style.bright(.fg(0)) }.to(throwAssertion())
+        #endif
     }
 
     func testCustomColor() {
         expect("t".styled(.fg(0))) == "\u{001B}[38;5;0mt\u{001B}[0m"
         expect("t".styled(.fg(255))) == "\u{001B}[38;5;255mt\u{001B}[0m"
         expect("t".styled(.fg(r: 0, g: 92, b: 255))) == "\u{001B}[38;2;0;92;255mt\u{001B}[0m"
-        expect { _ = Style.fg(-1) }.to(throwAssertion())
-        expect { _ = Style.fg(256) }.to(throwAssertion())
 
         expect("t".styled(.bg(0))) == "\u{001B}[48;5;0mt\u{001B}[0m"
         expect("t".styled(.bg(255))) == "\u{001B}[48;5;255mt\u{001B}[0m"
         expect("t".styled(.bg(r: 0, g: 64, b: 255))) == "\u{001B}[48;2;0;64;255mt\u{001B}[0m"
+
+        #if canImport(Darwin)
+        expect { _ = Style.fg(-1) }.to(throwAssertion())
+        expect { _ = Style.fg(256) }.to(throwAssertion())
         expect { _ = Style.bg(-1) }.to(throwAssertion())
         expect { _ = Style.bg(256) }.to(throwAssertion())
 
@@ -93,6 +97,21 @@ final class StringStyleTests: XCTestCase {
             expect { _ = Style.bg(r: 0, g: i, b: 0) }.to(throwAssertion())
             expect { _ = Style.bg(r: 0, g: 0, b: i) }.to(throwAssertion())
         }
+        #endif
+    }
+
+    func testDisableStyles() {
+        CLI.enableStringStyles = false
+        defer {
+            CLI.enableStringStyles = true
+        }
+
+        expect(Style.bgWhite.enrich("e")) == "e"
+        expect("t".styled(.fgRed)) == "t"
+        expect("\(12, style: .italic)") == "12"
+
+        let styles: [Style] = [.bgYellow, .fgWhite, .bold, .italic]
+        expect(styles.enrich("32")) == "32"
     }
 
     private struct S: CustomStringConvertible {

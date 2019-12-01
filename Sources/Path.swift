@@ -175,7 +175,7 @@ public extension Path {
 
     /// The `Path` to the current working directory.
     static var current: Path {
-        return .init(exactPath: FileManager.default.currentDirectoryPath)
+        return try! .init(FileManager.default.currentDirectoryPath)
     }
 
     /// The current user's home
@@ -200,7 +200,25 @@ public extension Path {
         if #available(OSX 10.12, *) {
             return try! .init(url: FileManager.default.temporaryDirectory)
         }
-        return .init(exactPath: NSTemporaryDirectory())
+        return try! .init(NSTemporaryDirectory())
+    }
+
+    /**
+     Creates a new temporary directory, runs *work* closure and delete it at end.
+
+     - Parameter work: The closure with some logic related to the new tmp directory.
+        The temporary directory is passed as an agument to this closure.
+        Returned value from closure will be returned to the caller.
+     - Returns: The value returned from the *work* closure.
+     */
+    static func temporary<T>(_ work: (Path) throws -> T) throws -> T {
+        let url = try FileManager.default.url(for: .itemReplacementDirectory, in: .userDomainMask, appropriateFor: temporary.url, create: true)
+        let path = try Path(url: url)
+        defer {
+            try? path.delete()
+        }
+
+        return try work(path)
     }
 }
 
@@ -571,8 +589,12 @@ public extension Path {
             target = destination
         }
 
-        if target.exist && overwrite && target.type != .directory {
-            try target.delete()
+        if target.exist && target.type != .directory {
+            if overwrite {
+                try target.delete()
+            } else {
+                throw Error.targetFileExist(target.path)
+            }
         }
         return target
     }
@@ -595,7 +617,7 @@ public extension Path {
                 throw CocoaError.error(.fileWriteUnknown)
             }
         } else {
-            try FileManager.default.setAttributes([.modificationDate: Date()], ofItemAtPath: destinationPath.path)
+            try? FileManager.default.setAttributes([.modificationDate: Date()], ofItemAtPath: destinationPath.path)
         }
         return destinationPath
     }
@@ -678,7 +700,8 @@ extension Path: ExpressibleByStringArgument {
     /**
      Creates an instance initialized to the given string value.
 
-     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)` and `CLI.choose` functions.
+     Do not call this initializer directly. It is used by the `CLI.ask(_:options:)`
+     and `CLI.choose(_:chices:)` functions.
      */
     @inlinable
     public init?(stringArgument: String) {
@@ -686,9 +709,8 @@ extension Path: ExpressibleByStringArgument {
     }
 }
 
-// MARK: - Equatable, Hashable
-extension Path: Equatable, Hashable {
-
+// MARK: - Equatable, Hashable, etc.
+extension Path: Equatable, Hashable, Comparable {
     @inlinable
     public static func == (lhs: Path, rhs: Path) -> Bool {
         return lhs.path == rhs.path
@@ -697,6 +719,33 @@ extension Path: Equatable, Hashable {
     public func hash(into hasher: inout Hasher) {
         hasher.combine(path)
     }
+
+    public static func < (lhs: Path, rhs: Path) -> Bool {
+        lhs.path < rhs.path
+    }
+}
+
+extension Path: Codable {
+
+    /**
+     Creates a new instance of path by decoding from the given decoder.
+
+     - Parameter decoder: The decoder to read data from.
+     */
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        try self.init(container.decode(String.self))
+    }
+
+    /**
+     Encodes this path into the given encoder.
+
+     - Parameter encoder: The encoder to write data to.
+     */
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encode(self.path)
+    }
 }
 
 // MARK: - Bundle Extension
@@ -704,7 +753,7 @@ public extension Bundle {
 
     /// The `Path` of the receiver's bundle directory.
     var path: Path {
-        Path(exactPath: bundlePath)
+        try! Path(bundlePath)
     }
 
     /**
@@ -737,9 +786,13 @@ public extension Path {
         /**
          The filesystem item's creation date.
          */
-        public var creationDate: Date {
-            get { fileAttributes[.creationDate] as! Date }
-            set { setAttribute(.creationDate, to: newValue) }
+        public var creationDate: Date? {
+            get { fileAttributes[.creationDate] as? Date }
+            set {
+                if let val = newValue {
+                    setAttribute(.creationDate, to: val)
+                }
+            }
         }
 
         #if os(macOS)
@@ -819,15 +872,13 @@ public extension Path {
      A sequence of child locations contained within a given folder.
      You obtain an instance of this type by accessing `children` on `Path` instance.
      */
-    struct ChildSequence: Sequence, IteratorProtocol {
-        fileprivate let path: Path
-        fileprivate var enumerator: FileManager.DirectoryEnumerator?
-        fileprivate var enumeratorOptions: FileManager.DirectoryEnumerationOptions
+    struct ChildSequence: Sequence {
+        private let path: Path
+        private var enumeratorOptions: FileManager.DirectoryEnumerationOptions
 
         fileprivate init(_ path: Path) {
             self.path = path
             self.enumeratorOptions = [.skipsPackageDescendants, .skipsSubdirectoryDescendants, .skipsHiddenFiles]
-            self.enumerator = Self.enumerator(for: self)
         }
 
         /**
@@ -838,7 +889,6 @@ public extension Path {
 
             sequence.enumeratorOptions.remove(.skipsSubdirectoryDescendants)
             sequence.enumeratorOptions.remove(.skipsPackageDescendants)
-            sequence.enumerator = Self.enumerator(for: sequence)
             return sequence
         }
 
@@ -850,8 +900,41 @@ public extension Path {
             var sequence = self
 
             sequence.enumeratorOptions.remove(.skipsHiddenFiles)
-            sequence.enumerator = Self.enumerator(for: sequence)
             return sequence
+        }
+
+        /**
+         Checks if this sequence is empty.
+         */
+        public var isEmpty: Bool {
+            first(where: { _ in true }) == nil
+        }
+
+        /**
+         Count the number of items countained within this sequence.
+         */
+        public var count: Int {
+            reduce(0) { count, _ in count + 1 }
+        }
+
+        public func makeIterator() -> ChildSequenceIterator {
+            ChildSequenceIterator(FileManager.default.enumerator(
+                at: path.url,
+                includingPropertiesForKeys: nil,
+                options: enumeratorOptions
+            ))
+        }
+    }
+
+    /**
+     The type of iterator used byt `Path.ChildSequence`. Don't interact with this type directly.
+     See `Path.ChildSequence` for more information.
+     */
+    struct ChildSequenceIterator: IteratorProtocol {
+        fileprivate var enumerator: FileManager.DirectoryEnumerator?
+
+        fileprivate init(_ enumerator: FileManager.DirectoryEnumerator?) {
+            self.enumerator = enumerator
         }
 
         /**
@@ -870,15 +953,6 @@ public extension Path {
                 return path
             }
             return nil
-        }
-
-        /// Make a new file enumerator.
-        private static func enumerator(for seq: ChildSequence) -> FileManager.DirectoryEnumerator? {
-            return FileManager.default.enumerator(
-                at: seq.path.url,
-                includingPropertiesForKeys: nil,
-                options: seq.enumeratorOptions
-            )
         }
     }
 
@@ -929,6 +1003,14 @@ public extension Path {
          */
         case invalidArgumentValue(arg: String, _ description: String)
 
+        /**
+         An indication that destination *path* represents existing file.
+         Tihs is used when you copy or move something to that location.
+
+         - Parameter path: The path of existing file.
+         */
+        case targetFileExist(_ path: String)
+
         /// Retrieve the localized description for this error.
         public var localizedDescription: String {
             switch self {
@@ -938,6 +1020,8 @@ public extension Path {
                 return "URL scheme: '\(scheme)' is not supported. Only 'file' can be used."
             case let .invalidArgumentValue(arg, description):
                 return "Invalid argument: '\(arg)' value. \(description)"
+            case let .targetFileExist(path):
+                return "Cannot move/copy to destination path '\(path)\' because this path represents existing file. Use overwrite parameter or delete it."
             }
         }
     }

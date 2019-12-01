@@ -27,16 +27,9 @@ import Nimble
 import XCTest
 
 final class AttributesTests: XCTestCase {
-//
-//    override func setUp() {
-//        try? dataFile.delete()
-//        _ = try? "a".write(to: dataFile)
-//    }
 
     func testType() throws {
-        expect(Path.root.appending("/tmp").type) == .symlink
-
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             expect(dir.type) == .directory
             expect(dir.appending("nonexist").type) == .unknown
 
@@ -44,43 +37,54 @@ final class AttributesTests: XCTestCase {
             expect(file.type) == .file
 
             let pipe = dir.appending("pipe")
-            _ = CLI.run("mkfifo", pipe.path)
+            try CLI.run("mkfifo", pipe.path.quoted)
             expect(pipe.type) == .pipe
+
+            let symlink = dir.appending("link")
+            try CLI.run("ln -s", file.path.quoted, symlink.path.quoted)
+            expect(symlink.type) == .symlink
         }
     }
 
     func testDates() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             let attributes = file.attributes!
 
             try file.touch()
             expect(attributes).notTo(beNil())
+            expect(attributes.modificationDate).notTo(beNil())
+
+            #if os(macOS)
             expect(attributes.modificationDate) < file.attributes!.modificationDate
             expect(attributes.creationDate) < file.attributes!.modificationDate
+            #endif
         }
     }
 
     func testAttributes() throws {
         expect(try Path("/nonexist").attributes).to(beNil())
 
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             let attributes = file.attributes!
 
             expect(attributes).notTo(beNil())
-            expect(attributes.extensionHidden) == false
-            expect(attributes.groupName) == "staff"
-            if #available(OSX 10.12, *) {
-                expect(attributes.userName) == ProcessInfo.processInfo.userName
-            }
-            expect(attributes.permissions.rawValue) == 0o644
+            try expect(attributes.groupName) == CLI.run("groups $(whoami) | cut -d' ' -f1 | tr -d $'\n'")
+            try expect(attributes.userName) == CLI.run("whoami | tr -d $'\n'")
             expect(attributes.size) == 1
+
+            #if os(macOS)
+            expect(attributes.permissions.rawValue) == 0o644
+            #else
+            expect(attributes.permissions.rawValue) == 0o600
+            #endif
         }
     }
 
     func testModifyAttributes() throws {
-        try Path.createTemporaryDirectory { dir in
+        #if os(macOS)
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             var attributes = file.attributes!
 
@@ -102,10 +106,12 @@ final class AttributesTests: XCTestCase {
             expect(attributes.permissions.rawValue) == 0o777
             expect(attributes.groupName) == "staff"
         }
+        #endif
     }
 
     func testModifyAttributes_macOS() throws {
-        try Path.createTemporaryDirectory { dir in
+        #if os(macOS)
+        try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             var attributes = file.attributes!
 
@@ -116,5 +122,6 @@ final class AttributesTests: XCTestCase {
             try attributes.reload()
             expect(attributes.extensionHidden) == true
         }
+        #endif
     }
 }

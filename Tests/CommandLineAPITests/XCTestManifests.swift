@@ -87,6 +87,7 @@ extension FileManagementTests {
         ("testMove_fileToFileExist", testMove_fileToFileExist),
         ("testRename", testRename),
         ("testTouch_name", testTouch_name),
+        ("testTrash", testTrash),
     ]
 }
 
@@ -122,10 +123,10 @@ extension PathInitTests {
     // to regenerate.
     static let __allTests__PathInitTests = [
         ("testCommonPaths", testCommonPaths),
-        ("testInit", testInit),
         ("testInit_failes", testInit_failes),
         ("testInit_relative", testInit_relative),
         ("testInit_url", testInit_url),
+        ("testInit", testInit),
     ]
 }
 
@@ -135,6 +136,10 @@ extension PathOtherTests {
     // to regenerate.
     static let __allTests__PathOtherTests = [
         ("testBundle", testBundle),
+        ("testCodable", testCodable),
+        ("testComparable", testComparable),
+        ("testDecodable", testDecodable),
+        ("testEncodable", testEncodable),
         ("testEqualAndHash", testEqualAndHash),
         ("testErrorDecriptions", testErrorDecriptions),
     ]
@@ -157,10 +162,12 @@ extension RunTests {
         ("testCurrentTaskRun", testCurrentTaskRun),
         ("testCWD", testCWD),
         ("testDummyExecutor", testDummyExecutor),
-        ("testEcho", testEcho),
         ("testEnv", testEnv),
+        ("testProcess_env", testProcess_env),
+        ("testRun_pipe2", testRun_pipe2),
         ("testRun_pipe", testRun_pipe),
         ("testRun_pipeFail", testRun_pipeFail),
+        ("testRun_pipeInString", testRun_pipeInString),
         ("testRunVarargs", testRunVarargs),
     ]
 }
@@ -173,6 +180,7 @@ extension StringStyleTests {
         ("testArrayStyles", testArrayStyles),
         ("testBright", testBright),
         ("testCustomColor", testCustomColor),
+        ("testDisableStyles", testDisableStyles),
         ("testEnrich", testEnrich),
         ("testInterpolation", testInterpolation),
         ("testStringProtocolStyled", testStringProtocolStyled),

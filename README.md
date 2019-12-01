@@ -2,7 +2,7 @@
 # CommandLineAPI
 ![badge-swift][] ![badge-platforms][] [![badge-spm][]][spm-link] [![badge-ci][]][ci] [![badge-docs][]][docs] [![badge-licence][]][licence]
 
-The library that can help you create a command line applications. This library is inspired by [Swiftline](https://github.com/nsomar/Swiftline) and [Path.swift](https://github.com/mxcl/Path.swift).
+The library that can help you create a command line applications. This library is inspired by [Swiftline][swiftline], [Path.swift][pathswift] and [ShellOut][shellout].
 
 ## Features
 
@@ -111,14 +111,16 @@ String styles helps styling the strings before printing them to the terminal. Yo
 
 Change style of string part using string interpolation extension:
 ```swift
-print("Result is \(result.exitStatus, styled: .fgRed)")
-print("Result is \(result.exitStatus, styled: .fgRed, .italic)") // multiple styles at once
+print("Result is \(result.exitCode, styled: .fgRed)")
+print("Result is \(result.exitCode, styled: .fgRed, .italic)") // multiple styles at once
 ```
 
 The types that conforming `StringProtocol` can use styles directly:
 ```swift
 print("Init...".styled(.bgMagenta, .bold, .fg(r: 12, g: 42, b: 0)))
 ```
+
+The string style interpolation can be globaly disabled by setting `CLI.enableStringStyles` to `false`, the interpolation is enabled by default.
 
 ## Prompt Functions
 
@@ -162,9 +164,9 @@ let timeout = CLI.ask("Enter timeout: ", type: Int.self)
 // this prompt will keep displaying until the user enters an Int:
 // $ Enter timeout: No
 // $ Please enter a valid Int.
-// $ 2.3
+// > 2.3
 // $ Please enter a valid Int.
-// $ 2
+// > 2
 ```
 
 Prompt can be customized througt ask options.
@@ -214,18 +216,31 @@ let difficulty = CLI.choose("Select difficulty: ", choices: [
 
 ## Run
 
-Run provides a quick way to run an external command and read its standard/error output and exit status.
+Run provides a quick way to run an external command and read its standard output.
 
 ```swift
-let result = CLI.run("ls -al")
-print(result.exitStatus)
-print(result.stdout)
+let files = try CLI.run("ls -al")
+print(files)
+
+// Complex example with pipes different commands together
+try CLI.run("ps aux | grep php | awk '{print $2}' | xargs kill")
+```
+
+In case of error, `run` will automatically read `stderr` and format it into a typed Swift error:
+```swift
+do {
+    try CLI.run("swift", "build")
+} catch let error as CLI.CommandExecutionError {
+    print(error.terminationStatus) // Prints termination status code
+    print(error.stderr) // Prints error output
+    print(error.stdout) // Prints standard output
+}
 ```
 
 Each command can be run with one of available executors. The executor defines how to run command.
 
-* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command outputs will be available after task execution in task result. This executor is default for `CLI.run` functions.
-* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout, stderr strings and exitStatus.
+* `.default` executor is dedicated to non-interactive, short running tasks. This executor runs the command and consumes all outputs. Command standard output will be returned after task execution. This executor is default for `CLI.run` functions.
+* `.dummy` executor that only prints command to `CLI.println`. You can specify returned stdout string, stderr and exitCode.
 * `.interactive` executor runs command with redirected standard/error outputs to system outputs. This executor can handle user's inputs from system standard input. The command output will not be recorded.
 
 For more complex executions use `Command` type directly:
@@ -237,14 +252,10 @@ let command = CLI.Command(
     environment: ["PATH": "/usr/bin/"]
 )
 
-let result = command.execute()
+let result = try command.execute()
 ```
 
-Command results can be chained together by using pipes:
-```swift
-let encode = CLI.run("echo", "-n", password).pipe(to: "base64").stdout
-let decode = CLI.echo("YmFuYW5h") | "base64 -D"
-```
+Commands are executed within context of some shell. If you want change the default `zsh` shell for command execution, see the documentation of variable `CLI.processBuilder` for more informations.
 
 ## Env
 
@@ -277,13 +288,13 @@ CLI.args.parameters == ["init", "tool"]
 
 To install CommandLineAPI for use in a Swift Package Manager powered tool, add CommandLineAPI as a dependency to your `Package.swift` file. For more information, please see the [Swift Package Manager documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation).
 ```swift
-.package(url: "https://github.com/Hejki/CommandLineAPI", from: "0.2.0")
+.package(url: "https://github.com/Hejki/CommandLineAPI", from: "0.3.0")
 ```
 
 ## Alternatives
 
 #### for path handling
-* [Path.swift](https://github.com/mxcl/Path.swift) by Max Howell
+* [Path.swift][pathswift] by Max Howell
 * [Pathos](https://github.com/dduan/Pathos) by Daniel Duan
 * [PathKit](https://github.com/kylef/PathKit) by Kyle Fuller
 * [Files](https://github.com/JohnSundell/Files) by John Sundell
@@ -291,16 +302,25 @@ To install CommandLineAPI for use in a Swift Package Manager powered tool, add C
 
 #### for command line tools
 
-* [Swiftline](https://github.com/nsomar/Swiftline) by Omar Abdelhafith
+* [Swiftline][swiftline] by Omar Abdelhafith
+* [ShellOut][shellout] by John Sundell
 * [Commander](https://github.com/kylef/Commander) by Kyle Fuller 
+
+## Questions or feedback?
+
+Feel free to [open an issue][new-issue], or find me [@hejki on Twitter](https://twitter.com/hejki).
 
 [badge-swift]: https://img.shields.io/badge/Swift-5.1-orange.svg?logo=swift?style=flat
 [badge-spm]: https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat
 [spm-link]: https://swift.org/package-manager
-[badge-platforms]: https://img.shields.io/badge/platform-mac-lightgray.svg?style=flat
+[badge-platforms]: https://img.shields.io/badge/platform-mac+linux-lightgray.svg?style=flat
 [badge-ci]: https://travis-ci.com/Hejki/CommandLineAPI.svg
 [ci]: https://travis-ci.com/Hejki/CommandLineAPI
 [badge-licence]: https://img.shields.io/badge/license-MIT-black.svg?style=flat
 [licence]: https://github.com/Hejki/CommandLineAPI/blob/master/LICENSE
 [docs]: https://hejki.github.io/CommandLineAPI
 [badge-docs]: https://hejki.github.io/CommandLineAPI/badge.svg?sanitize=true
+[new-issue]: https://github.com/Hejki/CommandLineAPI/issues/new
+[swiftline]: https://github.com/nsomar/Swiftline
+[shellout]: https://github.com/JohnSundell/ShellOut
+[pathswift]: https://github.com/mxcl/Path.swift

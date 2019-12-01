@@ -39,28 +39,33 @@ final class FilesystemRepresentationTests: XCTestCase {
     }
 
     func testChildren() throws {
-        try Path.createTemporaryDirectory { tmp in
+        try Path.temporary { tmp in
             let file1 = try tmp.touch("a")
             let file2 = try tmp.touch("b")
             let dir1 = try tmp.createDirectory("c")
             let hiddenDir = try tmp.createDirectory(".f")
             let fileInsideDir = try dir1.touch("g")
 
-            var all = tmp.children.compactMap { $0 }
-            expect(all).to(haveCount(3))
-            expect(all).to(contain(file1, file2, dir1))
+            var all = tmp.children
+            expect(all.count) == 3
+            expect(all.isEmpty) == false
+            expect(all.sorted()) == [file1, file2, dir1]
 
-            all = tmp.children.recursive.compactMap { $0 }
-            expect(all).to(haveCount(4))
-            expect(all).to(contain(file1, file2, dir1, fileInsideDir))
+            all = tmp.children.recursive
+            expect(all.count) == 4
+            expect(all.sorted()) == [file1, file2, dir1, fileInsideDir]
 
-            all.removeAll()
+            var array = [Path]()
             for p in tmp.children.includingHidden {
-                all.append(p)
+                array.append(p)
             }
-            expect(all).to(haveCount(4))
-            expect(all).to(contain(file1, file2, dir1, hiddenDir))
+            expect(array.count) == 4
+            expect(array).to(contain(file1, file2, dir1, hiddenDir))
         }
+
+        let noChildren = Path.root.appending("nonexisttestfile").children
+        expect(noChildren.count) == 0
+        expect(noChildren.isEmpty) == true
     }
 
     func testPathComponents() {
@@ -87,7 +92,7 @@ final class FilesystemRepresentationTests: XCTestCase {
     }
 
     func testRelativePath() throws {
-        try Path.createTemporaryDirectory { dir in
+        try Path.temporary { dir in
             let a = try dir.createDirectory("a")
             let ab = try a.createDirectory("b")
             let acd = try a.createDirectory("c/d")
