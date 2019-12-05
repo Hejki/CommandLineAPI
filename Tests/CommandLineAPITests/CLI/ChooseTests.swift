@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class ChooseTests: XCTestCase {
@@ -37,35 +36,28 @@ final class ChooseTests: XCTestCase {
         ph.prepare("2")
 
         let res = CLI.choose("ch: ", choices: ["a", "b"])
-        expect(self.ph.prints) == ["1) a\n", "2) b\n", "ch: "]
-        expect(res) == "b"
+        XCTAssertEqual(self.ph.prints, ["1) a\n", "2) b\n", "ch: "])
+        XCTAssertEqual(res, "b")
     }
 
     func testChoose_map() {
         ph.prepare("1")
 
         let res = CLI.choose("ch: ", choices: ["a": 21, "b": 54])
-        expect(self.ph.prints) == ["1) a\n", "2) b\n", "ch: "]
-        expect(res) == 21
+        XCTAssertEqual(self.ph.prints, ["1) a\n", "2) b\n", "ch: "])
+        XCTAssertEqual(res, 21)
     }
 
     func testChoose_badInput() {
         ph.prepare("a", "4", "0", "1")
 
         let res = CLI.choose("ch: ", choices: ["a", "b"])
-        expect(self.ph.prints) == [
+        XCTAssertEqual(self.ph.prints, [
             "1) a\n", "2) b\n", "ch: ",
             "invalid option\nch: ",
             "invalid option\nch: ",
             "invalid option\nch: ",
-        ]
-        expect(res) == "a"
-    }
-
-    func testChoose_noChoices() {
-        #if canImport(Darwin)
-        expect { _ = CLI.choose("", choices: []) }.to(throwAssertion())
-        expect { _ = CLI.choose("", choices: [:]) }.to(throwAssertion())
-        #endif
+        ])
+        XCTAssertEqual(res, "a")
     }
 }

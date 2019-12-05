@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class RunTests: XCTestCase {
@@ -34,20 +33,23 @@ final class RunTests: XCTestCase {
     }
 
     func testCurrentTaskRun() {
-        expect(try CLI.run("echo", "Hello", executor: .default)) == "Hello\n"
-        expect(try CLI.run("echo", "-n", "Hello")) == "Hello"
-        expect(try CLI.run("echo -n Hello World")) == "Hello World"
-        expect(self.ph.prints) == []
+        XCTAssertEqual(try CLI.run("echo", "Hello", executor: .default), "Hello\n")
+        XCTAssertEqual(try CLI.run("echo", "-n", "Hello"), "Hello")
+        XCTAssertEqual(try CLI.run("echo -n Hello World"), "Hello World")
+        XCTAssertEqual(self.ph.prints, [])
     }
 
     func testDummyExecutor() {
-        expect(try CLI.run("echo", "Hello", executor: .dummy())) == ""
-        expect(try CLI.run("dummy", executor: .dummy(status: 0, stdout: "out"))) == "out"
+        XCTAssertEqual(try CLI.run("echo", "Hello", executor: .dummy()), "")
+        XCTAssertEqual(try CLI.run("dummy", executor: .dummy(status: 0, stdout: "out")), "out")
 
-        expect(try CLI.run("d", executor: .dummy(status: 123, stdout: "o", stderr: "e")))
-            .to(throwError(CLI.CommandExecutionError(terminationStatus: 123, stderr: "e", stdout: "o")))
+        XCTAssertThrowsError(
+            try CLI.run("d", executor: .dummy(status: 123, stdout: "o", stderr: "e")),
+            "Expect error thrown.",
+            expectError(123, "e", "o")
+        )
 
-        expect(self.ph.prints) == ["Executed: echo Hello\n", "Executed: dummy\n", "Executed: d\n"]
+        XCTAssertEqual(self.ph.prints, ["Executed: echo Hello\n", "Executed: dummy\n", "Executed: d\n"])
     }
 
     func testCWD() throws {
@@ -58,8 +60,8 @@ final class RunTests: XCTestCase {
             let r1 = try CLI.Command(["ls"], workingDirectory: dir.path).execute()
             let r2 = try CLI.Command(["ls", "-a"], workingDirectory: dir.path).execute()
 
-            expect(r1) == "a\nb\n"
-            expect(r2) == ".\n..\na\nb\n"
+            XCTAssertEqual(r1, "a\nb\n")
+            XCTAssertEqual(r2, ".\n..\na\nb\n")
         }
     }
 
@@ -69,28 +71,34 @@ final class RunTests: XCTestCase {
             environment: ["TEST_ENV_VAR": "varenv"]
         ).execute()
 
-        expect(res) == "varenv\n"
+        XCTAssertEqual(res, "varenv\n")
     }
 
     func testRunVarargs() throws {
         let res = try CLI.run("echo", "-n", "b", executor: .interactive)
 
-        expect(res) == ""
+        XCTAssertEqual(res, "")
     }
 
     func testRun_pipe() throws {
         let result = try CLI.run("echo -n", "Hi! | base64")
-        expect(result) == "SGkh\n"
+        XCTAssertEqual(result, "SGkh\n")
     }
 
     func testRun_pipe2() throws {
         let result = try CLI.run("echo", "Hi!\nHello\ntest".quoted, "|", "grep H")
-        expect(result) == "Hi!\nHello\n"
+        XCTAssertEqual(result, "Hi!\nHello\n")
     }
 
     func testRun_pipeFail() throws {
-        expect(try CLI.run("cmdNotExist")).to(
-            throwError(CLI.CommandExecutionError(terminationStatus: 127, stderr: "", stdout: "")))
+        do {
+            try CLI.run("cmdNotExist")
+        } catch let error as CLI.CommandExecutionError {
+            XCTAssertEqual(error.terminationStatus, 127)
+            XCTAssertTrue(error.stderr.contains("command not found"))
+            XCTAssertTrue(error.stderr.contains("cmdNotExist"))
+            XCTAssertEqual(error.stdout, "")
+        }
     }
 
     func testProcess_env() throws {
@@ -98,17 +106,19 @@ final class RunTests: XCTestCase {
         do {
             try CLI.run("swift", "--version")
         } catch let error as CLI.CommandExecutionError {
-            expect(error.terminationStatus) == 127
-            expect(error.stderr).to(contain("env", "swift --version", "No such file or directory"))
-            expect(error.stdout) == ""
+            XCTAssertEqual(error.terminationStatus, 127)
+            XCTAssertTrue(error.stderr.contains("env"))
+            XCTAssertTrue(error.stderr.contains("swift --version"))
+            XCTAssertTrue(error.stderr.contains("No such file or directory"))
+            XCTAssertEqual(error.stdout, "")
         }
 
         CLI.processBuilder = CLI.Shell.bash
-        expect(try CLI.run("swift --version")).to(contain("Swift"))
+        XCTAssertTrue(try CLI.run("swift --version").contains("Swift"))
 
         #if os(macOS)
         CLI.processBuilder = CLI.Shell.zsh
-        expect(try CLI.run("swift --version")).to(contain("Swift"))
+        XCTAssertTrue(try CLI.run("swift --version").contains("Swift"))
         #endif
     }
 
@@ -119,7 +129,19 @@ final class RunTests: XCTestCase {
             try tmp.touch("ba")
 
             let result = try CLI.Command(["ls | grep a | sort -r"], workingDirectory: tmp.path).execute()
-            expect(result) == "ba\nab\n"
+            XCTAssertEqual(result, "ba\nab\n")
+        }
+    }
+
+    private func expectError(_ status: Int, _ stderr: String, _ stdout: String) -> (Error) -> Void {
+        return { error in
+            if let err = error as? CLI.CommandExecutionError {
+                XCTAssertEqual(err.terminationStatus, status)
+                XCTAssertEqual(err.stderr, stderr)
+                XCTAssertEqual(err.stdout, stdout)
+            } else {
+                XCTFail("Bad error thrown \(error)")
+            }
         }
     }
 }

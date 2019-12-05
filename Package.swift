@@ -7,11 +7,9 @@ let package = Package(
     products: [
         .library(name: "CommandLineAPI", targets: ["CommandLineAPI"])
     ],
-    dependencies: [
-        .package(url: "https://github.com/Quick/Nimble", from: "8.0.4")
-    ],
+    dependencies: [],
     targets: [
         .target(name: "CommandLineAPI", path: "Sources"),
-        .testTarget(name: "CommandLineAPITests", dependencies: ["CommandLineAPI", "Nimble"]),
+        .testTarget(name: "CommandLineAPITests", dependencies: ["CommandLineAPI"]),
     ]
 )

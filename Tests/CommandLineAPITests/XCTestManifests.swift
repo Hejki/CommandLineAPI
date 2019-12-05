@@ -51,7 +51,6 @@ extension ChooseTests {
         ("testChoose", testChoose),
         ("testChoose_badInput", testChoose_badInput),
         ("testChoose_map", testChoose_map),
-        ("testChoose_noChoices", testChoose_noChoices),
     ]
 }
 

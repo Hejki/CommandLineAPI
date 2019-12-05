@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class FilesystemRepresentationTests: XCTestCase {
@@ -31,11 +30,11 @@ final class FilesystemRepresentationTests: XCTestCase {
     let dataFile = Path.root.appending("/tmp/data.txt")
 
     func testParent() throws {
-        expect(Path.root.parent.path) == "/"
-        expect(Path.root.parent.parent.path) == "/"
-        expect(self.tmp.parent.path) == "/"
-        expect(self.dataFile.parent.path) == "/tmp"
-        expect(self.dataFile.parent.parent.path) == "/"
+        XCTAssertEqual(Path.root.parent.path, "/")
+        XCTAssertEqual(Path.root.parent.parent.path, "/")
+        XCTAssertEqual(self.tmp.parent.path, "/")
+        XCTAssertEqual(self.dataFile.parent.path, "/tmp")
+        XCTAssertEqual(self.dataFile.parent.parent.path, "/")
     }
 
     func testChildren() throws {
@@ -47,48 +46,51 @@ final class FilesystemRepresentationTests: XCTestCase {
             let fileInsideDir = try dir1.touch("g")
 
             var all = tmp.children
-            expect(all.count) == 3
-            expect(all.isEmpty) == false
-            expect(all.sorted()) == [file1, file2, dir1]
+            XCTAssertEqual(all.count, 3)
+            XCTAssertEqual(all.isEmpty, false)
+            XCTAssertEqual(all.sorted(), [file1, file2, dir1])
 
             all = tmp.children.recursive
-            expect(all.count) == 4
-            expect(all.sorted()) == [file1, file2, dir1, fileInsideDir]
+            XCTAssertEqual(all.count, 4)
+            XCTAssertEqual(all.sorted(), [file1, file2, dir1, fileInsideDir])
 
             var array = [Path]()
             for p in tmp.children.includingHidden {
                 array.append(p)
             }
-            expect(array.count) == 4
-            expect(array).to(contain(file1, file2, dir1, hiddenDir))
+            XCTAssertEqual(array.count, 4)
+            XCTAssertTrue(array.contains(file1))
+            XCTAssertTrue(array.contains(file2))
+            XCTAssertTrue(array.contains(dir1))
+            XCTAssertTrue(array.contains(hiddenDir))
         }
 
         let noChildren = Path.root.appending("nonexisttestfile").children
-        expect(noChildren.count) == 0
-        expect(noChildren.isEmpty) == true
+        XCTAssertEqual(noChildren.count, 0)
+        XCTAssertEqual(noChildren.isEmpty, true)
     }
 
     func testPathComponents() {
-        expect(self.dataFile.pathComponents) == ["tmp", "data.txt"]
-        expect(Path.root.pathComponents) == []
+        XCTAssertEqual(self.dataFile.pathComponents, ["tmp", "data.txt"])
+        XCTAssertEqual(Path.root.pathComponents, [])
     }
 
     func testBasename() {
-        expect(self.dataFile.basename) == "data.txt"
-        expect(self.tmp.basename) == "tmp"
-        expect(try Path("/a.tar.gz").basename) == "a.tar.gz"
+        XCTAssertEqual(self.dataFile.basename, "data.txt")
+        XCTAssertEqual(self.tmp.basename, "tmp")
+        XCTAssertEqual(try Path("/a.tar.gz").basename, "a.tar.gz")
     }
 
     func testExtension() throws {
-        expect(self.dataFile.extension) == "txt"
-        expect(self.tmp.extension) == ""
-        expect(try Path("/a.tar.gz").extension) == "tar.gz"
+        XCTAssertEqual(self.dataFile.extension, "txt")
+        XCTAssertEqual(self.tmp.extension, "")
+        XCTAssertEqual(try Path("/a.tar.gz").extension, "tar.gz")
     }
 
     func testBasenameWithoutExtension() {
-        expect(self.dataFile.basenameWithoutExtension) == "data"
-        expect(self.tmp.basenameWithoutExtension) == "tmp"
-        expect(try Path("/a.tar.gz").basenameWithoutExtension) == "a"
+        XCTAssertEqual(self.dataFile.basenameWithoutExtension, "data")
+        XCTAssertEqual(self.tmp.basenameWithoutExtension, "tmp")
+        XCTAssertEqual(try Path("/a.tar.gz").basenameWithoutExtension, "a")
     }
 
     func testRelativePath() throws {
@@ -99,31 +101,31 @@ final class FilesystemRepresentationTests: XCTestCase {
             let abc = try ab.createDirectory("c")
 
             // "/a/b".path(relativeTo: "/a") == "b"
-            expect(ab.path(relativeTo: a)) == "b"
+            XCTAssertEqual(ab.path(relativeTo: a), "b")
 
             // "/a/b/c".path(relativeTo: "/a") == "b/c"
-            expect(abc.path(relativeTo: a)) == "b/c"
+            XCTAssertEqual(abc.path(relativeTo: a), "b/c")
 
             // "/a/b".path(relativeTo: "/a/b/c") == ".."
-            expect(ab.path(relativeTo: abc)) == ".."
+            XCTAssertEqual(ab.path(relativeTo: abc), "..")
 
             // "/a/b".path(relativeTo: "/a/c/d") == "../../b"
-            expect(ab.path(relativeTo: acd)) == "../../b"
+            XCTAssertEqual(ab.path(relativeTo: acd), "../../b")
         }
     }
 
     func testAppending() {
-        expect(Path.root.appending("/").path) == "/"
-        expect(self.tmp.appending("/a/").path) == "/tmp/a"
-        expect(self.tmp.appending("../a").path) == "/a"
-        expect(self.tmp.appending("../../.././a").path) == "/a"
-        expect((self.tmp + "/tmp/.././a").path) == "/tmp/a"
+        XCTAssertEqual(Path.root.appending("/").path, "/")
+        XCTAssertEqual(self.tmp.appending("/a/").path, "/tmp/a")
+        XCTAssertEqual(self.tmp.appending("../a").path, "/a")
+        XCTAssertEqual(self.tmp.appending("../../.././a").path, "/a")
+        XCTAssertEqual((self.tmp + "/tmp/.././a").path, "/tmp/a")
 
         let p: String? = nil
-        expect(self.tmp.appending(p).path) == "/tmp"
+        XCTAssertEqual(self.tmp.appending(p).path, "/tmp")
 
         var b = tmp + "b"
         b += "../c"
-        expect(b.path) == "/tmp/c"
+        XCTAssertEqual(b.path, "/tmp/c")
     }
 }

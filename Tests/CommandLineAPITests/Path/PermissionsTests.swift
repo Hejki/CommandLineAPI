@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class PermissionsTests: XCTestCase {
@@ -60,16 +59,16 @@ final class PermissionsTests: XCTestCase {
 
     func testPermissions() {
         for map in permissions {
-            expect(map.o) == map.p.rawValue
-            expect(String(map.o, radix: 8)) == map.p.octalString
-            expect(map.s) == map.p.description
+            XCTAssertEqual(map.o, map.p.rawValue)
+            XCTAssertEqual(String(map.o, radix: 8), map.p.octalString)
+            XCTAssertEqual(map.s, map.p.description)
         }
 
         var perm = Path.Permissions.userRWX
         perm.remove(.userWrite)
         perm.insert(.groupRead)
-        expect(perm.rawValue) == 0o540
-        expect(perm.octalString) == "540"
-        expect(perm.description) == "r-xr-----"
+        XCTAssertEqual(perm.rawValue, 0o540)
+        XCTAssertEqual(perm.octalString, "540")
+        XCTAssertEqual(perm.description, "r-xr-----")
     }
 }
