@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class ArgumentsTests: XCTestCase {
@@ -40,9 +39,9 @@ final class ArgumentsTests: XCTestCase {
 
         let result = CLI.Arguments(args: args)
 
-        expect(result.all) == args
-        expect(result.command) == args.first
-        expect(result.flags) == flags
-        expect(result.parameters) == parameters
+        XCTAssertEqual(result.all, args)
+        XCTAssertEqual(result.command, args.first)
+        XCTAssertEqual(result.flags, flags)
+        XCTAssertEqual(result.parameters, parameters)
     }
 }

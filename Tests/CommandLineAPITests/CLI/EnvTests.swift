@@ -23,24 +23,23 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class EnvTests: XCTestCase {
 
     func testEnv_get() {
-        expect(CLI.env.keys).toNot(beEmpty())
-        expect(CLI.env["TEST_ENV_VAR"]) == "varval"
+        XCTAssertFalse(CLI.env.keys.isEmpty)
+        XCTAssertEqual(CLI.env["TEST_ENV_VAR"], "varval")
     }
 
     func testEnv_set() {
-        expect(CLI.env["TEST_ENV_VAR2"]).to(beNil())
+        XCTAssertNil(CLI.env["TEST_ENV_VAR2"])
 
         CLI.env["TEST_ENV_VAR2"] = "newvarval"
-        expect(CLI.env["TEST_ENV_VAR2"]) == "newvarval"
+        XCTAssertEqual(CLI.env["TEST_ENV_VAR2"], "newvarval")
 
         CLI.env["TEST_ENV_VAR2"] = nil
-        expect(CLI.env.keys).toNot(contain("TEST_ENV_VAR2"))
-        expect(CLI.env["TEST_ENV_VAR2"]).to(beNil())
+        XCTAssertFalse(CLI.env.keys.contains("TEST_ENV_VAR2"))
+        XCTAssertNil(CLI.env["TEST_ENV_VAR2"])
     }
 }

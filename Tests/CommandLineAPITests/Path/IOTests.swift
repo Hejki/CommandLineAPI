@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class IOTests: XCTestCase {
@@ -33,13 +32,13 @@ final class IOTests: XCTestCase {
             let file = dir.appending("data.txt")
 
             try file.write(text: "test\ntext")
-            expect(try String(contentsOf: file)) == "test\ntext"
+            XCTAssertEqual(try String(contentsOf: file), "test\ntext")
 
             try file.write(text: "append", append: true)
-            expect(try String(contentsOf: file)) == "test\ntextappend"
+            XCTAssertEqual(try String(contentsOf: file), "test\ntextappend")
 
             try file.write(text: "a")
-            expect(try String(contentsOf: file)) == "a"
+            XCTAssertEqual(try String(contentsOf: file), "a")
         }
     }
 
@@ -50,16 +49,16 @@ final class IOTests: XCTestCase {
             let data = Data(base64Encoded: "YQ==")!
 
             try data.write(to: file, append: true, atomically: true)
-            expect(try String(contentsOf: file)) == "a"
+            XCTAssertEqual(try String(contentsOf: file), "a")
 
             try file2.write(data: data, append: true)
-            expect(try String(contentsOf: file2)) == "a"
+            XCTAssertEqual(try String(contentsOf: file2), "a")
 
             try file.write(data: data, append: true)
-            expect(try String(contentsOf: file)) == "aa"
+            XCTAssertEqual(try String(contentsOf: file), "aa")
 
             try file.write(data: data)
-            expect(try Data(contentsOf: file)) == data
+            XCTAssertEqual(try Data(contentsOf: file), data)
         }
     }
 }

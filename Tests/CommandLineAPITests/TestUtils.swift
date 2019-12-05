@@ -23,8 +23,7 @@
  */
 
 @testable import CommandLineAPI
-import Foundation
-import Nimble
+import XCTest
 
 class TestPromptHandler: PromptHandler {
     var prints: [String] = []

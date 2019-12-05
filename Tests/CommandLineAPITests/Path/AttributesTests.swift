@@ -23,26 +23,25 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class AttributesTests: XCTestCase {
 
     func testType() throws {
         try Path.temporary { dir in
-            expect(dir.type) == .directory
-            expect(dir.appending("nonexist").type) == .unknown
+            XCTAssertEqual(dir.type, .directory)
+            XCTAssertEqual(dir.appending("nonexist").type, .unknown)
 
             let file = try dir.touch("file")
-            expect(file.type) == .file
+            XCTAssertEqual(file.type, .file)
 
             let pipe = dir.appending("pipe")
             try CLI.run("mkfifo", pipe.path.quoted)
-            expect(pipe.type) == .pipe
+            XCTAssertEqual(pipe.type, .pipe)
 
             let symlink = dir.appending("link")
             try CLI.run("ln -s", file.path.quoted, symlink.path.quoted)
-            expect(symlink.type) == .symlink
+            XCTAssertEqual(symlink.type, .symlink)
         }
     }
 
@@ -52,32 +51,32 @@ final class AttributesTests: XCTestCase {
             let attributes = file.attributes!
 
             try file.touch()
-            expect(attributes).notTo(beNil())
-            expect(attributes.modificationDate).notTo(beNil())
+            XCTAssertNotNil(attributes)
+            XCTAssertNotNil(attributes.modificationDate)
 
             #if os(macOS)
-            expect(attributes.modificationDate) < file.attributes!.modificationDate
-            expect(attributes.creationDate) < file.attributes!.modificationDate
+            XCTAssertLessThan(attributes.modificationDate, file.attributes!.modificationDate)
+            XCTAssertLessThan(attributes.creationDate!, file.attributes!.modificationDate)
             #endif
         }
     }
 
     func testAttributes() throws {
-        expect(try Path("/nonexist").attributes).to(beNil())
+        XCTAssertNil(try Path("/nonexist").attributes)
 
         try Path.temporary { dir in
             let file = try dir.touch("data").write(text: "a")
             let attributes = file.attributes!
 
-            expect(attributes).notTo(beNil())
-            try expect(attributes.groupName) == CLI.run("groups $(whoami) | cut -d' ' -f1 | tr -d $'\n'")
-            try expect(attributes.userName) == CLI.run("whoami | tr -d $'\n'")
-            expect(attributes.size) == 1
+            XCTAssertNotNil(attributes)
+            try XCTAssertEqual(attributes.groupName, CLI.run("groups $(whoami) | cut -d' ' -f1 | tr -d $'\n'"))
+            try XCTAssertEqual(attributes.userName, CLI.run("whoami | tr -d $'\n'"))
+            XCTAssertEqual(attributes.size, 1)
 
             #if os(macOS)
-            expect(attributes.permissions.rawValue) == 0o644
+            XCTAssertEqual(attributes.permissions.rawValue, 0o644)
             #else
-            expect(attributes.permissions.rawValue) == 0o600
+            XCTAssertEqual(attributes.permissions.rawValue, 0o600)
             #endif
         }
     }
@@ -95,16 +94,16 @@ final class AttributesTests: XCTestCase {
             attributes.permissions = Path.Permissions(rawValue: 0o777)
             attributes.groupName = "staff"
 
-            expect(attributes.creationDate) == date
-            expect(attributes.modificationDate) == date.addingTimeInterval(3)
-            expect(attributes.permissions.rawValue) == 0o777
-            expect(attributes.groupName) == "staff"
+            XCTAssertEqual(attributes.creationDate, date)
+            XCTAssertEqual(attributes.modificationDate, date.addingTimeInterval(3))
+            XCTAssertEqual(attributes.permissions.rawValue, 0o777)
+            XCTAssertEqual(attributes.groupName, "staff")
 
             try attributes.reload()
-            expect(attributes.creationDate) == date
-            expect(attributes.modificationDate) == date.addingTimeInterval(3)
-            expect(attributes.permissions.rawValue) == 0o777
-            expect(attributes.groupName) == "staff"
+            XCTAssertEqual(attributes.creationDate, date)
+            XCTAssertEqual(attributes.modificationDate, date.addingTimeInterval(3))
+            XCTAssertEqual(attributes.permissions.rawValue, 0o777)
+            XCTAssertEqual(attributes.groupName, "staff")
         }
         #endif
     }
@@ -117,10 +116,10 @@ final class AttributesTests: XCTestCase {
 
             attributes.extensionHidden = true
 
-            expect(attributes.extensionHidden) == true
+            XCTAssertEqual(attributes.extensionHidden, true)
 
             try attributes.reload()
-            expect(attributes.extensionHidden) == true
+            XCTAssertEqual(attributes.extensionHidden, true)
         }
         #endif
     }

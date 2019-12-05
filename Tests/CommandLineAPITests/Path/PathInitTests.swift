@@ -23,20 +23,19 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class PathInitTests: XCTestCase {
 
     func testCommonPaths() throws {
-        expect(Path.root.path) == "/"
-        try expect(Path.current.path) == Path(FileManager.default.currentDirectoryPath).path
-        expect(Path.home.path) == NSHomeDirectory()
+        XCTAssertEqual(Path.root.path, "/")
+        try XCTAssertEqual(Path.current.path, Path(FileManager.default.currentDirectoryPath).path)
+        XCTAssertEqual(Path.home.path, NSHomeDirectory())
 
         #if os(macOS)
-        expect(Path.temporary.path.hasPrefix("/var/folders/")) == true
+        XCTAssertEqual(Path.temporary.path.hasPrefix("/var/folders/"), true)
         #else
-        expect(Path.temporary.path.hasPrefix("/tmp")) == true
+        XCTAssertEqual(Path.temporary.path.hasPrefix("/tmp"), true)
         #endif
     }
 
@@ -61,20 +60,38 @@ final class PathInitTests: XCTestCase {
     private func expectInit(path: String, toBe expectedPath: String) {
         let tested = try! Path(path)
 
-        expect(tested.path) == expectedPath
+        XCTAssertEqual(tested.path, expectedPath)
     }
 
     func testInit_url() {
-        expect(try Path(url: URL(fileURLWithPath: "/tmp")).path) == "/tmp"
-        expect(try Path(url: URL(string: "http://test.com")!)).to(throwError(Path.Error.invalidURLScheme("http")))
-        expect(try Path(url: URL(string: "test.com")!)).to(throwError(Path.Error.invalidURLScheme("nil")))
+        XCTAssertEqual(try Path(url: URL(fileURLWithPath: "/tmp")).path, "/tmp")
+        XCTAssertThrowsError(try Path(url: URL(string: "http://test.com")!)) { error in
+            if case let Path.Error.invalidURLScheme(scheme) = error {
+                XCTAssertEqual(scheme, "http")
+            } else {
+                XCTFail("Bad error thrown \(error)")
+            }
+        }
+        XCTAssertThrowsError(try Path(url: URL(string: "test.com")!)) { error in
+            if case let Path.Error.invalidURLScheme(scheme) = error {
+                XCTAssertEqual(scheme, "nil")
+            } else {
+                XCTFail("Bad error thrown \(error)")
+            }
+        }
     }
 
     func testInit_failes() {
-        expect(try Path("~nonexistuser/a")).to(throwError(Path.Error.cannotResolvePath("~nonexistuser")))
+        XCTAssertThrowsError(try Path("~nonexistuser/a")) { error in
+            if case let Path.Error.cannotResolvePath(path) = error {
+                XCTAssertEqual(path, "~nonexistuser")
+            } else {
+                XCTFail("Bad error thrown \(error)")
+            }
+        }
     }
 
     func testInit_relative() {
-        expect(Path("/as/a", relativeTo: Path(stringArgument: "/tmp")!).path) == "/tmp/as/a"
+        XCTAssertEqual(Path("/as/a", relativeTo: Path(stringArgument: "/tmp")!).path, "/tmp/as/a")
     }
 }

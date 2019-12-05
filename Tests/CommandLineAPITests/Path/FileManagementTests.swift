@@ -23,14 +23,13 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class FileManagementTests: XCTestCase {
 
     func testExist() {
-        expect(Path.root.exist) == true
-        expect(try Path("/kjdsnfk").exist) == false
+        XCTAssertEqual(Path.root.exist, true)
+        XCTAssertEqual(try Path("/kjdsnfk").exist, false)
     }
 
     func testCopy_file() throws {
@@ -48,9 +47,9 @@ final class FileManagementTests: XCTestCase {
 
             let target = try move ? file.move(to: destFile) : file.copy(to: destFile)
 
-            expect(file.exist) == !move
-            expect(target.type) == .file
-            expect(target.path(relativeTo: dir)) == "sub/new.txt"
+            XCTAssertEqual(file.exist, !move)
+            XCTAssertEqual(target.type, .file)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/new.txt")
         }
     }
 
@@ -69,9 +68,9 @@ final class FileManagementTests: XCTestCase {
 
             let target = try move ? file.move(to: subdir) : file.copy(to: subdir)
 
-            expect(file.exist) == !move
-            expect(target.type) == .file
-            expect(target.path(relativeTo: dir)) == "sub/file"
+            XCTAssertEqual(file.exist, !move)
+            XCTAssertEqual(target.type, .file)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/file")
         }
     }
 
@@ -88,17 +87,15 @@ final class FileManagementTests: XCTestCase {
             let dst = try dir.createDirectory("sub").touch("new.txt")
             let file = try dir.touch("file")
 
-            expect {
-                try move ? file.move(to: dst) : file.copy(to: dst)
-            }.to(throwError())
+            XCTAssertThrowsError(try move ? file.move(to: dst) : file.copy(to: dst))
 
             let target = try move
                 ? file.move(to: dst, overwrite: true)
                 : file.copy(to: dst, overwrite: true)
 
-            expect(file.exist) == !move
-            expect(target.type) == .file
-            expect(target.path(relativeTo: dir)) == "sub/new.txt"
+            XCTAssertEqual(file.exist, !move)
+            XCTAssertEqual(target.type, .file)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/new.txt")
         }
     }
 
@@ -118,10 +115,10 @@ final class FileManagementTests: XCTestCase {
 
             let target = try move ? origin.move(to: dst) : origin.copy(to: dst)
 
-            expect(origin.exist) == !move
-            expect(target.type) == .directory
-            expect(target.path(relativeTo: dir)) == "sub/newdir"
-            expect(target.appending("b/file").type) == .file
+            XCTAssertEqual(origin.exist, !move)
+            XCTAssertEqual(target.type, .directory)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/newdir")
+            XCTAssertEqual(target.appending("b/file").type, .file)
         }
     }
 
@@ -141,10 +138,10 @@ final class FileManagementTests: XCTestCase {
 
             let target = try move ? origin.move(to: subdir) : origin.copy(to: subdir)
 
-            expect(origin.exist) == !move
-            expect(target.type) == .directory
-            expect(target.path(relativeTo: dir)) == "sub/a"
-            expect(target.appending("b/file").type) == .file
+            XCTAssertEqual(origin.exist, !move)
+            XCTAssertEqual(target.type, .directory)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/a")
+            XCTAssertEqual(target.appending("b/file").type, .file)
         }
     }
 
@@ -162,30 +159,28 @@ final class FileManagementTests: XCTestCase {
             let origin = try dir.createDirectory("a/b").touch("file")
                 .parent.parent
 
-            expect {
-                try move ? origin.move(to: dst) : origin.copy(to: dst)
-            }.to(throwError())
+            XCTAssertThrowsError(try move ? origin.move(to: dst) : origin.copy(to: dst))
 
             let target = try move
                 ? origin.move(to: dst, overwrite: true)
                 : origin.copy(to: dst, overwrite: true)
 
-            expect(origin.exist) == !move
-            expect(target.type) == .directory
-            expect(target.path(relativeTo: dir)) == "sub/exist"
-            expect(target.appending("b/file").type) == .file
+            XCTAssertEqual(origin.exist, !move)
+            XCTAssertEqual(target.type, .directory)
+            XCTAssertEqual(target.path(relativeTo: dir), "sub/exist")
+            XCTAssertEqual(target.appending("b/file").type, .file)
         }
     }
 
     func testTouch_name() throws {
         try Path.temporary { dir in
-            expect(try dir.touch("file").type) == .file
-            expect(try dir.appending("a").touch().type) == .file
-            expect { try dir.touch("b/c") }.to(throwError())
+            XCTAssertEqual(try dir.touch("file").type, .file)
+            XCTAssertEqual(try dir.appending("a").touch().type, .file)
+            XCTAssertThrowsError(try dir.touch("b/c"))
 
             try dir.createDirectory("d")
 
-            expect(try dir.touch("d/c").path(relativeTo: dir)) == "d/c"
+            XCTAssertEqual(try dir.touch("d/c").path(relativeTo: dir), "d/c")
         }
     }
 
@@ -193,20 +188,20 @@ final class FileManagementTests: XCTestCase {
         try Path.temporary { dir in
             var d = try dir.createDirectory("a")
 
-            expect(d.type) == .directory
-            expect(d.path(relativeTo: dir)) == "a"
+            XCTAssertEqual(d.type, .directory)
+            XCTAssertEqual(d.path(relativeTo: dir), "a")
 
             d = try dir.appending("b").createDirectory("a")
-            expect(d.type) == .directory
-            expect(d.path(relativeTo: dir)) == "b/a"
+            XCTAssertEqual(d.type, .directory)
+            XCTAssertEqual(d.path(relativeTo: dir), "b/a")
 
             d = try dir.appending("c").createDirectory()
-            expect(d.type) == .directory
-            expect(d.path(relativeTo: dir)) == "c"
+            XCTAssertEqual(d.type, .directory)
+            XCTAssertEqual(d.path(relativeTo: dir), "c")
 
             d = try d.createDirectory("../b/a/../d")
-            expect(d.type) == .directory
-            expect(d.path(relativeTo: dir)) == "b/d"
+            XCTAssertEqual(d.type, .directory)
+            XCTAssertEqual(d.path(relativeTo: dir), "b/d")
         }
     }
 
@@ -214,12 +209,12 @@ final class FileManagementTests: XCTestCase {
         try Path.temporary { dir in
             var p = try dir.touch("a")
             try p.delete()
-            expect(p.exist) == false
+            XCTAssertEqual(p.exist, false)
 
             p = try dir.createDirectory("a/b")
             try p.parent.delete()
-            expect(p.exist) == false
-            expect(p.parent.exist) == false
+            XCTAssertEqual(p.exist, false)
+            XCTAssertEqual(p.parent.exist, false)
         }
     }
 
@@ -230,10 +225,10 @@ final class FileManagementTests: XCTestCase {
             let p = try dir.touch("a")
 
             if trash.exist { try trash.delete() }
-            expect(trash.exist) == false
+            XCTAssertEqual(trash.exist, false)
             try p.delete(useTrash: true)
-            expect(p.exist) == false
-            expect(trash.exist) == true
+            XCTAssertEqual(p.exist, false)
+            XCTAssertEqual(trash.exist, true)
         }
         #endif
     }
@@ -243,8 +238,8 @@ final class FileManagementTests: XCTestCase {
             let file = try dir.touch("old.txt")
             let renamed = try file.rename(to: "new")
 
-            expect(renamed.path(relativeTo: dir)) == "new"
-            expect { try renamed.rename(to: "a/s") }.to(throwError())
+            XCTAssertEqual(renamed.path(relativeTo: dir), "new")
+            XCTAssertThrowsError(try renamed.rename(to: "a/s"))
         }
     }
 }

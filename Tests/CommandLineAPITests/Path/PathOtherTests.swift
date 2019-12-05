@@ -23,7 +23,6 @@
  */
 
 @testable import CommandLineAPI
-import Nimble
 import XCTest
 
 final class PathOtherTests: XCTestCase {
@@ -33,31 +32,32 @@ final class PathOtherTests: XCTestCase {
             let a = try dir.createDirectory("a")
             let b = try Path(url: a.url)
 
-            expect(a) == b
-            expect(b) == a
-            expect(a) != dir
-            expect(a.hashValue) == b.hashValue
+            XCTAssertEqual(a, b)
+            XCTAssertEqual(b, a)
+            XCTAssertNotEqual(a, dir)
+            XCTAssertEqual(a.hashValue, b.hashValue)
         }
     }
 
     func testComparable() {
-        expect(Path.current.appending("a")) < Path.current.appending("b")
-        expect(Path.current.appending("a/b")) > Path.current.appending("a/a")
+        XCTAssertLessThan(Path.current.appending("a"), Path.current.appending("b"))
+        XCTAssertGreaterThan(Path.current.appending("a/b"), Path.current.appending("a/a"))
     }
 
     func testBundle() throws {
         try Path.temporary { dir -> Void in
             guard let bundle = Bundle(path: dir.path) else {
-                return fail("Couldn't make bundle for \(dir.path)")
+                XCTFail("Couldn't make bundle for \(dir.path)")
+                return
             }
 
             let filePath = try dir.touch("file.txt")
             let resPath: Path? = bundle.path(forResource: "file", withExtension: "txt")
             let nilPath: Path? = bundle.path(forResource: "nonexist", withExtension: "txt")
 
-            expect(bundle.path) == dir
-            expect(resPath) == filePath
-            expect(nilPath).to(beNil())
+            XCTAssertEqual(bundle.path, dir)
+            XCTAssertEqual(resPath, filePath)
+            XCTAssertNil(nilPath)
         }
     }
 
@@ -74,7 +74,7 @@ final class PathOtherTests: XCTestCase {
         ]
 
         for (e, msg) in zip(e, msg) {
-            expect(e.localizedDescription) == msg
+            XCTAssertEqual(e.localizedDescription, msg)
         }
     }
 
@@ -85,11 +85,11 @@ final class PathOtherTests: XCTestCase {
         encoder.outputFormatting = [.prettyPrinted]
 
         let encoded = try encoder.encode(obj)
-        expect(String(data: encoded, encoding: .utf8)) == """
+        XCTAssertEqual(String(data: encoded, encoding: .utf8), """
         {
           "path" : "\\/mypath\\/file.txt"
         }
-        """
+        """)
     }
 
     func testCodable() throws {
@@ -99,7 +99,7 @@ final class PathOtherTests: XCTestCase {
 
         let encoded = try encoder.encode(obj)
         let decoded = try decoder.decode(CodableStruct.self, from: encoded)
-        expect(decoded) == obj
+        XCTAssertEqual(decoded, obj)
     }
 
     func testDecodable() throws {
@@ -107,7 +107,7 @@ final class PathOtherTests: XCTestCase {
         let json = "{\"path\":\"/mypath/file.txt\"}".data(using: .utf8)!
 
         let decoded = try decoder.decode(CodableStruct.self, from: json)
-        expect(decoded.path) == Path.root.appending("mypath/file.txt")
+        XCTAssertEqual(decoded.path, Path.root.appending("mypath/file.txt"))
     }
 
     struct CodableStruct: Codable, Equatable {
